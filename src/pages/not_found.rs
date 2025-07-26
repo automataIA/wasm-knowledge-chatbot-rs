@@ -1,7 +1,15 @@
 use leptos::prelude::*;
 
-/// 404 Not Found Page
 #[component]
 pub fn NotFound() -> impl IntoView {
-    view! { <h1>"Uh oh!" <br /> "We couldn't find that page!"</h1> }
+    view! {
+        <div class="hero min-h-screen bg-base-200">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">"404"</h1>
+                    <p class="py-6">"Pagina non trovata"</p>
+                </div>
+            </div>
+        </div>
+    }
 }

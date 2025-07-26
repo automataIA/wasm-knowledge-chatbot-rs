@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html data-theme="black">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Theme</title>
+    <link rel="stylesheet" href="public/output.css">
+</head>
+
+<body>
+    <div class="min-h-screen bg-base-100 text-base-content p-8">
+        <h1 class="text-4xl font-bold text-primary mb-4">Test Tema Black</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-secondary">Colori Base</h2>
+                    <div class="space-y-2">
+                        <div class="p-2 bg-base-100 rounded">base-100</div>
+                        <div class="p-2 bg-base-200 rounded">base-200</div>
+                        <div class="p-2 bg-base-300 rounded">base-300</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-accent">Colori Azione</h2>
+                    <div class="flex gap-2 flex-wrap">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-accent">Accent</button>
+                        <button class="btn btn-neutral">Neutral</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-info">Colori Stato</h2>
+                    <div class="space-y-2">
+                        <div class="alert alert-info">Info</div>
+                        <div class="alert alert-success">Success</div>
+                        <div class="alert alert-warning">Warning</div>
+                        <div class="alert alert-error">Error</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title">Variabili CSS</h2>
+                    <div class="text-sm space-y-1">
+                        <div>base-100: <span class="bg-base-100 px-2 py-1 rounded">oklch(5% 0.004 0)</span></div>
+                        <div>base-200: <span class="bg-base-200 px-2 py-1 rounded">oklch(20% 0 0)</span></div>
+                        <div>base-content: <span class="text-base-content">oklch(85% 0 0)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <button onclick="toggleTheme()" class="btn btn-primary">
+                Toggle Theme (Current: <span id="current-theme">black</span>)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'black' ? 'light' : 'black';
+            html.setAttribute('data-theme', newTheme);
+            document.getElementById('current-theme').textContent = newTheme;
+        }
+
+        // Debug: mostra le variabili CSS attuali
+        console.log('CSS Variables:', {
+            'base-100': getComputedStyle(document.documentElement).getPropertyValue('--b1'),
+            'base-200': getComputedStyle(document.documentElement).getPropertyValue('--b2'),
+            'base-content': getComputedStyle(document.documentElement).getPropertyValue('--bc'),
+            'primary': getComputedStyle(document.documentElement).getPropertyValue('--p')
+        });
+    </script>
+</body>
+
+</html>

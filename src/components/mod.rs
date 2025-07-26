@@ -1,1 +1,11 @@
 pub mod counter_btn;
+pub mod theme_toggle;
+pub mod main_interface;
+pub mod sidebar;
+pub mod llm_select;
+pub mod sidebar_action;
+pub mod conversation_history;
+pub mod chat_area;
+pub mod message_bubble;
+pub mod input_area;
+pub mod status_bar;

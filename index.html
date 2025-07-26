@@ -1,13 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
-  <!-- Add a plain CSS file: see https://trunkrs.dev/assets/#css -->
-  <!-- If using Tailwind with Leptos CSR, see https://trunkrs.dev/assets/#tailwind instead-->
-  <link data-trunk rel="scss" href="public/styles.scss" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perplexity-style Chat</title>
+
+  <!-- Add Tailwind CSS processing -->
+  <link data-trunk rel="css" href="public/output.css" />
 
   <!-- Include favicon in dist output: see https://trunkrs.dev/assets/#icon -->
   <link data-trunk rel="icon" href="public/favicon.ico" />
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    // Ensure Lucide is loaded and initialize icons when DOM is ready
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+
+  <!-- WebLLM Integration -->
+  <script type="module">
+    import * as webllm from "https://esm.run/@mlc-ai/web-llm";
+    window.webllm = webllm;
+    console.log("WebLLM loaded successfully");
+  </script>
 
   <!-- include support for `wasm-bindgen --weak-refs` - see: https://rustwasm.github.io/docs/wasm-bindgen/reference/weak-references.html -->
   <link data-trunk rel="rust" data-wasm-opt="z" data-weak-refs />

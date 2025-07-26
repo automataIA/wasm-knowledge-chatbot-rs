@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use {{crate_name}}::App;
+use wasm_llm::App;
 
 fn main() {
     // set up logging

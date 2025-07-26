@@ -1,2 +1,35 @@
 /target
 /dist
+/perplexity-chatbot-ui
+/.kiro
+/info
+
+# Aggiunte specifiche per Rust/Leptos
+Cargo.lock
+*.swp
+*.swo
+.DS_Store
+
+# Node.js
+node_modules/
+
+# IDE specific
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.local
+
+# Build output
+/pkg/
+
+# Trunk cache
+.trunk/
+
+# Editor temp files
+*~
+#*#

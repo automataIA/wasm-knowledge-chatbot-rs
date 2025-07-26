@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="black">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test DaisyUI Components</title>
+    <link href="public/output.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+
+<body class="bg-base-100 text-base-content p-8">
+    <div class="max-w-4xl mx-auto space-y-8">
+        <h1 class="text-3xl font-bold mb-8">Test Componenti DaisyUI</h1>
+
+        <!-- Buttons -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-semibold">Buttons</h2>
+            <div class="flex gap-2 flex-wrap">
+                <button class="btn">Default</button>
+                <button class="btn btn-primary">Primary</button>
+                <button class="btn btn-ghost">Ghost</button>
+                <button class="btn btn-outline">Outline</button>
+                <button class="btn btn-sm">Small</button>
+                <button class="btn loading">Loading</button>
+            </div>
+        </div>
+
+        <!-- Inputs -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-semibold">Inputs</h2>
+            <div class="space-y-2">
+                <input type="text" placeholder="Default input" class="input input-bordered w-full max-w-xs" />
+                <input type="text" placeholder="Primary input"
+                    class="input input-bordered input-primary w-full max-w-xs" />
+                <div class="join">
+                    <input class="input input-bordered join-item" placeholder="Joined input" />
+                    <button class="btn join-item">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-semibold">Chat</h2>
+            <div class="space-y-4">
+                <div class="chat chat-start">
+                    <div class="chat-image avatar">
+                        <div class="w-10 rounded-full bg-base-300 flex items-center justify-center">
+                            <i data-lucide="bot" class="h-5 w-5"></i>
+                        </div>
+                    </div>
+                    <div class="chat-bubble chat-bubble-neutral">Ciao! Come posso aiutarti?</div>
+                    <div class="chat-footer opacity-50">
+                        <time class="text-xs">12:45</time>
+                    </div>
+                </div>
+
+                <div class="chat chat-end">
+                    <div class="chat-image avatar">
+                        <div class="w-10 rounded-full bg-base-300 flex items-center justify-center">
+                            <i data-lucide="user" class="h-5 w-5"></i>
+                        </div>
+                    </div>
+                    <div class="chat-bubble chat-bubble-primary">Ciao! Tutto bene?</div>
+                    <div class="chat-footer opacity-50">
+                        <time class="text-xs">12:46</time>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toggle -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-semibold">Toggle</h2>
+            <div class="flex items-center gap-2">
+                <input type="checkbox" class="toggle toggle-sm" checked />
+                <span class="text-sm">Knowledge Graph</span>
+            </div>
+        </div>
+
+        <!-- Menu -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-semibold">Menu</h2>
+            <ul class="menu bg-base-200 w-56 rounded-box">
+                <li><a><i data-lucide="file-text" class="h-4 w-4"></i>Carica Markdown</a></li>
+                <li><a><i data-lucide="network" class="h-4 w-4"></i>Knowledge Graph</a></li>
+                <li><a><i data-lucide="plus" class="h-4 w-4"></i>Nuova Chat</a></li>
+            </ul>
+        </div>
+
+        <!-- Theme Toggle -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-semibold">Theme Toggle</h2>
+            <button onclick="toggleTheme()" class="btn btn-circle btn-ghost">
+                <i data-lucide="sun" class="h-4 w-4"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
+        });
+
+        // Theme toggle function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'black' ? 'light' : 'black';
+            html.setAttribute('data-theme', newTheme);
+
+            // Update icon
+            const icon = document.querySelector('[data-lucide]');
+            icon.setAttribute('data-lucide', newTheme === 'black' ? 'sun' : 'moon');
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>

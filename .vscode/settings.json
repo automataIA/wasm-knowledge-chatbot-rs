@@ -6,9 +6,16 @@
     ],
     "editor.formatOnSave": true,
     "[rust]": {
-        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "editor.defaultFormatter": "rust-lang.rust-analyzer"
     },
     "files.associations": {
         "*.rs": "rust"
     },
+    "css.validate": false,
+    "tailwindCSS.includeLanguages": {
+        "rust": "html"
+    },
+    "emmet.includeLanguages": {
+        "rust": "html"
+    }
 }
