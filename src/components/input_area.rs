@@ -19,31 +19,31 @@ use wasm_bindgen::JsCast; // necessario per dyn_into
 
 #[component]
 pub fn InputArea(
-    // testo dell'utente
+    // user input text
     input_value: ReadSignal<String>,
     set_input_value: WriteSignal<String>,
 
-    // callback di invio
+    // send callback
     on_send: impl Fn(ev::MouseEvent) + 'static + Copy,
 
     // toggle Knowledge
     knowledge_enabled: ReadSignal<bool>,
     set_knowledge_enabled: WriteSignal<bool>,
 
-    // stato di caricamento (es. chiamata rete in corso)
+    // loading state (e.g. network call in progress)
     is_loading: ReadSignal<bool>,
 
-    // messaggi da mostrare in StatusBar
+    // messages to show in StatusBar
     set_status_message: WriteSignal<String>,
 ) -> impl IntoView {
-    // Invio con [Enter] (Shift+Enter = nuova riga non più necessario):
+    // Send with [Enter] (Shift+Enter for new line no longer needed):
     let handle_keypress = move |ev: ev::KeyboardEvent| {
         if ev.key() == "Enter" && !ev.shift_key() && !is_loading.get() {
             ev.prevent_default();
             let mouse_ev = ev::MouseEvent::new("click").unwrap();
             on_send(mouse_ev);
 
-            set_status_message.set("Messaggio inviato".into());
+            set_status_message.set("Message sent".into());
         }
     };
 
@@ -94,7 +94,7 @@ pub fn InputArea(
 
             <input
                 class="input input-bordered flex-1 text-base placeholder:text-base-content/60 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors disabled:opacity-60"
-                placeholder="Scrivi un messaggio..."
+                placeholder="Write a message..."
                 prop:value=input_value
                 on:input=move |ev| set_input_value.set(event_target_value(&ev))
                 on:keypress=handle_keypress

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use wasm_llm::App;
+use wasm_knowledge_chatbot_rs::App;
 
 fn main() {
     // set up logging

@@ -1,5 +1,5 @@
 [package]
-name = "wasm-llm"
+name = "wasm-knowledge-chatbot-rs"
 version = "0.1.0"
 edition = "2021"
 authors = ["dio"]
@@ -27,6 +27,8 @@ features = [
   "HtmlElement",
   "Element",
   "console",
+  "Storage",
+  "Window",
 ]
 
 [dependencies.wasm-bindgen]
@@ -38,6 +40,13 @@ version = "0.3"
 [dependencies.serde]
 version = "1.0"
 features = ["derive"]
+
+[dependencies.serde_json]
+version = "1.0"
+
+[dependencies.uuid]
+version = "1.0"
+features = ["v4", "js"]
 
 [dependencies.wasm-bindgen-futures]
 version = "0.4"

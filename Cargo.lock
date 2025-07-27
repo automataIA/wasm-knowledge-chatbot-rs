@@ -213,9 +213,9 @@ dependencies = [
 
 [[package]]
 name = "const-str"
-version = "0.6.3"
+version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "041fbfcf8e7054df725fb9985297e92422cdc80fcf313665f5ca3d761bb63f4c"
+checksum = "451d0640545a0553814b4c646eb549343561618838e9b42495f466131fe3ad49"
 
 [[package]]
 name = "const_format"
@@ -770,9 +770,9 @@ dependencies = [
 
 [[package]]
 name = "leptos"
-version = "0.8.5"
+version = "0.8.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6106b7bd4516cca844d94e161f7cd3530f6c0f3c146da66c8ddb4cb5909e5853"
+checksum = "20adc17f0584e5f605a31444179bae17c399a2d160bf19eb3da701a1f6e7cb8e"
 dependencies = [
  "any_spawner",
  "cfg-if",
@@ -856,9 +856,9 @@ dependencies = [
 
 [[package]]
 name = "leptos_macro"
-version = "0.8.5"
+version = "0.8.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4958626d97953398647e2de5e1d8ad1a5b0a765bd986b3f4d26947ddd6cc311c"
+checksum = "5a824b74d70dd505e5fe32952150325275050febb0d0bd7ac8b8efc50a69ec95"
 dependencies = [
  "attribute-derive",
  "cfg-if",
@@ -1498,9 +1498,9 @@ dependencies = [
 
 [[package]]
 name = "server_fn_macro"
-version = "0.8.5"
+version = "0.8.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a25b5a02fab7741d73df8f01ecfd4024f40dec1a24cd66f3422b66add94a87b"
+checksum = "b381389c2307b4b83ce70516c0408d99727ab9f73645e065bb51e6be09cb2f6b"
 dependencies = [
  "const_format",
  "convert_case 0.8.0",
@@ -1922,7 +1922,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "wasm-llm"
+name = "wasm-knowledge-chatbot-rs"
 version = "0.1.0"
 dependencies = [
  "console_error_panic_hook",
@@ -1934,6 +1934,8 @@ dependencies = [
  "leptos_router",
  "log",
  "serde",
+ "serde_json",
+ "uuid",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "wasm-bindgen-test",
@@ -1955,19 +1957,20 @@ dependencies = [
 
 [[package]]
 name = "wasm_split_helpers"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2614524c94087c0e383c2416182f2b224aea245b4d6ce32ef19075677d84e31"
+checksum = "c50e0e45d0d871605a21fc4ee93a5380b7bdc41b5eda22e42f0777a4ce79b65c"
 dependencies = [
  "async-once-cell",
+ "or_poisoned",
  "wasm_split_macros",
 ]
 
 [[package]]
 name = "wasm_split_macros"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7e8a7dc657eef9172f8b1f60574780bf32d83c4cb50ff7f8b7f1ef7264b820db"
+checksum = "9f8a7f0bf54b0129a337aadfe8b716d843689f69c75b2a6413a0cff2e0d00982"
 dependencies = [
  "base16",
  "digest",

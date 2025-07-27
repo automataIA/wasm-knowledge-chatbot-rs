@@ -7,6 +7,7 @@ mod pages;
 mod models;
 mod utils;
 mod webllm_binding;
+mod storage;
 
 // Components
 use crate::components::theme_toggle::ThemeToggle;
@@ -19,7 +20,7 @@ pub fn App() -> impl IntoView {
     provide_meta_context();
 
     view! {
-        <Html attr:lang="it" attr:dir="ltr" attr:data-theme="black" />
+        <Html attr:lang="en" attr:dir="ltr" attr:data-theme="black" />
         <Title text="Perplexity-style Chat" />
         <Meta charset="UTF-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1.0" />

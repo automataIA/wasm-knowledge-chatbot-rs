@@ -50,7 +50,7 @@
 
             <div class="card bg-base-200 shadow-xl">
                 <div class="card-body">
-                    <h2 class="card-title">Variabili CSS</h2>
+                    <h2 class="card-title">CSS Variables</h2>
                     <div class="text-sm space-y-1">
                         <div>base-100: <span class="bg-base-100 px-2 py-1 rounded">oklch(5% 0.004 0)</span></div>
                         <div>base-200: <span class="bg-base-200 px-2 py-1 rounded">oklch(20% 0 0)</span></div>
@@ -76,7 +76,7 @@
             document.getElementById('current-theme').textContent = newTheme;
         }
 
-        // Debug: mostra le variabili CSS attuali
+        // Debug: show current CSS variables
         console.log('CSS Variables:', {
             'base-100': getComputedStyle(document.documentElement).getPropertyValue('--b1'),
             'base-200': getComputedStyle(document.documentElement).getPropertyValue('--b2'),

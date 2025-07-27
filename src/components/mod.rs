@@ -9,3 +9,4 @@ pub mod chat_area;
 pub mod message_bubble;
 pub mod input_area;
 pub mod status_bar;
+pub mod conversation_list;

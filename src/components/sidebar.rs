@@ -1,6 +1,8 @@
-use leptos::prelude::*;
-use crate::components::{llm_select::LLMSelect, sidebar_action::SidebarAction, conversation_history::ConversationHistory};
+use crate::components::{
+    conversation_list::ConversationList, llm_select::LLMSelect, sidebar_action::SidebarAction,
+};
 use crate::models::LLMModel;
+use leptos::prelude::*;
 
 #[component]
 pub fn Sidebar(
@@ -9,6 +11,11 @@ pub fn Sidebar(
     selected_llm: ReadSignal<String>,
     set_selected_llm: WriteSignal<String>,
     set_status_message: WriteSignal<String>,
+    storage: ReadSignal<Option<crate::storage::ConversationStorage>>,
+    current_conversation_id: ReadSignal<Option<String>>,
+    set_current_conversation_id: WriteSignal<Option<String>>,
+    conversation_list_refresh: ReadSignal<u32>,
+    _set_conversation_list_refresh: WriteSignal<u32>,
 ) -> impl IntoView {
     let llms = vec![
         // Llama 3.2 Models
@@ -136,29 +143,58 @@ pub fn Sidebar(
         },
     ];
 
+    // New chat handler
+    let create_new_chat = move |_| {
+        if let Some(ref storage) = storage.get() {
+            match storage.create_conversation("New Chat".to_string()) {
+                Ok(conversation_id) => {
+                    set_current_conversation_id.set(Some(conversation_id));
+                    // Don't refresh conversation list yet - wait for first user message
+                    log::info!("Created new conversation (not yet in history)");
+                }
+                Err(e) => {
+                    log::error!("Failed to create conversation: {:?}", e);
+                    set_status_message.set("Failed to create new chat".to_string());
+                }
+            }
+        }
+    };
+
+    // Conversation selection handler
+    let on_conversation_select = move |conversation_id: String| {
+        set_current_conversation_id.set(Some(conversation_id));
+        log::info!("Selected conversation");
+    };
+
     view! {
-        <div class=move || format!(
-            "flex flex-col border-r border-base-300 bg-base-200 transition-all duration-300 {}",
-            if collapsed.get() { "w-16" } else { "w-80" }
-        )>
-            
+        <div class=move || {
+            format!(
+                "flex flex-col border-r border-base-300 bg-base-200 transition-all duration-300 {}",
+                if collapsed.get() { "w-16" } else { "w-80" },
+            )
+        }>
+
             // Header with controls
             <div class="flex flex-col gap-2 p-4 border-b border-base-300">
                 <div class="flex justify-start gap-2">
-                    <button 
+                    <button
                         class="btn btn-ghost btn-sm btn-square"
                         on:click=move |_| set_collapsed.update(|c| *c = !*c)
                     >
-                        <i data-lucide=move || if collapsed.get() { "panel-left" } else { "panel-left-close" }
-                           class="h-4 w-4"></i>
+                        <i
+                            data-lucide=move || {
+                                if collapsed.get() { "panel-left" } else { "panel-left-close" }
+                            }
+                            class="h-4 w-4"
+                        ></i>
                     </button>
                 </div>
-                
+
                 // LLM Selection
                 <Show when=move || !collapsed.get()>
                     <div class="flex flex-col gap-1">
-                        <label class="text-xs text-base-content/70">"Modello LLM"</label>
-                        <LLMSelect 
+                        <label class="text-xs text-base-content/70">"LLM Model"</label>
+                        <LLMSelect
                             selected=selected_llm
                             set_selected=set_selected_llm
                             llms=llms.clone()
@@ -167,30 +203,34 @@ pub fn Sidebar(
                     </div>
                 </Show>
             </div>
-            
+
             // Actions
             <div class="flex flex-col gap-2 p-4">
-                <SidebarAction 
-                    icon="file-text"
-                    label="Carica Markdown"
-                    collapsed=collapsed
-                />
-                <SidebarAction 
+                <SidebarAction icon="file-text" label="Load Markdown" collapsed=collapsed />
+                <SidebarAction
                     icon="network"
-                    label="Genera Knowledge Graph"
+                    label="Generate Knowledge Graph"
                     collapsed=collapsed
                 />
-                <SidebarAction 
-                    icon="plus"
-                    label="Nuova Chat"
-                    collapsed=collapsed
-                />
+                <button class="btn btn-ghost justify-start gap-2 w-full" on:click=create_new_chat>
+                    <i data-lucide="plus" class="h-4 w-4 flex-shrink-0"></i>
+                    <Show when=move || !collapsed.get()>
+                        <span class="truncate">"New Chat"</span>
+                    </Show>
+                </button>
             </div>
-            
+
             // Conversation history
             <Show when=move || !collapsed.get()>
                 <div class="border-t border-base-300"></div>
-                <ConversationHistory />
+                <div class="flex-1 overflow-y-auto">
+                    <ConversationList
+                        storage=storage
+                        on_conversation_select=on_conversation_select
+                        refresh_signal=conversation_list_refresh
+                        current_conversation_id=current_conversation_id
+                    />
+                </div>
             </Show>
         </div>
     }

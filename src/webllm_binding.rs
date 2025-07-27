@@ -10,14 +10,43 @@ extern "C" {
     fn CreateMLCEngine(model: &str, config: JsValue) -> js_sys::Promise;
 }
 
-/// Initialize WebLLM with a specific model
-pub async fn init_webllm(model_id: &str) -> Result<JsValue, JsValue> {
+/// Initialize WebLLM with a specific model and progress callback
+pub async fn init_webllm_with_progress<F>(model_id: &str, progress_callback: F) -> Result<JsValue, JsValue> 
+where
+    F: Fn(String, f64) + 'static,
+{
     info!("Initializing WebLLM with model: {}", model_id);
     
+    // Create JavaScript callback function
+    let callback = Closure::wrap(Box::new(move |progress: JsValue| {
+        // Parse progress object
+        if let Ok(progress_obj) = progress.dyn_into::<js_sys::Object>() {
+            // Extract progress information
+            let text = js_sys::Reflect::get(&progress_obj, &"text".into())
+                .unwrap_or_else(|_| "Loading...".into())
+                .as_string()
+                .unwrap_or_else(|| "Loading...".to_string());
+            
+            let progress_val = js_sys::Reflect::get(&progress_obj, &"progress".into())
+                .unwrap_or_else(|_| 0.0.into())
+                .as_f64()
+                .unwrap_or(0.0);
+            
+            progress_callback(text, progress_val);
+        }
+    }) as Box<dyn Fn(JsValue)>);
+    
+    // Create config object with progress callback
     let config = js_sys::Object::new();
+    js_sys::Reflect::set(&config, &"initProgressCallback".into(), callback.as_ref().unchecked_ref()).unwrap();
     
     let promise = CreateMLCEngine(model_id, config.into());
-    match JsFuture::from(promise).await {
+    let result = JsFuture::from(promise).await;
+    
+    // Keep callback alive until initialization is complete
+    callback.forget();
+    
+    match result {
         Ok(engine) => {
             info!("WebLLM engine initialized successfully with model: {}", model_id);
             Ok(engine)
@@ -27,6 +56,14 @@ pub async fn init_webllm(model_id: &str) -> Result<JsValue, JsValue> {
             Err(e)
         }
     }
+}
+
+/// Initialize WebLLM with a specific model (backward compatibility)
+#[allow(dead_code)]
+pub async fn init_webllm(model_id: &str) -> Result<JsValue, JsValue> {
+    init_webllm_with_progress(model_id, |_text, _progress| {
+        // No-op callback for backward compatibility
+    }).await
 }
 
 /// Send a message to the WebLLM engine and get a response
@@ -112,7 +149,7 @@ pub async fn send_message_to_llm(engine: &JsValue, messages: Vec<crate::models::
     
     let response_text = content.as_string().unwrap_or_else(|| {
         error!("Response content is not a string");
-        "Errore nella risposta".to_string()
+        "Error in response".to_string()
     });
     
     info!("WebLLM response received: {} characters", response_text.len());

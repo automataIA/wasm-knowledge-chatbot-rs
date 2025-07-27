@@ -10,12 +10,11 @@ pub fn MessageBubble(message: Message) -> impl IntoView {
             format!("chat {} animate-fade-in", if is_user { "chat-end" } else { "chat-start" })
         }>
             <div class="chat-image avatar">
-                <div class="w-10 h-10 rounded-full bg-base-300">
+                <div class="w-10 h-10 rounded-full bg-base-300 p-2 flex items-center justify-center">
                     <i
                         data-lucide=if is_user { "user" } else { "bot" }
-                        class="h-10 w-10 text-base-content/70 p-2"
+                        class="h-8 w-8 text-base-content/70"
                     ></i>
-
                 </div>
             </div>
             <div class=move || {

@@ -24,7 +24,7 @@ pub fn LLMSelect(
                         llms_signal.get().iter()
                             .find(|llm| llm.id == selected.get())
                             .map(|llm| format!("{} ({})", llm.name, llm.provider))
-                            .unwrap_or_else(|| "Seleziona modello".to_string())
+                            .unwrap_or_else(|| "Select model".to_string())
                     }}
                 </span>
                 <i data-lucide="chevron-down" class="h-4 w-4"></i>
@@ -47,7 +47,7 @@ pub fn LLMSelect(
                                             on:click=move |_| {
                                                 set_selected.set(llm_id.clone());
                                                 set_is_open.set(false);
-                                                set_status_message.set(format!("Modello cambiato a {}", llm_name.clone()));
+                                                set_status_message.set(format!("Model changed to {}", llm_name.clone()));
                                             }
                                         >
                                             <div class="flex flex-col items-start">
