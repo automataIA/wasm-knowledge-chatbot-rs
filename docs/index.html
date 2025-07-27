@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perplexity-style Chat</title>
+
+  <!-- Add Tailwind CSS processing -->
+  <link rel="stylesheet" href="/wasm-knowledge-chatball-rs/output-83d73366f614e0ab.css" integrity="sha384-EHcS4ely4o89Y15WQsDhh1M8pqWX25VFiDSNVpXwyZySE5BdH5yeuNkarbwfYhcK"/>
+
+  <!-- Include favicon in dist output: see https://trunkrs.dev/assets/#icon -->
+  <link rel="icon" href="/wasm-knowledge-chatball-rs/favicon-d537e8190fcbad8e.ico" integrity="sha384-8OBiNX9QBPkNXlck6UC9PEiitxU9FlDnTfxbQWxd4kK4tIKitE61Nvi4DkBJuHkO"/>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    // Ensure Lucide is loaded and initialize icons when DOM is ready
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+
+  <!-- WebLLM Integration -->
+  <script type="module">
+    import * as webllm from "https://esm.run/@mlc-ai/web-llm";
+    window.webllm = webllm;
+    console.log("WebLLM loaded successfully");
+  </script>
+
+  <!-- include support for `wasm-bindgen --weak-refs` - see: https://rustwasm.github.io/docs/wasm-bindgen/reference/weak-references.html -->
+  
+<script type="module">
+import init, * as bindings from '/wasm-knowledge-chatball-rs/wasm-knowledge-chatbot-rs-d96cbe5d87fe7c49.js';
+const wasm = await init({ module_or_path: '/wasm-knowledge-chatball-rs/wasm-knowledge-chatbot-rs-d96cbe5d87fe7c49_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+<link rel="modulepreload" href="/wasm-knowledge-chatball-rs/wasm-knowledge-chatbot-rs-d96cbe5d87fe7c49.js" crossorigin="anonymous" integrity="sha384-nBRlEX39Z/oN1SeJPJoM1t+9Ixg4AZc35vE13qYz61WNjosb6mme9H134Zy0SMHE"><link rel="preload" href="/wasm-knowledge-chatball-rs/wasm-knowledge-chatbot-rs-d96cbe5d87fe7c49_bg.wasm" crossorigin="anonymous" integrity="sha384-ncabh0g5/J1bCtxxzw6BNqfxNMT7S4rrpUiYBC1rsbJL+LuVEnxAcvZh1KWjfjRC" as="fetch" type="application/wasm"></head>
+
+<body></body>
+
+</html>

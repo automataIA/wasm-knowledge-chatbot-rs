@@ -1,0 +1,46 @@
+# Configurazione di produzione per GitHub Pages
+[build]
+# Directory di output per i file generati
+dist = "docs"  # GitHub Pages cerca i file nella cartella 'docs' di default
+
+# Abilita la build di release
+release = true
+
+# Imposta il public-url corretto per GitHub Pages
+# Sostituisci 'wasm-knowledge-chatbot-rs' con il nome del tuo repository
+public_url = "/wasm-knowledge-chatball-rs/"
+
+# Ottimizzazioni per la build di produzione
+[build.wasm]
+# Abilita le ottimizzazioni avanzate per il WebAssembly
+opt_level = "z"  # Massima ottimizzazione per le dimensioni
+debug = false    # Disabilita i simboli di debug
+
+[build.wasm.bindgen]
+# Configurazioni specifiche per wasm-bindgen
+demangle = true
+weak_refs = true
+
+# Configurazione del server di sviluppo (usato da 'trunk serve')
+[serve]
+# Disabilita il server di sviluppo per le build di produzione
+enabled = false
+
+# Configurazione dei proxy (se necessario)
+# [[proxy]]
+# backend = "http://[::1]:9000"
+# rewrite = "/api/"
+
+# Hooks personalizzati (opzionali)
+[[hooks]]
+# Crea un file .nojekyll nella cartella di output
+# per disabilitare Jekyll su GitHub Pages
+stage = "post_build"
+command = "bash"
+command_arguments = ["-c", "touch docs/.nojekyll"]
+
+# [[hooks]]
+# Aggiungi qui altri hook se necessario
+# stage = "pre_build"
+# command = "bash"
+# command_arguments = ["-c", "echo 'Pre-build hook'"]
