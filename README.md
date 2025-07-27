@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="public/logo-kg.png" alt="Logo" width="200" />
+</div>
+
 # 🚀 WebLLM Chat - Perplexity-style AI Chat Interface
 
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
