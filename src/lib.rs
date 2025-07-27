@@ -3,17 +3,17 @@ use leptos_meta::*;
 
 // Modules
 mod components;
-mod pages;
 mod models;
+mod pages;
+mod storage;
 mod utils;
 mod webllm_binding;
-mod storage;
 
 // Components
-use crate::components::theme_toggle::ThemeToggle;
 use crate::components::main_interface::MainInterface;
+use crate::components::theme_toggle::ThemeToggle;
 
-/// Main Perplexity-style chat application
+/// Main WebLLM Knowledge Graph chat application
 #[component]
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
@@ -21,7 +21,7 @@ pub fn App() -> impl IntoView {
 
     view! {
         <Html attr:lang="en" attr:dir="ltr" attr:data-theme="black" />
-        <Title text="Perplexity-style Chat" />
+        <Title text="WebLLM Knowledge Graph Chat" />
         <Meta charset="UTF-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

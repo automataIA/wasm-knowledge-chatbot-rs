@@ -2,7 +2,7 @@
   <img src="public/logo-kg.png" alt="Logo" width="200" />
 </div>
 
-# 🚀 WebLLM Chat - Perplexity-style AI Chat Interface
+# 🚀 WebLLM Chat - WebLLM Knowledge Graph Chat Interface
 
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=for-the-badge&logo=webassembly&logoColor=white)](https://webassembly.org/)
