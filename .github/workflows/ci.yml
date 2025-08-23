@@ -94,9 +94,18 @@ jobs:
       - name: Fallback install Firefox/Geckodriver via apt (Linux only)
         if: failure()
         run: |
+          set -euxo pipefail
           sudo apt-get update
-          # Install Firefox ESR and Geckodriver from apt repositories
-          sudo apt-get install -y firefox-esr geckodriver
+          # Install standard Firefox (ESR not available on Ubuntu 24.04 runners)
+          sudo apt-get install -y firefox
+          # Download latest Geckodriver release tarball and install
+          wget -q https://github.com/mozilla/geckodriver/releases/latest/download/geckodriver-linux64.tar.gz -O /tmp/geckodriver-linux64.tar.gz
+          tar -xzf /tmp/geckodriver-linux64.tar.gz -C /tmp
+          sudo mv /tmp/geckodriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/geckodriver
+          # Verify installations
+          firefox --version || true
+          geckodriver --version || true
 
       - name: Make test script executable
         run: chmod +x scripts/run-wasm-tests.sh
