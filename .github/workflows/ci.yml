@@ -73,6 +73,10 @@ jobs:
       - name: Install wasm-bindgen test runner
         run: cargo install wasm-bindgen-test-runner --locked
 
+      - name: Ensure Cargo bin in PATH
+        # Make sure wasm-bindgen-test-runner is discoverable by cargo test harness
+        run: echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
       - name: Setup Firefox
         # Pin to a specific release or SHA when available to avoid tag drift
         uses: browser-actions/setup-firefox@latest
