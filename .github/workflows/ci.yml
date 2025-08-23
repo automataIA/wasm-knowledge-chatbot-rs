@@ -5,6 +5,11 @@ on:
     branches: [ main, master, develop ]
   pull_request:
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -143,10 +148,12 @@ jobs:
           cp -r dist/* docs/
           touch docs/.nojekyll
 
-      - name: Commit and push docs
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add docs
-          git commit -m "ci(deploy): publish trunk dist to docs [skip ci]" || echo "No changes to commit"
-          git push
+      - name: Upload Pages artifact (docs)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 600000
