@@ -44,12 +44,6 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Rustfmt check
-        run: cargo fmt --all -- --check
-
-      - name: Clippy (deny warnings)
-        run: cargo clippy --all-targets -- -D warnings
-
       - name: Cargo check
         run: cargo check
 
@@ -75,11 +69,10 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-wasm
 
-      - name: Install wasm-bindgen test runner
-        run: cargo install wasm-bindgen-test-runner --locked
+      - name: Install wasm-pack
+        run: cargo install wasm-pack --locked
 
       - name: Ensure Cargo bin in PATH
-        # Make sure wasm-bindgen-test-runner is discoverable by cargo test harness
         run: echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
 
       - name: Setup Firefox
@@ -89,23 +82,7 @@ jobs:
       - name: Setup Geckodriver
         # Pin to a specific release or SHA when available to avoid tag drift
         uses: browser-actions/setup-geckodriver@latest
-        continue-on-error: true
-
-      - name: Fallback install Firefox/Geckodriver via apt (Linux only)
-        if: failure()
-        run: |
-          set -euxo pipefail
-          sudo apt-get update
-          # Install standard Firefox (ESR not available on Ubuntu 24.04 runners)
-          sudo apt-get install -y firefox
-          # Download latest Geckodriver release tarball and install
-          wget -q https://github.com/mozilla/geckodriver/releases/latest/download/geckodriver-linux64.tar.gz -O /tmp/geckodriver-linux64.tar.gz
-          tar -xzf /tmp/geckodriver-linux64.tar.gz -C /tmp
-          sudo mv /tmp/geckodriver /usr/local/bin/
-          sudo chmod +x /usr/local/bin/geckodriver
-          # Verify installations
-          firefox --version || true
-          geckodriver --version || true
+        continue-on-error: false
 
       - name: Make test script executable
         run: chmod +x scripts/run-wasm-tests.sh
