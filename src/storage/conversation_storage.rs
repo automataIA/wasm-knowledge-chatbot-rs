@@ -191,7 +191,9 @@ impl ConversationStorage {
         let mut conversations = self.load_conversations()?;
         let now = js_sys::Date::now();
         if let Some(conversation) = conversations.iter_mut().find(|c| c.id == conversation_id) {
-            conversation.system_prompt = new_prompt.map(|p| p.trim().to_string()).filter(|p| !p.is_empty());
+            conversation.system_prompt = new_prompt
+                .map(|p| p.trim().to_string())
+                .filter(|p| !p.is_empty());
             conversation.updated_at = now;
             self.save_conversations(&conversations)?;
         }
@@ -247,11 +249,7 @@ impl ConversationStorage {
     /// Import conversations from a JSON bundle (schema v1).
     /// If merge = false, replaces existing storage with bundle content.
     /// If merge = true, upserts by id (keeps the latest updated_at on conflict).
-    pub fn import_json(
-        &self,
-        json: &str,
-        merge: bool,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn import_json(&self, json: &str, merge: bool) -> Result<(), Box<dyn std::error::Error>> {
         let bundle: ExportBundleV1 = serde_json::from_str(json)?;
         if bundle.version != 1 {
             return Err(format!("unsupported export version: {}", bundle.version).into());

@@ -34,10 +34,17 @@ pub struct ModelConfig {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum ModelStatus {
     NotInitialized,
-    Downloading { progress: f32, eta_seconds: Option<u32> },
-    Loading { progress: f32 },
+    Downloading {
+        progress: f32,
+        eta_seconds: Option<u32>,
+    },
+    Loading {
+        progress: f32,
+    },
     Ready,
-    Error { message: String },
+    Error {
+        message: String,
+    },
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -86,7 +93,10 @@ impl ModelStatus {
     }
 
     pub fn is_loading(&self) -> bool {
-        matches!(self, ModelStatus::Downloading { .. } | ModelStatus::Loading { .. })
+        matches!(
+            self,
+            ModelStatus::Downloading { .. } | ModelStatus::Loading { .. }
+        )
     }
 
     pub fn is_error(&self) -> bool {
@@ -95,7 +105,9 @@ impl ModelStatus {
 
     pub fn progress(&self) -> Option<f32> {
         match self {
-            ModelStatus::Downloading { progress, .. } | ModelStatus::Loading { progress } => Some(*progress),
+            ModelStatus::Downloading { progress, .. } | ModelStatus::Loading { progress } => {
+                Some(*progress)
+            }
             _ => None,
         }
     }

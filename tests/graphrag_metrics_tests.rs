@@ -1,12 +1,10 @@
 use wasm_bindgen_test::*;
 use web_sys::{window, Storage};
 
-use wasm_knowledge_chatbot_rs::models::graphrag::{
-    RAGQuery, SearchStrategy, DocumentIndex, ProcessingStatus
-};
 use wasm_knowledge_chatbot_rs::features::graphrag::retrieval::Retriever;
-use wasm_knowledge_chatbot_rs::graphrag_config::{
-    create_graphrag_signals, with_graphrag_manager,
+use wasm_knowledge_chatbot_rs::graphrag_config::{create_graphrag_signals, with_graphrag_manager};
+use wasm_knowledge_chatbot_rs::models::graphrag::{
+    DocumentIndex, ProcessingStatus, RAGQuery, SearchStrategy,
 };
 
 wasm_bindgen_test_configure!(run_in_browser);
@@ -111,7 +109,13 @@ async fn metrics_update_and_toggles_flow() {
         let met = m.get_metrics();
         assert!(perf.total_time_ms >= r.metadata.processing_time_ms);
         // at least one of the stage timers should be set when features are enabled
-        assert!(perf.hyde_time_ms > 0 || perf.community_detection_time_ms > 0 || perf.pagerank_time_ms > 0 || perf.reranking_time_ms > 0 || perf.synthesis_time_ms > 0);
+        assert!(
+            perf.hyde_time_ms > 0
+                || perf.community_detection_time_ms > 0
+                || perf.pagerank_time_ms > 0
+                || perf.reranking_time_ms > 0
+                || perf.synthesis_time_ms > 0
+        );
         assert!(met.last_query_time_ms >= r.metadata.processing_time_ms);
         assert!(met.queries_processed >= 1);
         assert!(met.active_features.iter().any(|f| f == "HyDE"));
@@ -132,7 +136,9 @@ async fn metrics_update_and_toggles_flow() {
     q2.config.use_community_detection = false;
     q2.config.use_reranking = false;
 
-    let r2 = Retriever::new().search(&q2, SearchStrategy::Automatic).await;
+    let r2 = Retriever::new()
+        .search(&q2, SearchStrategy::Automatic)
+        .await;
 
     assert!(!r2.metadata.hyde_enhanced);
     assert!(!r2.metadata.community_filtered);

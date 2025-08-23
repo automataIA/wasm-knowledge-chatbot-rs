@@ -1,9 +1,9 @@
-use wasm_bindgen_test::*;
 use wasm_bindgen_test::wasm_bindgen_test as test;
+use wasm_bindgen_test::*;
 
 use serde_json::Value;
-use wasm_knowledge_chatbot_rs::models::graphrag::{DocumentIndex, ProcessingStatus};
 use wasm_knowledge_chatbot_rs::features::graphrag::extraction::extract_entities_relations;
+use wasm_knowledge_chatbot_rs::models::graphrag::{DocumentIndex, ProcessingStatus};
 
 wasm_bindgen_test_configure!(run_in_browser);
 
@@ -41,16 +41,29 @@ Bob is a Researcher. Bob works at Acme Corp.
     let mut have_doc = false;
     let mut entity_ids: Vec<String> = vec![];
     for n in &nodes {
-        if n.node_type == "document" { have_doc = true; }
-        if n.node_type == "entity" { entity_ids.push(n.id.clone()); }
+        if n.node_type == "document" {
+            have_doc = true;
+        }
+        if n.node_type == "entity" {
+            entity_ids.push(n.id.clone());
+        }
     }
     assert!(have_doc, "should create a document node");
     assert!(entity_ids.len() >= 4, "should create several entity nodes");
 
     // Edges should include mentions and relation edges
-    assert!(edges.iter().any(|e| e.relation == "mentions"), "should include mentions edges");
-    assert!(edges.iter().any(|e| e.relation == "is_a"), "should include is_a relation edges");
-    assert!(edges.iter().any(|e| e.relation == "works_at"), "should include works_at relation edges");
+    assert!(
+        edges.iter().any(|e| e.relation == "mentions"),
+        "should include mentions edges"
+    );
+    assert!(
+        edges.iter().any(|e| e.relation == "is_a"),
+        "should include is_a relation edges"
+    );
+    assert!(
+        edges.iter().any(|e| e.relation == "works_at"),
+        "should include works_at relation edges"
+    );
 
     // Backrefs should be present on entity node metadata (best-effort check)
     let mut any_backrefs = false;
@@ -62,5 +75,8 @@ Bob is a Researcher. Bob works at Acme Corp.
             }
         }
     }
-    assert!(any_backrefs, "at least one entity should have backrefs array");
+    assert!(
+        any_backrefs,
+        "at least one entity should have backrefs array"
+    );
 }

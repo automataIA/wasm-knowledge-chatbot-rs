@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use crate::components::ui_primitives::Button;
+use leptos::prelude::*;
 
 #[component]
 pub fn SidebarAction(

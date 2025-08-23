@@ -1,6 +1,6 @@
+use crate::models::app::{AppConfig, AppError};
 use leptos::prelude::*;
 use serde::{Deserialize, Serialize};
-use crate::models::app::{AppConfig, AppError};
 
 /// Simplified global application state
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -139,15 +139,15 @@ mod tests {
     #[test]
     fn test_app_state_methods() {
         let ctx = AppStateContext::new();
-        
+
         // Test loading
         ctx.set_loading(true);
         assert!(ctx.is_loading());
-        
+
         // Test theme toggle
         ctx.toggle_theme();
         assert_eq!(ctx.get_theme(), "dark");
-        
+
         // Test sidebar toggle
         ctx.toggle_sidebar();
         assert!(!ctx.is_sidebar_open());

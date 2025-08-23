@@ -1,7 +1,7 @@
 #![allow(dead_code)] // Leptos component parameters trigger false positives
 
-use leptos::prelude::*;
 use crate::components::ui_primitives::Button;
+use leptos::prelude::*;
 
 use crate::models::{Message, MessageRole};
 use crate::storage::{ConversationInfo, ConversationStorage};

@@ -1,12 +1,10 @@
 use crate::components::ui_primitives::Button;
-use crate::utils::storage::StorageUtils;
 use crate::components::{
-    conversation_list::ConversationList,
-    sidebar_action::SidebarAction,
-    theme_toggle::ThemeToggle,
+    conversation_list::ConversationList, sidebar_action::SidebarAction, theme_toggle::ThemeToggle,
 };
 use crate::features::webllm::ui::WebLLMInitPanel;
 use crate::models::{webllm::ModelCapability, LLMModel};
+use crate::utils::storage::StorageUtils;
 use leptos::prelude::*;
 
 #[component]
@@ -310,7 +308,7 @@ pub fn Sidebar(
                     collapsed=collapsed
                     on_click=Box::new(move || set_show_document_manager.set(true))
                 />
-                
+
                 <Button
                     label=Signal::derive(move || {
                         if collapsed.get() { "".to_string() } else { "New Chat".to_string() }

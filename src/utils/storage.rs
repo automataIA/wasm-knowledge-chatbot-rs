@@ -1,6 +1,6 @@
 use crate::models::app::AppError;
-use serde::{Serialize, Deserialize};
-use web_sys::{Storage, window};
+use serde::{Deserialize, Serialize};
+use web_sys::{window, Storage};
 
 /// Browser storage utilities for data persistence
 pub struct StorageUtils;
@@ -29,7 +29,7 @@ impl StorageUtils {
         let storage = Self::get_local_storage()?;
         let serialized = serde_json::to_string(data)
             .map_err(|e| AppError::storage(format!("Serialization failed: {}", e)))?;
-        
+
         storage
             .set_item(key, &serialized)
             .map_err(|_| AppError::storage(format!("Failed to store data for key: {}", key)))
@@ -38,7 +38,7 @@ impl StorageUtils {
     /// Retrieve data from localStorage
     pub fn retrieve_local<T: for<'de> Deserialize<'de>>(key: &str) -> Result<Option<T>, AppError> {
         let storage = Self::get_local_storage()?;
-        
+
         match storage.get_item(key) {
             Ok(Some(data)) => {
                 let deserialized = serde_json::from_str(&data)
@@ -46,7 +46,10 @@ impl StorageUtils {
                 Ok(Some(deserialized))
             }
             Ok(None) => Ok(None),
-            Err(_) => Err(AppError::storage(format!("Failed to retrieve data for key: {}", key))),
+            Err(_) => Err(AppError::storage(format!(
+                "Failed to retrieve data for key: {}",
+                key
+            ))),
         }
     }
 
@@ -55,16 +58,18 @@ impl StorageUtils {
         let storage = Self::get_session_storage()?;
         let serialized = serde_json::to_string(data)
             .map_err(|e| AppError::storage(format!("Serialization failed: {}", e)))?;
-        
-        storage
-            .set_item(key, &serialized)
-            .map_err(|_| AppError::storage(format!("Failed to store session data for key: {}", key)))
+
+        storage.set_item(key, &serialized).map_err(|_| {
+            AppError::storage(format!("Failed to store session data for key: {}", key))
+        })
     }
 
     /// Retrieve data from sessionStorage
-    pub fn retrieve_session<T: for<'de> Deserialize<'de>>(key: &str) -> Result<Option<T>, AppError> {
+    pub fn retrieve_session<T: for<'de> Deserialize<'de>>(
+        key: &str,
+    ) -> Result<Option<T>, AppError> {
         let storage = Self::get_session_storage()?;
-        
+
         match storage.get_item(key) {
             Ok(Some(data)) => {
                 let deserialized = serde_json::from_str(&data)
@@ -72,7 +77,10 @@ impl StorageUtils {
                 Ok(Some(deserialized))
             }
             Ok(None) => Ok(None),
-            Err(_) => Err(AppError::storage(format!("Failed to retrieve session data for key: {}", key))),
+            Err(_) => Err(AppError::storage(format!(
+                "Failed to retrieve session data for key: {}",
+                key
+            ))),
         }
     }
 
@@ -87,9 +95,9 @@ impl StorageUtils {
     /// Remove item from sessionStorage
     pub fn remove_session(key: &str) -> Result<(), AppError> {
         let storage = Self::get_session_storage()?;
-        storage
-            .remove_item(key)
-            .map_err(|_| AppError::storage(format!("Failed to remove session data for key: {}", key)))
+        storage.remove_item(key).map_err(|_| {
+            AppError::storage(format!("Failed to remove session data for key: {}", key))
+        })
     }
 
     /// Clear all localStorage data
@@ -113,10 +121,12 @@ impl StorageUtils {
         let local_storage = Self::get_local_storage()?;
         let session_storage = Self::get_session_storage()?;
 
-        let local_length = local_storage.length()
+        let local_length = local_storage
+            .length()
             .map_err(|_| AppError::storage("Failed to get localStorage length".to_string()))?;
-        
-        let session_length = session_storage.length()
+
+        let session_length = session_storage
+            .length()
             .map_err(|_| AppError::storage("Failed to get sessionStorage length".to_string()))?;
 
         // Estimate storage size
@@ -153,7 +163,7 @@ impl StorageUtils {
         if let Ok(storage) = Self::get_local_storage() {
             let test_key = "__quota_test__";
             let test_value = "test";
-            
+
             match storage.set_item(test_key, test_value) {
                 Ok(_) => {
                     let _ = storage.remove_item(test_key);
@@ -169,7 +179,8 @@ impl StorageUtils {
     /// Get all keys from localStorage
     pub fn get_local_keys() -> Result<Vec<String>, AppError> {
         let storage = Self::get_local_storage()?;
-        let length = storage.length()
+        let length = storage
+            .length()
             .map_err(|_| AppError::storage("Failed to get localStorage length".to_string()))?;
 
         let mut keys = Vec::new();
@@ -185,7 +196,8 @@ impl StorageUtils {
     /// Get all keys from sessionStorage
     pub fn get_session_keys() -> Result<Vec<String>, AppError> {
         let storage = Self::get_session_storage()?;
-        let length = storage.length()
+        let length = storage
+            .length()
             .map_err(|_| AppError::storage("Failed to get sessionStorage length".to_string()))?;
 
         let mut keys = Vec::new();
@@ -204,7 +216,7 @@ impl StorageUtils {
         let storage = Self::get_local_storage()?;
 
         let mut backup_data = std::collections::HashMap::new();
-        
+
         for key in local_keys {
             if let Ok(Some(value)) = storage.get_item(&key) {
                 backup_data.insert(key, value);
@@ -217,13 +229,15 @@ impl StorageUtils {
 
     /// Restore storage data from JSON backup
     pub fn restore_storage(backup_json: &str) -> Result<(), AppError> {
-        let backup_data: std::collections::HashMap<String, String> = serde_json::from_str(backup_json)
-            .map_err(|e| AppError::storage(format!("Failed to parse backup: {}", e)))?;
+        let backup_data: std::collections::HashMap<String, String> =
+            serde_json::from_str(backup_json)
+                .map_err(|e| AppError::storage(format!("Failed to parse backup: {}", e)))?;
 
         let storage = Self::get_local_storage()?;
 
         for (key, value) in backup_data {
-            storage.set_item(&key, &value)
+            storage
+                .set_item(&key, &value)
                 .map_err(|_| AppError::storage(format!("Failed to restore key: {}", key)))?;
         }
 

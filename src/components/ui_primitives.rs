@@ -28,8 +28,13 @@ pub fn Button(
     let is_disabled = move || disabled.as_ref().map(|d| d.get()).unwrap_or(false);
     let has_icon = move || icon.as_ref().map(|i| !i.get().is_empty()).unwrap_or(false);
     let has_label = move || !label.get().is_empty();
-    let icon_pos = move || icon_position.as_ref().map(|p| p.get()).unwrap_or("left".to_string());
-    
+    let icon_pos = move || {
+        icon_position
+            .as_ref()
+            .map(|p| p.get())
+            .unwrap_or("left".to_string())
+    };
+
     // Determine button content layout
     let content_class = move || {
         if has_icon() && has_label() {
@@ -50,13 +55,13 @@ pub fn Button(
             <Show when=move || has_icon() && icon_pos() == "left">
                 <i data-lucide=move || icon.as_ref().map(|i| i.get()).unwrap_or_default() class="flex-shrink-0"></i>
             </Show>
-            
+
             <Show when=move || has_label()>
                 <span class="">
                     {move || label.get()}
                 </span>
             </Show>
-            
+
             <Show when=move || has_icon() && icon_pos() == "right">
                 <i data-lucide=move || icon.as_ref().map(|i| i.get()).unwrap_or_default() class="flex-shrink-0"></i>
             </Show>
@@ -83,10 +88,7 @@ pub fn Toggle(
         Signal::derive(move || label_for_text.as_ref().map(|s| s.get()).unwrap_or_default());
 
     let input_class = move || {
-        let extra = extra_class
-            .as_ref()
-            .map(|s| s.get())
-            .unwrap_or_default();
+        let extra = extra_class.as_ref().map(|s| s.get()).unwrap_or_default();
         if extra.is_empty() {
             "toggle rounded-full".to_string()
         } else {

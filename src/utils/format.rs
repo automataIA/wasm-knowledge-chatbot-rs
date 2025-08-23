@@ -24,11 +24,23 @@ impl FormatUtils {
         if diff_seconds < 60.0 {
             "Just now".to_string()
         } else if diff_minutes < 60.0 {
-            format!("{:.0} minute{} ago", diff_minutes, if diff_minutes as i32 == 1 { "" } else { "s" })
+            format!(
+                "{:.0} minute{} ago",
+                diff_minutes,
+                if diff_minutes as i32 == 1 { "" } else { "s" }
+            )
         } else if diff_hours < 24.0 {
-            format!("{:.0} hour{} ago", diff_hours, if diff_hours as i32 == 1 { "" } else { "s" })
+            format!(
+                "{:.0} hour{} ago",
+                diff_hours,
+                if diff_hours as i32 == 1 { "" } else { "s" }
+            )
         } else if diff_days < 30.0 {
-            format!("{:.0} day{} ago", diff_days, if diff_days as i32 == 1 { "" } else { "s" })
+            format!(
+                "{:.0} day{} ago",
+                diff_days,
+                if diff_days as i32 == 1 { "" } else { "s" }
+            )
         } else {
             Self::format_timestamp(timestamp)
         }
@@ -46,9 +58,9 @@ impl FormatUtils {
         let bytes_f = bytes as f64;
         let unit_index = (bytes_f.log10() / THRESHOLD.log10()).floor() as usize;
         let unit_index = unit_index.min(UNITS.len() - 1);
-        
+
         let size = bytes_f / THRESHOLD.powi(unit_index as i32);
-        
+
         if size >= 100.0 {
             format!("{:.0} {}", size, UNITS[unit_index])
         } else if size >= 10.0 {
@@ -92,14 +104,14 @@ impl FormatUtils {
         let mut result = String::new();
         let number_str = number.abs().to_string();
         let chars: Vec<char> = number_str.chars().collect();
-        
+
         for (i, &ch) in chars.iter().enumerate() {
             if i > 0 && (chars.len() - i).is_multiple_of(3) {
                 result.push(',');
             }
             result.push(ch);
         }
-        
+
         if number < 0 {
             format!("-{}", result)
         } else {
@@ -125,7 +137,9 @@ impl FormatUtils {
                 let mut chars = word.chars();
                 match chars.next() {
                     None => String::new(),
-                    Some(first) => first.to_uppercase().collect::<String>() + &chars.as_str().to_lowercase(),
+                    Some(first) => {
+                        first.to_uppercase().collect::<String>() + &chars.as_str().to_lowercase()
+                    }
                 }
             })
             .collect::<Vec<_>>()
@@ -136,14 +150,14 @@ impl FormatUtils {
     pub fn camel_to_human(text: &str) -> String {
         let mut result = String::new();
         let chars = text.chars();
-        
+
         for ch in chars {
             if ch.is_uppercase() && !result.is_empty() {
                 result.push(' ');
             }
             result.push(ch);
         }
-        
+
         Self::to_title_case(&result)
     }
 
@@ -151,7 +165,7 @@ impl FormatUtils {
     pub fn format_json(json_str: &str) -> Result<String, AppError> {
         let value: serde_json::Value = serde_json::from_str(json_str)
             .map_err(|e| AppError::validation(format!("Invalid JSON: {}", e)))?;
-        
+
         serde_json::to_string_pretty(&value)
             .map_err(|e| AppError::runtime(format!("JSON formatting failed: {}", e)))
     }
@@ -190,7 +204,7 @@ impl FormatUtils {
         let lang_class = language
             .map(|l| format!(" language-{}", l))
             .unwrap_or_default();
-        
+
         format!(
             "<pre class=\"code-block\"><code class=\"{}\">{}</code></pre>",
             lang_class.trim(),
@@ -201,28 +215,28 @@ impl FormatUtils {
     /// Format markdown-like text to HTML
     pub fn format_markdown_basic(text: &str) -> String {
         let mut result = html_escape::encode_text(text).to_string();
-        
+
         // Bold text
         result = regex::Regex::new(r"\*\*(.*?)\*\*")
             .unwrap()
             .replace_all(&result, "<strong>$1</strong>")
             .to_string();
-        
+
         // Italic text
         result = regex::Regex::new(r"\*(.*?)\*")
             .unwrap()
             .replace_all(&result, "<em>$1</em>")
             .to_string();
-        
+
         // Code spans
         result = regex::Regex::new(r"`(.*?)`")
             .unwrap()
             .replace_all(&result, "<code>$1</code>")
             .to_string();
-        
+
         // Line breaks
         result = result.replace('\n', "<br>");
-        
+
         result
     }
 
@@ -232,7 +246,7 @@ impl FormatUtils {
         for ch in text.chars() {
             hash = hash.wrapping_mul(31).wrapping_add(ch as u32);
         }
-        
+
         let hue = hash % 360;
         format!("hsl({}, 70%, 50%)", hue)
     }
@@ -282,7 +296,10 @@ mod tests {
     #[test]
     fn test_camel_to_human() {
         assert_eq!(FormatUtils::camel_to_human("firstName"), "First Name");
-        assert_eq!(FormatUtils::camel_to_human("XMLHttpRequest"), "X M L Http Request");
+        assert_eq!(
+            FormatUtils::camel_to_human("XMLHttpRequest"),
+            "X M L Http Request"
+        );
     }
 
     #[test]
@@ -295,7 +312,10 @@ mod tests {
     #[test]
     fn test_to_safe_filename() {
         assert_eq!(FormatUtils::to_safe_filename("Hello World!"), "hello_world");
-        assert_eq!(FormatUtils::to_safe_filename("File@Name#123"), "file-name-123");
+        assert_eq!(
+            FormatUtils::to_safe_filename("File@Name#123"),
+            "file-name-123"
+        );
         assert_eq!(FormatUtils::to_safe_filename("  spaced  "), "spaced");
     }
 }

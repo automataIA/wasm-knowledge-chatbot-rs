@@ -1,6 +1,6 @@
 use wasm_bindgen_test::*;
+use wasm_knowledge_chatbot_rs::models::crm::{Customer, Deal, Lead, LeadSource, PipelineStage};
 use wasm_knowledge_chatbot_rs::state::CRMStateContext;
-use wasm_knowledge_chatbot_rs::models::crm::{Customer, Lead, LeadSource, Deal, PipelineStage};
 use wasm_knowledge_chatbot_rs::utils::storage::StorageUtils;
 
 wasm_bindgen_test_configure!(run_in_browser);
@@ -26,7 +26,14 @@ fn crm_crud_and_persistence_roundtrip() {
     let lead = Lead::new("John Doe".to_string(), LeadSource::Website);
     ctx.upsert_lead(lead.clone());
 
-    let stage = PipelineStage { id: "stage_new".into(), name: "New".into(), order: 1, probability: 0.1, color: None, is_closed: false };
+    let stage = PipelineStage {
+        id: "stage_new".into(),
+        name: "New".into(),
+        order: 1,
+        probability: 0.1,
+        color: None,
+        is_closed: false,
+    };
     ctx.upsert_stage(stage.clone());
 
     let deal = Deal::new("Pilot".into(), cust.id.clone(), stage.id.clone(), 5000.0);

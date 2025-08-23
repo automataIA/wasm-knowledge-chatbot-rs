@@ -1,6 +1,6 @@
 // Card atom component with design tokens integration
-use leptos::prelude::*;
 use crate::ui::theme::Theme;
+use leptos::prelude::*;
 
 /// Card variant types
 #[derive(Debug, Clone, PartialEq)]
@@ -24,10 +24,10 @@ pub fn Card(
     children: Children,
 ) -> impl IntoView {
     let theme = Theme::current();
-    
+
     // Build CSS classes based on props
     let base_classes = "card bg-base-100 transition-all duration-300";
-    
+
     let variant_classes = match variant {
         CardVariant::Default => "shadow-md",
         CardVariant::Bordered => "border border-base-300",
@@ -35,14 +35,22 @@ pub fn Card(
         CardVariant::Side => "card-side",
         CardVariant::Glass => "glass backdrop-blur-sm bg-opacity-80",
     };
-    
+
     let modifier_classes = format!(
         "{}{}{}",
-        if bordered { " border border-base-300" } else { "" },
+        if bordered {
+            " border border-base-300"
+        } else {
+            ""
+        },
         if compact { " card-compact" } else { "" },
-        if glass { " glass backdrop-blur-sm bg-opacity-80" } else { "" }
+        if glass {
+            " glass backdrop-blur-sm bg-opacity-80"
+        } else {
+            ""
+        }
     );
-    
+
     let combined_classes = format!(
         "{} {} {} {}",
         base_classes,
@@ -68,14 +76,8 @@ pub fn Card(
 
 /// Card body component
 #[component]
-pub fn CardBody(
-    #[prop(optional)] class: Option<String>,
-    children: Children,
-) -> impl IntoView {
-    let combined_classes = format!(
-        "card-body {}",
-        class.unwrap_or_default()
-    );
+pub fn CardBody(#[prop(optional)] class: Option<String>, children: Children) -> impl IntoView {
+    let combined_classes = format!("card-body {}", class.unwrap_or_default());
 
     view! {
         <div class={combined_classes}>
@@ -86,10 +88,7 @@ pub fn CardBody(
 
 /// Card title component
 #[component]
-pub fn CardTitle(
-    #[prop(optional)] class: Option<String>,
-    children: Children,
-) -> impl IntoView {
+pub fn CardTitle(#[prop(optional)] class: Option<String>, children: Children) -> impl IntoView {
     let combined_classes = format!(
         "card-title text-base-content font-semibold {}",
         class.unwrap_or_default()
@@ -109,8 +108,12 @@ pub fn CardActions(
     #[prop(optional)] class: Option<String>,
     children: Children,
 ) -> impl IntoView {
-    let justify_classes = if justify_end { "justify-end" } else { "justify-start" };
-    
+    let justify_classes = if justify_end {
+        "justify-end"
+    } else {
+        "justify-start"
+    };
+
     let combined_classes = format!(
         "card-actions {} {}",
         justify_classes,
@@ -126,14 +129,8 @@ pub fn CardActions(
 
 /// Card figure component for images
 #[component]
-pub fn CardFigure(
-    #[prop(optional)] class: Option<String>,
-    children: Children,
-) -> impl IntoView {
-    let combined_classes = format!(
-        "figure {}",
-        class.unwrap_or_default()
-    );
+pub fn CardFigure(#[prop(optional)] class: Option<String>, children: Children) -> impl IntoView {
+    let combined_classes = format!("figure {}", class.unwrap_or_default());
 
     view! {
         <figure class={combined_classes}>
@@ -152,8 +149,12 @@ pub fn MessageCard(
     children: Children,
 ) -> impl IntoView {
     let alignment_classes = if is_user { "ml-auto" } else { "mr-auto" };
-    let bg_classes = if is_user { "bg-primary text-primary-content" } else { "bg-base-200 text-base-content" };
-    
+    let bg_classes = if is_user {
+        "bg-primary text-primary-content"
+    } else {
+        "bg-base-200 text-base-content"
+    };
+
     let combined_classes = format!(
         "card max-w-md {} {} {}",
         alignment_classes,
@@ -256,7 +257,7 @@ mod tests {
             CardVariant::Side,
             CardVariant::Glass,
         ];
-        
+
         for variant in variants {
             match variant {
                 CardVariant::Default => assert_eq!(variant, CardVariant::Default),
@@ -276,7 +277,7 @@ mod tests {
         let _body = "card-body";
         let _title = "card-title";
         let _actions = "card-actions";
-        
+
         assert!(true); // Components compile and can be instantiated
     }
 }

@@ -1,13 +1,11 @@
+use crate::graphrag_config::{GraphRAGConfig, GraphRAGConfigManager, GraphRAGMetrics};
+use gloo_timers::future::TimeoutFuture;
 use leptos::prelude::*;
 use leptos::task::spawn_local;
-use gloo_timers::future::TimeoutFuture;
-use crate::graphrag_config::{GraphRAGConfig, GraphRAGMetrics, GraphRAGConfigManager};
 
 // Simplified GraphRAG Status Metrics component for StatusBar
 #[component]
-pub fn GraphRAGStatusMetrics(
-    metrics: Signal<GraphRAGMetrics>,
-) -> impl IntoView {
+pub fn GraphRAGStatusMetrics(metrics: Signal<GraphRAGMetrics>) -> impl IntoView {
     // Enhanced memory effects with threshold warnings
     let (flash, set_flash) = signal(false);
     let (memory_warning, set_memory_warning) = signal(false);
@@ -17,7 +15,7 @@ pub fn GraphRAGStatusMetrics(
         let m = metrics.get();
         let current = m.memory_usage_mb;
         let prev = last_mem.get();
-        
+
         // Flash effect on memory change
         if (current - prev).abs() > 0.01 {
             set_flash.set(true);
@@ -27,7 +25,7 @@ pub fn GraphRAGStatusMetrics(
                 set_flash.set(false);
             });
         }
-        
+
         // Warning effect for high memory usage (>80MB)
         let high_usage = current > 80.0;
         if high_usage != memory_warning.get() {
@@ -63,7 +61,7 @@ pub fn GraphRAGStatusMetrics(
 }
 
 // Simplified GraphRAG Settings component with feature toggles and descriptions
-#[component] 
+#[component]
 pub fn GraphRAGSettings(
     config: Signal<GraphRAGConfig>,
     metrics: Signal<GraphRAGMetrics>,
@@ -72,12 +70,12 @@ pub fn GraphRAGSettings(
     // State for showing feature descriptions
     let (show_descriptions, set_show_descriptions) = signal(false);
     let (show_config_explanation, set_show_config_explanation) = signal(false);
-    
+
     // Explicitly read props to satisfy rustc's analysis outside of macro closures
     let _ = config.get_untracked();
     let _ = metrics.get_untracked();
     let _ = manager.clone();
-    
+
     view! {
         <div class="space-y-4">
             <div class="card bg-base-100 shadow">
@@ -85,14 +83,14 @@ pub fn GraphRAGSettings(
                     <div class="flex items-center justify-between mb-3">
                         <h2 class="card-title text-sm">"GraphRAG Configuration"</h2>
                         <div class="flex gap-1">
-                            <button 
+                            <button
                                 class="btn btn-ghost btn-xs btn-circle"
                                 on:click=move |_| set_show_config_explanation.set(true)
                                 title="Explain current configuration"
                             >
                                 <i data-lucide="info" class="w-3 h-3"></i>
                             </button>
-                            <button 
+                            <button
                                 class="btn btn-ghost btn-xs btn-circle"
                                 on:click=move |_| set_show_descriptions.update(|s| *s = !*s)
                                 title="Toggle feature descriptions"
@@ -101,16 +99,16 @@ pub fn GraphRAGSettings(
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-3">
                         // Hybrid Retrieval Toggle
                         <div class="flex items-center justify-between p-3 bg-base-200 rounded-xl" role="group" aria-label="Hybrid retrieval configuration">
                             <div class="tooltip tooltip-right" data-tip="Combine text and graph scores with fusion weights">
                                 <span class="font-medium text-sm">Hybrid Retrieval</span>
                             </div>
-                            <input 
-                                type="checkbox" 
-                                class="toggle toggle-success rounded-full" 
+                            <input
+                                type="checkbox"
+                                class="toggle toggle-success rounded-full"
                                 checked={move || config.get().hybrid_enabled}
                                 aria-checked={move || config.get().hybrid_enabled}
                                 aria-label="Enable or disable hybrid retrieval"
@@ -180,9 +178,9 @@ pub fn GraphRAGSettings(
                                     "Queries: " {move || metrics.get().queries_processed} " • Score: " {move || format!("{:.1}", metrics.get().performance_score)}
                                 </div>
                             </div>
-                            <input 
-                                type="checkbox" 
-                                class="toggle toggle-success rounded-full" 
+                            <input
+                                type="checkbox"
+                                class="toggle toggle-success rounded-full"
                                 checked={move || config.get().hyde_enabled}
                                 on:change={
                                     let m = manager.clone();
@@ -190,15 +188,15 @@ pub fn GraphRAGSettings(
                                 }
                             />
                         </div>
-                        
+
                         // Community Detection Toggle
                         <div class="flex items-center justify-between p-3 bg-base-200 rounded-xl">
                             <div class="tooltip tooltip-right" data-tip="Groups related entities for better context">
                                 <span class="font-medium text-sm">Community</span>
                             </div>
-                            <input 
-                                type="checkbox" 
-                                class="toggle toggle-primary rounded-full" 
+                            <input
+                                type="checkbox"
+                                class="toggle toggle-primary rounded-full"
                                 checked={move || config.get().community_detection_enabled}
                                 on:change={
                                     let m = manager.clone();
@@ -206,15 +204,15 @@ pub fn GraphRAGSettings(
                                 }
                             />
                         </div>
-                        
+
                         // PageRank Toggle
                         <div class="flex items-center justify-between p-3 bg-base-200 rounded-xl">
                             <div class="tooltip tooltip-right" data-tip="Ranks entities by importance and connections">
                                 <span class="font-medium text-sm">PageRank</span>
                             </div>
-                            <input 
-                                type="checkbox" 
-                                class="toggle toggle-secondary rounded-full" 
+                            <input
+                                type="checkbox"
+                                class="toggle toggle-secondary rounded-full"
                                 checked={move || config.get().pagerank_enabled}
                                 on:change={
                                     let m = manager.clone();
@@ -222,15 +220,15 @@ pub fn GraphRAGSettings(
                                 }
                             />
                         </div>
-                        
+
                         // Reranking Toggle
                         <div class="flex items-center justify-between p-3 bg-base-200 rounded-xl">
                             <div class="tooltip tooltip-right" data-tip="Advanced AI models reorder search results">
                                 <span class="font-medium text-sm">Reranking</span>
                             </div>
-                            <input 
-                                type="checkbox" 
-                                class="toggle toggle-accent rounded-full" 
+                            <input
+                                type="checkbox"
+                                class="toggle toggle-accent rounded-full"
                                 checked={move || config.get().reranking_enabled}
                                 on:change={
                                     let m = manager.clone();
@@ -238,15 +236,15 @@ pub fn GraphRAGSettings(
                                 }
                             />
                         </div>
-                        
+
                         // Synthesis Toggle
                         <div class="flex items-center justify-between p-3 bg-base-200 rounded-xl">
                             <div class="tooltip tooltip-right" data-tip="Combines multiple sources into coherent answers">
                                 <span class="font-medium text-sm">Synthesis</span>
                             </div>
-                            <input 
-                                type="checkbox" 
-                                class="toggle toggle-info rounded-full" 
+                            <input
+                                type="checkbox"
+                                class="toggle toggle-info rounded-full"
                                 checked={move || config.get().synthesis_enabled}
                                 on:change={
                                     let m = manager.clone();
@@ -260,7 +258,7 @@ pub fn GraphRAGSettings(
                     <Show when=move || show_descriptions.get()>
                         <div class="mt-4 space-y-3 text-xs">
                             <div class="divider my-2"></div>
-                            
+
                             <div class="grid gap-3">
                                 <div class="p-3 bg-base-200 rounded-lg">
                                     <div class="flex items-center gap-2 mb-1">
@@ -269,7 +267,7 @@ pub fn GraphRAGSettings(
                                     </div>
                                     <p class="text-base-content/70">"Uses the Louvain algorithm to identify clusters of related entities in your knowledge graph. This helps provide more contextually relevant information by understanding how concepts are grouped together."</p>
                                 </div>
-                                
+
                                 <div class="p-3 bg-base-200 rounded-lg">
                                     <div class="flex items-center gap-2 mb-1">
                                         <div class="w-2 h-2 bg-secondary rounded-full"></div>
@@ -277,7 +275,7 @@ pub fn GraphRAGSettings(
                                     </div>
                                     <p class="text-base-content/70">"Applies Google's PageRank algorithm to rank entities by their importance and interconnections. More connected and referenced entities get higher scores, improving search relevance."</p>
                                 </div>
-                                
+
                                 <div class="p-3 bg-base-200 rounded-lg">
                                     <div class="flex items-center gap-2 mb-1">
                                         <div class="w-2 h-2 bg-accent rounded-full"></div>
@@ -285,7 +283,7 @@ pub fn GraphRAGSettings(
                                     </div>
                                     <p class="text-base-content/70">"Uses MonoT5 and TILDEv2 neural models to reorder search results based on semantic relevance. This significantly improves the quality of retrieved information."</p>
                                 </div>
-                                
+
                                 <div class="p-3 bg-base-200 rounded-lg">
                                     <div class="flex items-center gap-2 mb-1">
                                         <div class="w-2 h-2 bg-info rounded-full"></div>
@@ -296,7 +294,7 @@ pub fn GraphRAGSettings(
                             </div>
                         </div>
                     </Show>
-                    
+
                     <div class="text-xs opacity-60 mt-3">
                         {move || {
                             let m = metrics.get();
@@ -311,7 +309,7 @@ pub fn GraphRAGSettings(
                     </div>
                 </div>
             </div>
-            
+
             // Configuration Explanation Modal
             <Show when=move || show_config_explanation.get()>
                 <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -370,7 +368,7 @@ pub fn GraphRAGSettings(
                                                 <i data-lucide="layers" class="w-4 h-4"></i>
                                                 "Feature Analysis"
                                             </h3>
-                                            
+
                                             // HyDE
                                             <div class={format!("card shadow-sm {}", if cfg.hyde_enabled { "border-l-4 border-l-success" } else { "border-l-4 border-l-base-300" })}>
                                                 <div class="card-body p-4">
@@ -547,14 +545,14 @@ pub fn GraphRAGSettings(
                                                             </div>
                                                         }
                                                     }
-                                                    
+
                                                     <Show when=move || !cfg.reranking_enabled>
                                                         <div class="p-3 bg-warning/10 rounded-lg border border-warning/20">
                                                             <p class="font-medium text-warning">"💡 Recommendation: Enable Advanced Reranking"</p>
                                                             <p>"This feature provides the biggest improvement in answer quality with moderate performance cost."</p>
                                                         </div>
                                                     </Show>
-                                                    
+
                                                     {
                                                         let active_count = [cfg.hyde_enabled, cfg.community_detection_enabled, cfg.pagerank_enabled, cfg.reranking_enabled, cfg.synthesis_enabled].iter().filter(|&&x| x).count();
                                                         view! {

@@ -24,27 +24,27 @@ impl NavItem {
             badge: None,
         }
     }
-    
+
     pub fn with_href(mut self, href: impl Into<String>) -> Self {
         self.href = Some(href.into());
         self
     }
-    
+
     pub fn with_icon(mut self, icon: impl Into<String>) -> Self {
         self.icon = Some(icon.into());
         self
     }
-    
+
     pub fn active(mut self) -> Self {
         self.active = true;
         self
     }
-    
+
     pub fn disabled(mut self) -> Self {
         self.disabled = true;
         self
     }
-    
+
     pub fn with_badge(mut self, badge: impl Into<String>) -> Self {
         self.badge = Some(badge.into());
         self
@@ -64,7 +64,7 @@ pub fn NavBar(
         <nav class={format!("navbar bg-base-100 shadow-sm {}", class.unwrap_or_default())}>
             <div class="navbar-start">
                 {brand.as_ref().map(|brand_text| view! {
-                    <a 
+                    <a
                         href={brand_href.clone().unwrap_or_else(|| "#".to_string())}
                         class="btn btn-ghost text-xl font-bold"
                     >
@@ -72,7 +72,7 @@ pub fn NavBar(
                     </a>
                 })}
             </div>
-            
+
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal px-1 gap-1">
                     {items.clone().into_iter().map(|item| {
@@ -95,9 +95,9 @@ pub fn NavBar(
                                     {item.icon.as_ref().map(|icon| view! {
                                         <span class={format!("icon-{}", icon)}></span>
                                     })}
-                                    
+
                                     <span>{item.label}</span>
-                                    
+
                                     {item.badge.as_ref().map(|badge_text| view! {
                                         <span class="badge badge-sm badge-primary">
                                             {badge_text.clone()}
@@ -109,7 +109,7 @@ pub fn NavBar(
                     }).collect::<Vec<_>>()}
                 </ul>
             </div>
-            
+
             <div class="navbar-end">
                 <div class="dropdown dropdown-end lg:hidden">
                     <div tabindex="0" role="button" class="btn btn-ghost">
@@ -135,9 +135,9 @@ pub fn NavBar(
                                         {item.icon.as_ref().map(|icon| view! {
                                             <span class={format!("icon-{}", icon)}></span>
                                         })}
-                                        
+
                                         {item.label}
-                                        
+
                                         {item.badge.as_ref().map(|badge_text| view! {
                                             <span class="badge badge-xs badge-primary">
                                                 {badge_text.clone()}
@@ -192,7 +192,7 @@ pub fn SideNav(
                                 {item.icon.as_ref().map(|icon| view! {
                                     <span class={format!("icon-{} text-lg", icon)}></span>
                                 })}
-                                
+
                                 {(!collapsed).then(|| view! {
                                     <span class="flex-1">{item.label.clone()}</span>
                                     {item.badge.as_ref().map(|badge_text| view! {
@@ -224,7 +224,7 @@ pub fn Breadcrumb(
                 let items_len = items.len();
                 let is_last = index == items_len - 1;
                 let item_label = item.label.clone();
-                
+
                 view! {
                     <li class="flex items-center gap-2">
                         {if !is_last {
@@ -248,7 +248,7 @@ pub fn Breadcrumb(
                                 </span>
                             }.into_any()
                         }}
-                        
+
                         {(!is_last).then(|| view! {
                             <svg class="w-4 h-4 opacity-50" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
@@ -272,7 +272,7 @@ mod tests {
             .with_href("/")
             .with_icon("home")
             .active();
-            
+
         assert_eq!(item.label, "Home");
         assert_eq!(item.href, Some("/".to_string()));
         assert_eq!(item.icon, Some("home".to_string()));
@@ -285,7 +285,7 @@ mod tests {
             NavItem::new("Home").with_href("/"),
             NavItem::new("About").with_href("/about"),
         ];
-        
+
         assert_eq!(items.len(), 2);
     }
 }

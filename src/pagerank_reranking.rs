@@ -55,8 +55,12 @@ impl PageRankEngine {
         let teleport_vec: Vec<f32> = if let Some(p) = &self.config.personalization {
             if p.len() == n {
                 let mut sum: f32 = p.iter().cloned().sum();
-                if sum <= 0.0 { sum = 1.0; }
-                p.iter().map(|&x| if x < 0.0 { 0.0 } else { x / sum }).collect()
+                if sum <= 0.0 {
+                    sum = 1.0;
+                }
+                p.iter()
+                    .map(|&x| if x < 0.0 { 0.0 } else { x / sum })
+                    .collect()
             } else {
                 vec![1.0 / n as f32; n]
             }
@@ -67,8 +71,12 @@ impl PageRankEngine {
         let dangling_vec: Vec<f32> = if let Some(q) = &self.config.dangling_distribution {
             if q.len() == n {
                 let mut sum: f32 = q.iter().cloned().sum();
-                if sum <= 0.0 { sum = 1.0; }
-                q.iter().map(|&x| if x < 0.0 { 0.0 } else { x / sum }).collect()
+                if sum <= 0.0 {
+                    sum = 1.0;
+                }
+                q.iter()
+                    .map(|&x| if x < 0.0 { 0.0 } else { x / sum })
+                    .collect()
             } else {
                 vec![1.0 / n as f32; n]
             }
@@ -78,8 +86,7 @@ impl PageRankEngine {
 
         for _ in 0..self.config.iterations {
             // Start with teleport mass according to personalization
-            next
-                .iter_mut()
+            next.iter_mut()
                 .zip(teleport_vec.iter())
                 .for_each(|(ni, &t)| *ni = (1.0 - d) * t);
 

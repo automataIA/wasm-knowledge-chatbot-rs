@@ -1,6 +1,6 @@
 // Message bubble molecule component combining card and button atoms
+use crate::components::atoms::{Button, ButtonSize, ButtonVariant, Card, CardVariant};
 use leptos::prelude::*;
-use crate::components::atoms::{Card, CardVariant, Button, ButtonVariant, ButtonSize};
 
 /// Message bubble for chat conversations
 #[component]
@@ -40,7 +40,7 @@ pub fn MessageBubble(
                         </span>
                     </div>
                 </div>
-                
+
                 // Message content
                 <div class={format!("flex flex-col gap-1 {}", if is_user { "items-end" } else { "items-start" })}>
                     // Sender name and timestamp
@@ -51,7 +51,7 @@ pub fn MessageBubble(
                             <span>{ts}</span>
                         })}
                     </div>
-                    
+
                     // Message bubble
                     <Card
                         variant={CardVariant::Default}
@@ -72,7 +72,7 @@ pub fn MessageBubble(
                             }.into_any()
                         }}
                     </Card>
-                    
+
                     // Action buttons
                     {(!is_loading && !is_user).then(|| view! {
                         <div class="flex items-center gap-1 mt-1">
@@ -87,7 +87,7 @@ pub fn MessageBubble(
                                 </svg>
                                 "Copy"
                             </Button>
-                            
+
                             {on_regenerate.map(|handler| view! {
                                 <Button
                                     variant={ButtonVariant::Ghost}
@@ -153,7 +153,7 @@ pub fn TypingIndicator(
                     <span class="text-xs">A</span>
                 </div>
             </div>
-            
+
             // Typing bubble
             <div class="flex flex-col gap-1">
                 <div class="text-xs text-base-content/60">{sender}</div>
@@ -174,5 +174,3 @@ pub fn TypingIndicator(
         </div>
     }
 }
-
- 

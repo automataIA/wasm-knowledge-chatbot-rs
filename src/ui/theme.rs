@@ -10,28 +10,28 @@ pub struct ColorTokens {
     pub primary: &'static str,
     pub primary_focus: &'static str,
     pub primary_content: &'static str,
-    
+
     // Secondary colors
     pub secondary: &'static str,
     pub secondary_focus: &'static str,
     pub secondary_content: &'static str,
-    
+
     // Accent colors
     pub accent: &'static str,
     pub accent_focus: &'static str,
     pub accent_content: &'static str,
-    
+
     // Neutral colors
     pub neutral: &'static str,
     pub neutral_focus: &'static str,
     pub neutral_content: &'static str,
-    
+
     // Base colors
     pub base_100: &'static str,
     pub base_200: &'static str,
     pub base_300: &'static str,
     pub base_content: &'static str,
-    
+
     // Semantic colors
     pub info: &'static str,
     pub success: &'static str,
@@ -42,13 +42,13 @@ pub struct ColorTokens {
 /// Spacing tokens based on 4px base unit
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SpacingTokens {
-    pub xs: &'static str,    // 4px
-    pub sm: &'static str,    // 8px
-    pub md: &'static str,    // 16px
-    pub lg: &'static str,    // 24px
-    pub xl: &'static str,    // 32px
-    pub xxl: &'static str,   // 48px
-    pub xxxl: &'static str,  // 64px
+    pub xs: &'static str,   // 4px
+    pub sm: &'static str,   // 8px
+    pub md: &'static str,   // 16px
+    pub lg: &'static str,   // 24px
+    pub xl: &'static str,   // 32px
+    pub xxl: &'static str,  // 48px
+    pub xxxl: &'static str, // 64px
 }
 
 /// Typography tokens
@@ -57,7 +57,7 @@ pub struct TypographyTokens {
     // Font families
     pub font_sans: &'static str,
     pub font_mono: &'static str,
-    
+
     // Font sizes
     pub text_xs: &'static str,   // 12px
     pub text_sm: &'static str,   // 14px
@@ -67,17 +67,17 @@ pub struct TypographyTokens {
     pub text_2xl: &'static str,  // 24px
     pub text_3xl: &'static str,  // 30px
     pub text_4xl: &'static str,  // 36px
-    
+
     // Line heights
-    pub leading_tight: &'static str,  // 1.25
-    pub leading_normal: &'static str, // 1.5
+    pub leading_tight: &'static str,   // 1.25
+    pub leading_normal: &'static str,  // 1.5
     pub leading_relaxed: &'static str, // 1.75
-    
+
     // Font weights
-    pub font_normal: &'static str,    // 400
-    pub font_medium: &'static str,    // 500
-    pub font_semibold: &'static str,  // 600
-    pub font_bold: &'static str,      // 700
+    pub font_normal: &'static str,   // 400
+    pub font_medium: &'static str,   // 500
+    pub font_semibold: &'static str, // 600
+    pub font_bold: &'static str,     // 700
 }
 
 /// Border and radius tokens
@@ -88,12 +88,12 @@ pub struct BorderTokens {
     pub radius_lg: &'static str,   // 12px
     pub radius_xl: &'static str,   // 16px
     pub radius_full: &'static str, // 9999px
-    
-    pub border_width: &'static str,      // 1px
-    pub border_width_2: &'static str,    // 2px
-    pub border_width_4: &'static str,    // 4px
-    
-    pub focus_ring_width: &'static str,  // 2px (accessibility requirement)
+
+    pub border_width: &'static str,   // 1px
+    pub border_width_2: &'static str, // 2px
+    pub border_width_4: &'static str, // 4px
+
+    pub focus_ring_width: &'static str, // 2px (accessibility requirement)
 }
 
 /// Shadow tokens for depth
@@ -108,10 +108,10 @@ pub struct ShadowTokens {
 /// Animation and transition tokens
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AnimationTokens {
-    pub duration_fast: &'static str,     // 150ms
-    pub duration_normal: &'static str,   // 300ms
-    pub duration_slow: &'static str,     // 500ms
-    
+    pub duration_fast: &'static str,   // 150ms
+    pub duration_normal: &'static str, // 300ms
+    pub duration_slow: &'static str,   // 500ms
+
     pub ease_in: &'static str,
     pub ease_out: &'static str,
     pub ease_in_out: &'static str,
@@ -136,24 +136,24 @@ pub const LIGHT_THEME: Theme = Theme {
         primary: "#3b82f6",
         primary_focus: "#2563eb",
         primary_content: "#ffffff",
-        
+
         secondary: "#64748b",
         secondary_focus: "#475569",
         secondary_content: "#ffffff",
-        
+
         accent: "#8b5cf6",
         accent_focus: "#7c3aed",
         accent_content: "#ffffff",
-        
+
         neutral: "#374151",
         neutral_focus: "#1f2937",
         neutral_content: "#ffffff",
-        
+
         base_100: "#ffffff",
         base_200: "#f8fafc",
         base_300: "#e2e8f0",
         base_content: "#1e293b",
-        
+
         info: "#0ea5e9",
         success: "#22c55e",
         warning: "#f59e0b",
@@ -173,24 +173,24 @@ pub const DARK_THEME: Theme = Theme {
         primary: "#60a5fa",
         primary_focus: "#3b82f6",
         primary_content: "#1e293b",
-        
+
         secondary: "#94a3b8",
         secondary_focus: "#64748b",
         secondary_content: "#1e293b",
-        
+
         accent: "#a78bfa",
         accent_focus: "#8b5cf6",
         accent_content: "#1e293b",
-        
+
         neutral: "#64748b",
         neutral_focus: "#94a3b8",
         neutral_content: "#f1f5f9",
-        
+
         base_100: "#1e293b",
         base_200: "#334155",
         base_300: "#475569",
         base_content: "#f1f5f9",
-        
+
         info: "#38bdf8",
         success: "#4ade80",
         warning: "#fbbf24",
@@ -216,26 +216,23 @@ const SPACING_TOKENS: SpacingTokens = SpacingTokens {
 
 /// Shared typography tokens
 const TYPOGRAPHY_TOKENS: TypographyTokens = TypographyTokens {
-    font_sans: "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif",
-    font_mono: "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace",
-    
-    text_xs: "12px",
-    text_sm: "14px",
-    text_base: "16px",
-    text_lg: "18px",
-    text_xl: "20px",
-    text_2xl: "24px",
-    text_3xl: "30px",
-    text_4xl: "36px",
-    
-    leading_tight: "1.25",
-    leading_normal: "1.5",
-    leading_relaxed: "1.75",
-    
-    font_normal: "400",
-    font_medium: "500",
-    font_semibold: "600",
-    font_bold: "700",
+  font_sans: "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif",
+  font_mono: "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace",
+  text_xs: "12px",
+  text_sm: "14px",
+  text_base: "16px",
+  text_lg: "18px",
+  text_xl: "20px",
+  text_2xl: "24px",
+  text_3xl: "30px",
+  text_4xl: "36px",
+  leading_tight: "1.25",
+  leading_normal: "1.5",
+  leading_relaxed: "1.75",
+  font_normal: "400",
+  font_medium: "500",
+  font_semibold: "600",
+  font_bold: "700",
 };
 
 /// Shared border tokens
@@ -245,11 +242,11 @@ const BORDER_TOKENS: BorderTokens = BorderTokens {
     radius_lg: "12px",
     radius_xl: "16px",
     radius_full: "9999px",
-    
+
     border_width: "1px",
     border_width_2: "2px",
     border_width_4: "4px",
-    
+
     focus_ring_width: "2px", // WCAG 2.1 AA requirement
 };
 
@@ -266,7 +263,7 @@ const ANIMATION_TOKENS: AnimationTokens = AnimationTokens {
     duration_fast: "150ms",
     duration_normal: "300ms",
     duration_slow: "500ms",
-    
+
     ease_in: "cubic-bezier(0.4, 0, 1, 1)",
     ease_out: "cubic-bezier(0, 0, 0.2, 1)",
     ease_in_out: "cubic-bezier(0.4, 0, 0.2, 1)",
@@ -282,7 +279,7 @@ impl Theme {
         // - Dynamic theme switching
         &LIGHT_THEME
     }
-    
+
     /// Get theme by name
     pub fn by_name(name: &str) -> Option<&'static Theme> {
         match name {
@@ -291,7 +288,7 @@ impl Theme {
             _ => None,
         }
     }
-    
+
     /// Generate CSS custom properties for the theme
     pub fn to_css_vars(&self) -> String {
         format!(
@@ -365,35 +362,67 @@ impl Theme {
   --ease-in-out: {};
 }}"#,
             // Colors
-            self.colors.primary, self.colors.primary_focus, self.colors.primary_content,
-            self.colors.secondary, self.colors.secondary_focus, self.colors.secondary_content,
-            self.colors.accent, self.colors.accent_focus, self.colors.accent_content,
-            self.colors.neutral, self.colors.neutral_focus, self.colors.neutral_content,
-            self.colors.base_100, self.colors.base_200, self.colors.base_300, self.colors.base_content,
-            self.colors.info, self.colors.success, self.colors.warning, self.colors.error,
-            
+            self.colors.primary,
+            self.colors.primary_focus,
+            self.colors.primary_content,
+            self.colors.secondary,
+            self.colors.secondary_focus,
+            self.colors.secondary_content,
+            self.colors.accent,
+            self.colors.accent_focus,
+            self.colors.accent_content,
+            self.colors.neutral,
+            self.colors.neutral_focus,
+            self.colors.neutral_content,
+            self.colors.base_100,
+            self.colors.base_200,
+            self.colors.base_300,
+            self.colors.base_content,
+            self.colors.info,
+            self.colors.success,
+            self.colors.warning,
+            self.colors.error,
             // Spacing
-            self.spacing.xs, self.spacing.sm, self.spacing.md, self.spacing.lg,
-            self.spacing.xl, self.spacing.xxl, self.spacing.xxxl,
-            
+            self.spacing.xs,
+            self.spacing.sm,
+            self.spacing.md,
+            self.spacing.lg,
+            self.spacing.xl,
+            self.spacing.xxl,
+            self.spacing.xxxl,
             // Typography
-            self.typography.font_sans, self.typography.font_mono,
-            self.typography.text_xs, self.typography.text_sm, self.typography.text_base,
-            self.typography.text_lg, self.typography.text_xl, self.typography.text_2xl,
-            self.typography.text_3xl, self.typography.text_4xl,
-            
+            self.typography.font_sans,
+            self.typography.font_mono,
+            self.typography.text_xs,
+            self.typography.text_sm,
+            self.typography.text_base,
+            self.typography.text_lg,
+            self.typography.text_xl,
+            self.typography.text_2xl,
+            self.typography.text_3xl,
+            self.typography.text_4xl,
             // Borders
-            self.borders.radius_sm, self.borders.radius_md, self.borders.radius_lg,
-            self.borders.radius_xl, self.borders.radius_full,
-            self.borders.border_width, self.borders.border_width_2, self.borders.border_width_4,
+            self.borders.radius_sm,
+            self.borders.radius_md,
+            self.borders.radius_lg,
+            self.borders.radius_xl,
+            self.borders.radius_full,
+            self.borders.border_width,
+            self.borders.border_width_2,
+            self.borders.border_width_4,
             self.borders.focus_ring_width,
-            
             // Shadows
-            self.shadows.shadow_sm, self.shadows.shadow_md, self.shadows.shadow_lg, self.shadows.shadow_xl,
-            
+            self.shadows.shadow_sm,
+            self.shadows.shadow_md,
+            self.shadows.shadow_lg,
+            self.shadows.shadow_xl,
             // Animations
-            self.animations.duration_fast, self.animations.duration_normal, self.animations.duration_slow,
-            self.animations.ease_in, self.animations.ease_out, self.animations.ease_in_out,
+            self.animations.duration_fast,
+            self.animations.duration_normal,
+            self.animations.duration_slow,
+            self.animations.ease_in,
+            self.animations.ease_out,
+            self.animations.ease_in_out,
         )
     }
 }
@@ -431,7 +460,7 @@ mod tests {
         let theme = Theme::current();
         // Ensure focus ring meets WCAG 2.1 AA requirements
         assert_eq!(theme.borders.focus_ring_width, "2px");
-        
+
         // Ensure touch targets meet minimum size (handled in components)
         // Base spacing unit supports 44px minimum touch targets
         assert_eq!(theme.spacing.xs, "4px"); // 11 * 4px = 44px

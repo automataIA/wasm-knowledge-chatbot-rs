@@ -1,16 +1,16 @@
 // Molecule components module
-pub mod search_bar;
-pub mod form_field;
-pub mod navigation;
 pub mod chat_input;
+pub mod form_field;
 pub mod message_bubble;
+pub mod navigation;
+pub mod search_bar;
 
 // Re-exports
-pub use search_bar::*;
-pub use form_field::*;
-pub use navigation::*;
 pub use chat_input::*;
+pub use form_field::*;
+pub use form_field::{FormField, FormGroup, TextareaField};
 pub use message_bubble::*;
-pub use search_bar::{SearchBar, CompactSearchBar};
-pub use form_field::{FormField, TextareaField, FormGroup};
-pub use navigation::{NavBar, SideNav, Breadcrumb, NavItem};
+pub use navigation::*;
+pub use navigation::{Breadcrumb, NavBar, NavItem, SideNav};
+pub use search_bar::*;
+pub use search_bar::{CompactSearchBar, SearchBar};

@@ -1,9 +1,9 @@
-use leptos::prelude::*;
-use serde::{Deserialize, Serialize};
 use crate::models::{
     app::AppError,
-    webllm::{LLMModel, ModelStatus, ChatSession},
+    webllm::{ChatSession, LLMModel, ModelStatus},
 };
+use leptos::prelude::*;
+use serde::{Deserialize, Serialize};
 
 /// Simplified WebLLM state for model management
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -150,15 +150,15 @@ mod tests {
     #[test]
     fn test_webllm_state_methods() {
         let ctx = WebLLMStateContext::new();
-        
+
         // Test progress
         ctx.set_initialization_progress(50.0);
         assert_eq!(ctx.get_initialization_progress(), 50.0);
-        
+
         // Test generation state
         ctx.set_generating(true);
         assert!(ctx.is_generating());
-        
+
         // Test status
         ctx.set_model_status(ModelStatus::Ready);
         assert!(ctx.is_model_ready());

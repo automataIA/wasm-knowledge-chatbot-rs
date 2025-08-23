@@ -54,28 +54,28 @@ pub enum AppError {
     // Network and connectivity
     NetworkError(String),
     ConnectionTimeout,
-    
+
     // Storage and persistence
     StorageError(String),
     SerializationError(String),
-    
+
     // WebLLM specific
     ModelNotFound(String),
     ModelLoadError(String),
     InferenceError(String),
-    
+
     // GraphRAG specific
     GraphRAGError(String),
     IndexingError(String),
     QueryError(String),
-    
+
     // Validation and input
     ValidationError(String),
     InvalidInput(String),
-    
+
     // Configuration
     ConfigurationError(String),
-    
+
     // Generic
     InternalError(String),
     NotImplemented(String),
@@ -178,10 +178,10 @@ impl AppError {
     pub fn is_recoverable(&self) -> bool {
         matches!(
             self,
-            AppError::NetworkError(_) | 
-            AppError::ConnectionTimeout | 
-            AppError::ValidationError(_) |
-            AppError::InvalidInput(_)
+            AppError::NetworkError(_)
+                | AppError::ConnectionTimeout
+                | AppError::ValidationError(_)
+                | AppError::InvalidInput(_)
         )
     }
 

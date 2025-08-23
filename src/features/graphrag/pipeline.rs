@@ -1,8 +1,8 @@
+use crate::graphrag_config::GraphRAGConfig;
 use crate::models::app::AppResult;
+use crate::models::graph_store::GraphStore;
 use crate::models::graphrag::{DocumentIndex, ProcessingStatus, RAGQuery, RAGResult};
 use crate::utils::storage::StorageUtils;
-use crate::graphrag_config::GraphRAGConfig;
-use crate::models::graph_store::GraphStore;
 
 /// Pipeline entrypoints for GraphRAG. Honors configuration when indexing/querying.
 pub struct GraphRAGPipeline {
@@ -12,7 +12,9 @@ pub struct GraphRAGPipeline {
 impl GraphRAGPipeline {
     pub fn new() -> Self {
         // Load GraphRAGConfig from localStorage; prefer v1 key with legacy fallback
-        let config = if let Ok(Some(c)) = StorageUtils::retrieve_local::<GraphRAGConfig>("graphrag_config_v1") {
+        let config = if let Ok(Some(c)) =
+            StorageUtils::retrieve_local::<GraphRAGConfig>("graphrag_config_v1")
+        {
             c
         } else {
             match StorageUtils::retrieve_local::<GraphRAGConfig>("graphrag_config") {
@@ -30,7 +32,8 @@ impl GraphRAGPipeline {
     /// Load the current document index from localStorage.
     fn load_index(&self) -> AppResult<Vec<DocumentIndex>> {
         // Prefer v1 key; if missing, fallback to legacy key (migration read)
-        if let Ok(Some(v)) = StorageUtils::retrieve_local::<Vec<DocumentIndex>>(Self::INDEX_KEY_V1) {
+        if let Ok(Some(v)) = StorageUtils::retrieve_local::<Vec<DocumentIndex>>(Self::INDEX_KEY_V1)
+        {
             return Ok(v);
         }
         let legacy = StorageUtils::retrieve_local::<Vec<DocumentIndex>>(Self::INDEX_KEY_LEGACY)?;
@@ -92,7 +95,9 @@ impl GraphRAGPipeline {
 
     /// Delete multiple documents by ids. Returns Ok even if some ids were not present.
     pub fn delete_documents_by_ids(&self, ids: &[String]) -> AppResult<()> {
-        if ids.is_empty() { return Ok(()); }
+        if ids.is_empty() {
+            return Ok(());
+        }
         let mut existing = self.load_index()?;
         let idset: std::collections::HashSet<&String> = ids.iter().collect();
         let before = existing.len();
@@ -130,4 +135,8 @@ impl GraphRAGPipeline {
     }
 }
 
-impl Default for GraphRAGPipeline { fn default() -> Self { Self::new() } }
+impl Default for GraphRAGPipeline {
+    fn default() -> Self {
+        Self::new()
+    }
+}

@@ -1,6 +1,6 @@
 use crate::models::app::AppError;
-use web_sys::console;
 use wasm_bindgen::prelude::*;
+use web_sys::console;
 
 /// Error handling utilities for consistent error management
 pub struct ErrorHandler;
@@ -17,32 +17,38 @@ impl ErrorHandler {
         let message = js_error
             .as_string()
             .unwrap_or_else(|| "Unknown JavaScript error".to_string());
-        
+
         AppError::runtime(message)
     }
 
     /// Create user-friendly error message
     pub fn get_user_message(error: &AppError) -> String {
         match error {
-            AppError::ModelNotFound(msg) | AppError::ModelLoadError(msg) | AppError::InferenceError(msg) => {
+            AppError::ModelNotFound(msg)
+            | AppError::ModelLoadError(msg)
+            | AppError::InferenceError(msg) => {
                 format!("AI Model Error: {}", msg)
-            },
-            AppError::GraphRAGError(msg) | AppError::IndexingError(msg) | AppError::QueryError(msg) => {
+            }
+            AppError::GraphRAGError(msg)
+            | AppError::IndexingError(msg)
+            | AppError::QueryError(msg) => {
                 format!("Search Error: {}", msg)
-            },
+            }
             AppError::StorageError(msg) | AppError::SerializationError(msg) => {
                 format!("Storage Error: {}", msg)
-            },
+            }
             // Ensure tests find the expected substring
             AppError::NetworkError(msg) => format!("Network connection issue: {}", msg),
-            AppError::ConnectionTimeout => "Network connection issue: Connection timeout".to_string(),
+            AppError::ConnectionTimeout => {
+                "Network connection issue: Connection timeout".to_string()
+            }
             AppError::ValidationError(msg) | AppError::InvalidInput(msg) => {
                 format!("Input Error: {}", msg)
-            },
+            }
             AppError::ConfigurationError(msg) => format!("Configuration Error: {}", msg),
             AppError::InternalError(msg) | AppError::NotImplemented(msg) => {
                 format!("An unexpected error occurred: {}", msg)
-            },
+            }
         }
     }
 
@@ -72,34 +78,51 @@ impl ErrorHandler {
         E: std::fmt::Debug,
     {
         let mut delay = initial_delay_ms;
-        
+
         for attempt in 0..=max_retries {
             match operation() {
                 Ok(result) => return Ok(result),
                 Err(error) => {
                     if attempt == max_retries {
-                        console::error_1(&format!("Operation failed after {} retries: {:?}", max_retries, error).into());
+                        console::error_1(
+                            &format!(
+                                "Operation failed after {} retries: {:?}",
+                                max_retries, error
+                            )
+                            .into(),
+                        );
                         return Err(error);
                     }
-                    
-                    console::warn_1(&format!("Attempt {} failed, retrying in {}ms: {:?}", attempt + 1, delay, error).into());
-                    
+
+                    console::warn_1(
+                        &format!(
+                            "Attempt {} failed, retrying in {}ms: {:?}",
+                            attempt + 1,
+                            delay,
+                            error
+                        )
+                        .into(),
+                    );
+
                     // Wait before retry
                     let promise = js_sys::Promise::new(&mut |resolve, _| {
                         web_sys::window()
                             .unwrap()
-                            .set_timeout_with_callback_and_timeout_and_arguments_0(&resolve, delay as i32)
+                            .set_timeout_with_callback_and_timeout_and_arguments_0(
+                                &resolve,
+                                delay as i32,
+                            )
                             .unwrap();
                     });
-                    
+
                     wasm_bindgen_futures::JsFuture::from(promise).await.ok();
-                    
+
                     // Exponential backoff
                     delay *= 2;
                 }
             }
         }
-        
+
         unreachable!()
     }
 
@@ -115,12 +138,14 @@ impl ErrorHandler {
 
         let messages: Vec<String> = errors.iter().map(|e| e.to_string()).collect();
         let combined_message = format!("Multiple errors occurred:\n{}", messages.join("\n"));
-        
+
         AppError::validation(combined_message)
     }
 
     /// Validate and handle form submission errors
-    pub fn handle_form_errors(validation_results: Vec<Result<(), AppError>>) -> Result<(), AppError> {
+    pub fn handle_form_errors(
+        validation_results: Vec<Result<(), AppError>>,
+    ) -> Result<(), AppError> {
         let errors: Vec<AppError> = validation_results
             .into_iter()
             .filter_map(|result| result.err())
@@ -152,11 +177,13 @@ impl ErrorRecovery {
                     console::warn_1(&format!("Failed to clear storage key: {}", key).into());
                 }
             }
-            
+
             console::log_1(&"Storage cleared for recovery".into());
             Ok(())
         } else {
-            Err(AppError::storage("Unable to access browser storage".to_string()))
+            Err(AppError::storage(
+                "Unable to access browser storage".to_string(),
+            ))
         }
     }
 

@@ -2,18 +2,18 @@ use leptos::prelude::*;
 use leptos_meta::*;
 
 // Modules
-pub mod components;
-pub mod models;
-pub mod storage;
-pub mod utils;
-pub mod state;
-pub mod ui;
-pub mod webllm_binding;
 pub mod advanced_graphrag;
-pub mod pagerank_reranking;
+pub mod components;
 pub mod error_handling;
-pub mod graphrag_config;
 pub mod features;
+pub mod graphrag_config;
+pub mod models;
+pub mod pagerank_reranking;
+pub mod state;
+pub mod storage;
+pub mod ui;
+pub mod utils;
+pub mod webllm_binding;
 
 // Components
 use crate::components::main_interface::MainInterface;

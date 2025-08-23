@@ -1,17 +1,19 @@
+use crate::graphrag_config::{with_graphrag_manager, GraphRAGConfig, PerformanceMetrics};
+use crate::models::graph_store::GraphStore;
 use crate::models::graphrag::{
     DocumentIndex, EdgeMetadata, EdgeType, GraphEdge, GraphNode, NodeType, RAGQuery, RAGResult,
     ResultMetadata, SearchStrategy,
 };
-use crate::models::graph_store::GraphStore;
 use crate::utils::storage::StorageUtils;
-use crate::graphrag_config::{GraphRAGConfig, PerformanceMetrics, with_graphrag_manager};
 use std::collections::{HashMap, HashSet};
 
 /// GraphRAG retrieval entrypoints. Stubs returning empty results.
 pub struct Retriever;
 
 impl Retriever {
-    pub fn new() -> Self { Self }
+    pub fn new() -> Self {
+        Self
+    }
 
     pub async fn search(&self, q: &RAGQuery, strategy: SearchStrategy) -> RAGResult {
         // Start timer and record algorithms used
@@ -26,7 +28,9 @@ impl Retriever {
         let mut algorithms = vec![format!("strategy:{:?}", strategy)];
 
         // Load GraphRAGConfig from localStorage (prefer v1 key, fallback to legacy, else defaults)
-        let config: GraphRAGConfig = if let Ok(Some(c)) = StorageUtils::retrieve_local::<GraphRAGConfig>("graphrag_config_v1") {
+        let config: GraphRAGConfig = if let Ok(Some(c)) =
+            StorageUtils::retrieve_local::<GraphRAGConfig>("graphrag_config_v1")
+        {
             c
         } else {
             match StorageUtils::retrieve_local::<GraphRAGConfig>("graphrag_config") {
@@ -36,7 +40,9 @@ impl Retriever {
         };
 
         // Load persisted index (versioned key with legacy fallback)
-        let docs: Vec<DocumentIndex> = if let Ok(Some(v)) = StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index_v1") {
+        let docs: Vec<DocumentIndex> = if let Ok(Some(v)) =
+            StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index_v1")
+        {
             v
         } else {
             match StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index") {
@@ -73,7 +79,11 @@ impl Retriever {
         let mut df: HashMap<String, usize> = HashMap::new();
 
         for d in &docs {
-            let content = if d.content.is_empty() { d.title.clone() } else { d.content.clone() };
+            let content = if d.content.is_empty() {
+                d.title.clone()
+            } else {
+                d.content.clone()
+            };
             let toks: Vec<String> = content
                 .to_lowercase()
                 .split_whitespace()
@@ -127,7 +137,9 @@ impl Retriever {
             for (i, (di, _)) in top.iter().enumerate() {
                 let di = *di;
                 for (j, (dj, _)) in top.iter().enumerate() {
-                    if i == j { continue; }
+                    if i == j {
+                        continue;
+                    }
                     let dj = *dj;
                     let set_i = &doc_sets[di];
                     let set_j = &doc_sets[dj];
@@ -140,9 +152,17 @@ impl Retriever {
                 }
             }
             // Normalize centrality to 0..1
-            if let Some(max_c) = centrality.iter().cloned().fold(None, |acc: Option<f32>, x| Some(acc.map_or(x, |m| if x > m { x } else { m }))) {
+            if let Some(max_c) = centrality
+                .iter()
+                .cloned()
+                .fold(None, |acc: Option<f32>, x| {
+                    Some(acc.map_or(x, |m| if x > m { x } else { m }))
+                })
+            {
                 if max_c > 0.0 {
-                    for c in &mut centrality { *c /= max_c; }
+                    for c in &mut centrality {
+                        *c /= max_c;
+                    }
                 }
             }
             // Apply boost to scores and re-sort
@@ -165,7 +185,9 @@ impl Retriever {
             for (i, (di, _)) in top.iter().enumerate() {
                 let di = *di;
                 for (j, (dj, _)) in top.iter().enumerate() {
-                    if i == j { continue; }
+                    if i == j {
+                        continue;
+                    }
                     let dj = *dj;
                     let set_i = &doc_sets[di];
                     let set_j = &doc_sets[dj];
@@ -173,7 +195,9 @@ impl Retriever {
                     let uni = set_i.union(set_j).count() as f32;
                     if uni > 0.0 {
                         let jacc = inter / uni;
-                        if jacc >= thr { neighbor_counts[i] += 1; }
+                        if jacc >= thr {
+                            neighbor_counts[i] += 1;
+                        }
                     }
                 }
             }
@@ -212,8 +236,10 @@ impl Retriever {
             algorithms.push("hybrid_fusion".into());
             // Load graph store and compute a simple graph score per document id: mentions degree
             let store = GraphStore::load().unwrap_or_default();
-            let doc_id_set: std::collections::HashSet<String> = docs.iter().map(|d| d.id.clone()).collect();
-            let mut degree: std::collections::HashMap<String, f32> = std::collections::HashMap::new();
+            let doc_id_set: std::collections::HashSet<String> =
+                docs.iter().map(|d| d.id.clone()).collect();
+            let mut degree: std::collections::HashMap<String, f32> =
+                std::collections::HashMap::new();
             for e in &store.edges {
                 if e.relation == "mentions" {
                     if doc_id_set.contains(&e.from) {
@@ -229,21 +255,30 @@ impl Retriever {
                 .iter()
                 .map(|(idx, _)| degree.get(&docs[*idx].id).cloned().unwrap_or(0.0))
                 .collect();
-            if let Some(gmax) = g_scores.iter().cloned().fold(None, |acc: Option<f32>, x| Some(acc.map_or(x, |m| if x > m { x } else { m }))) {
+            if let Some(gmax) = g_scores.iter().cloned().fold(None, |acc: Option<f32>, x| {
+                Some(acc.map_or(x, |m| if x > m { x } else { m }))
+            }) {
                 if gmax > 0.0 {
-                    for g in &mut g_scores { *g /= gmax; }
+                    for g in &mut g_scores {
+                        *g /= gmax;
+                    }
                 }
             }
             // Normalize current text scores (copy) and fuse
             let t_scores: Vec<f32> = top.iter().map(|(_, s)| *s).collect();
             let mut t_norm = t_scores.clone();
-            if let Some(tmax) = t_norm.iter().cloned().fold(None, |acc: Option<f32>, x| Some(acc.map_or(x, |m| if x > m { x } else { m }))) {
+            if let Some(tmax) = t_norm.iter().cloned().fold(None, |acc: Option<f32>, x| {
+                Some(acc.map_or(x, |m| if x > m { x } else { m }))
+            }) {
                 if tmax > 0.0 {
-                    for t in &mut t_norm { *t /= tmax; }
+                    for t in &mut t_norm {
+                        *t /= tmax;
+                    }
                 }
             }
             for (i, (_, s)) in top.iter_mut().enumerate() {
-                let fused = config.fusion_text_weight * t_norm[i] + config.fusion_graph_weight * g_scores[i];
+                let fused = config.fusion_text_weight * t_norm[i]
+                    + config.fusion_graph_weight * g_scores[i];
                 *s = fused;
             }
             // Resort after fusion
@@ -256,7 +291,11 @@ impl Retriever {
         let mut scores: Vec<f32> = Vec::with_capacity(top.len());
         for (idx, sc) in &top {
             let d = &docs[*idx];
-            let content = if d.content.is_empty() { d.title.clone() } else { d.content.clone() };
+            let content = if d.content.is_empty() {
+                d.title.clone()
+            } else {
+                d.content.clone()
+            };
             let mut node = GraphNode::new(content, NodeType::Document);
             // Use stable id and enrich metadata
             node.id = d.id.clone();
@@ -292,7 +331,8 @@ impl Retriever {
                     let uni = set_i.union(set_j).count() as f32;
                     if uni > 0.0 {
                         let jacc = inter / uni;
-                        if jacc >= 0.2 { // threshold
+                        if jacc >= 0.2 {
+                            // threshold
                             let src_id = docs[di].id.clone();
                             let tgt_id = docs[dj].id.clone();
                             edges.push(GraphEdge {
@@ -336,7 +376,11 @@ impl Retriever {
             let mut parts: Vec<String> = Vec::new();
             for (idx, _sc) in top.iter().take(3) {
                 let d = &docs[*idx];
-                let content = if d.content.is_empty() { d.title.clone() } else { d.content.clone() };
+                let content = if d.content.is_empty() {
+                    d.title.clone()
+                } else {
+                    d.content.clone()
+                };
                 // naive sentence split on '.', '!' or '?' and filter empties
                 let sentences: Vec<String> = content
                     .split(['.', '!', '?'])
@@ -344,15 +388,22 @@ impl Retriever {
                     .filter(|s| !s.is_empty())
                     .map(|s| s.to_string())
                     .collect();
-                for s in sentences.into_iter().take(1) { // first sentence per doc
+                for s in sentences.into_iter().take(1) {
+                    // first sentence per doc
                     parts.push(s);
                 }
-                if parts.len() >= 3 { break; }
+                if parts.len() >= 3 {
+                    break;
+                }
             }
             let mut s = parts.join(". ");
-            if !s.is_empty() { s.push('.'); }
+            if !s.is_empty() {
+                s.push('.');
+            }
             // limit length to 512 chars
-            if s.len() > 512 { s.truncate(512); }
+            if s.len() > 512 {
+                s.truncate(512);
+            }
             summary = if s.is_empty() { None } else { Some(s) };
             synthesis_time_ms = (js_sys::Date::now() - t_s0) as u32;
         }
@@ -393,5 +444,7 @@ impl Retriever {
 }
 
 impl Default for Retriever {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }

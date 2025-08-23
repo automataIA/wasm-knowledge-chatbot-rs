@@ -1,9 +1,9 @@
-use wasm_bindgen_test::*;
 use wasm_bindgen_test::wasm_bindgen_test as test;
+use wasm_bindgen_test::*;
 
-use wasm_knowledge_chatbot_rs::models::graph_store::{GraphEdge, GraphNode, GraphStore};
-use wasm_knowledge_chatbot_rs::features::graphrag::traversal::{bfs, dfs, TraversalFilters};
 use serde_json::json;
+use wasm_knowledge_chatbot_rs::features::graphrag::traversal::{bfs, dfs, TraversalFilters};
+use wasm_knowledge_chatbot_rs::models::graph_store::{GraphEdge, GraphNode, GraphStore};
 
 wasm_bindgen_test_configure!(run_in_browser);
 
@@ -18,7 +18,14 @@ fn node(id: &str, label: &str) -> GraphNode {
 }
 
 fn edge(id: &str, from: &str, to: &str, rel: &str) -> GraphEdge {
-    GraphEdge { id: id.into(), from: from.into(), to: to.into(), relation: rel.into(), weight: 1.0, metadata: json!({}) }
+    GraphEdge {
+        id: id.into(),
+        from: from.into(),
+        to: to.into(),
+        relation: rel.into(),
+        weight: 1.0,
+        metadata: json!({}),
+    }
 }
 
 fn small_store() -> GraphStore {
@@ -38,7 +45,12 @@ fn small_store() -> GraphStore {
 fn bfs_with_depth_and_relation_filters() {
     let store = small_store();
     // Allow only is_a edges, depth 1 from A should visit A and B
-    let filters = TraversalFilters { allowed_relations: Some(&["is_a".to_string()]), max_depth: Some(1), max_nodes: None, max_edges: None };
+    let filters = TraversalFilters {
+        allowed_relations: Some(&["is_a".to_string()]),
+        max_depth: Some(1),
+        max_nodes: None,
+        max_edges: None,
+    };
     let res = bfs(&store, "A", &filters);
     assert!(res.visited_nodes.contains(&"A".to_string()));
     assert!(res.visited_nodes.contains(&"B".to_string()));
@@ -50,7 +62,12 @@ fn bfs_with_depth_and_relation_filters() {
 fn dfs_with_limits() {
     let store = small_store();
     // No relation filter, but limit nodes and edges to 2 beyond start
-    let filters = TraversalFilters { allowed_relations: None, max_depth: Some(3), max_nodes: Some(3), max_edges: Some(2) };
+    let filters = TraversalFilters {
+        allowed_relations: None,
+        max_depth: Some(3),
+        max_nodes: Some(3),
+        max_edges: Some(2),
+    };
     let res = dfs(&store, "A", &filters);
     // Should include start and up to two others
     assert!(res.visited_nodes.contains(&"A".to_string()));

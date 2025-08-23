@@ -1,5 +1,5 @@
-use std::collections::{HashMap, HashSet, VecDeque};
 use crate::models::graph_store::{GraphEdge, GraphStore};
+use std::collections::{HashMap, HashSet, VecDeque};
 
 #[derive(Debug, Clone, Default)]
 pub struct TraversalFilters<'a> {
@@ -38,7 +38,10 @@ pub fn bfs(store: &GraphStore, start_id: &str, filters: &TraversalFilters) -> Tr
     let mut visited_e: HashSet<String> = HashSet::new();
 
     if !store.nodes.iter().any(|n| n.id == start_id) {
-        return TraversalResult { visited_nodes: vec![], visited_edges: vec![] };
+        return TraversalResult {
+            visited_nodes: vec![],
+            visited_edges: vec![],
+        };
     }
 
     q.push_back((start_id.to_string(), 0));
@@ -49,20 +52,30 @@ pub fn bfs(store: &GraphStore, start_id: &str, filters: &TraversalFilters) -> Tr
     let max_edges = filters.max_edges.unwrap_or(usize::MAX);
 
     while let Some((nid, depth)) = q.pop_front() {
-        if depth >= max_depth { continue; }
+        if depth >= max_depth {
+            continue;
+        }
         if let Some(edges) = adj.get(&nid) {
             for e in edges {
-                if !relation_allowed(e, filters) { continue; }
-                if visited_e.len() >= max_edges { break; }
+                if !relation_allowed(e, filters) {
+                    continue;
+                }
+                if visited_e.len() >= max_edges {
+                    break;
+                }
                 let other = if e.from == nid { &e.to } else { &e.from };
-                if visited_n.contains(other) && visited_e.contains(&e.id) { continue; }
+                if visited_n.contains(other) && visited_e.contains(&e.id) {
+                    continue;
+                }
                 visited_e.insert(e.id.clone());
                 if visited_n.len() < max_nodes && visited_n.insert(other.clone()) {
                     q.push_back((other.clone(), depth + 1));
                 }
             }
         }
-        if visited_n.len() >= max_nodes { break; }
+        if visited_n.len() >= max_nodes {
+            break;
+        }
     }
 
     TraversalResult {
@@ -78,7 +91,10 @@ pub fn dfs(store: &GraphStore, start_id: &str, filters: &TraversalFilters) -> Tr
     let mut visited_e: HashSet<String> = HashSet::new();
 
     if !store.nodes.iter().any(|n| n.id == start_id) {
-        return TraversalResult { visited_nodes: vec![], visited_edges: vec![] };
+        return TraversalResult {
+            visited_nodes: vec![],
+            visited_edges: vec![],
+        };
     }
 
     let max_depth = filters.max_depth.unwrap_or(usize::MAX);
@@ -86,15 +102,27 @@ pub fn dfs(store: &GraphStore, start_id: &str, filters: &TraversalFilters) -> Tr
     let max_edges = filters.max_edges.unwrap_or(usize::MAX);
 
     while let Some((nid, depth)) = stack.pop() {
-        if visited_n.len() >= max_nodes { break; }
-        if !visited_n.insert(nid.clone()) { continue; }
-        if depth >= max_depth { continue; }
+        if visited_n.len() >= max_nodes {
+            break;
+        }
+        if !visited_n.insert(nid.clone()) {
+            continue;
+        }
+        if depth >= max_depth {
+            continue;
+        }
         if let Some(edges) = adj.get(&nid) {
             for e in edges {
-                if !relation_allowed(e, filters) { continue; }
-                if visited_e.len() >= max_edges { break; }
+                if !relation_allowed(e, filters) {
+                    continue;
+                }
+                if visited_e.len() >= max_edges {
+                    break;
+                }
                 let other = if e.from == nid { &e.to } else { &e.from };
-                if visited_n.contains(other) && visited_e.contains(&e.id) { continue; }
+                if visited_n.contains(other) && visited_e.contains(&e.id) {
+                    continue;
+                }
                 visited_e.insert(e.id.clone());
                 stack.push((other.clone(), depth + 1));
             }

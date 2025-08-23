@@ -1,6 +1,6 @@
 // Button atom component with design tokens integration
-use leptos::prelude::*;
 use crate::ui::theme::Theme;
+use leptos::prelude::*;
 
 /// Button variant types
 #[derive(Debug, Clone, PartialEq)]
@@ -21,7 +21,6 @@ pub enum ButtonSize {
     Large,
 }
 
-
 /// Button component
 #[component]
 pub fn Button(
@@ -35,10 +34,11 @@ pub fn Button(
     children: Children,
 ) -> impl IntoView {
     let theme = Theme::current();
-    
+
     // Build CSS classes based on props
-    let base_classes = "btn transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
-    
+    let base_classes =
+        "btn transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
+
     let variant_classes = match variant {
         ButtonVariant::Primary => "btn-primary bg-primary hover:bg-primary-focus text-primary-content",
         ButtonVariant::Secondary => "btn-secondary bg-secondary hover:bg-secondary-focus text-secondary-content",
@@ -47,13 +47,13 @@ pub fn Button(
         ButtonVariant::Link => "btn-link text-primary hover:text-primary-focus",
         ButtonVariant::Outline => "btn-outline border-2 border-primary text-primary hover:bg-primary hover:text-primary-content",
     };
-    
+
     let size_classes = match size {
         ButtonSize::Small => "btn-sm text-sm px-3 py-1.5 min-h-8",
         ButtonSize::Medium => "btn-md text-base px-4 py-2 min-h-12", // 48px minimum touch target
         ButtonSize::Large => "btn-lg text-lg px-6 py-3 min-h-14",
     };
-    
+
     let state_classes = if disabled {
         "btn-disabled opacity-50 cursor-not-allowed"
     } else if loading {
@@ -61,11 +61,11 @@ pub fn Button(
     } else {
         ""
     };
-    
+
     let width_classes = if full_width { "w-full" } else { "" };
-    
+
     let focus_classes = "focus:ring-2 focus:ring-primary focus:ring-offset-2"; // WCAG 2.1 AA compliance
-    
+
     let combined_classes = format!(
         "{} {} {} {} {} {} {}",
         base_classes,
@@ -149,7 +149,7 @@ pub fn IconButton(
     children: Children,
 ) -> impl IntoView {
     let additional_classes = "btn-square aspect-square p-0 min-h-11"; // 44px minimum for accessibility
-    
+
     view! {
         <Button
             variant={variant}
@@ -158,7 +158,7 @@ pub fn IconButton(
             on_click={on_click.unwrap_or_else(|| Callback::new(|_| {}))}
             class={additional_classes.to_string()}
         >
-            <span 
+            <span
                 class="flex items-center justify-center"
                 aria-label={aria_label.unwrap_or_default()}
             >
@@ -172,7 +172,6 @@ pub fn IconButton(
 mod tests {
     use super::*;
 
-
     #[test]
     fn test_button_variants() {
         // Test that all variants are distinct
@@ -184,7 +183,7 @@ mod tests {
             ButtonVariant::Link,
             ButtonVariant::Outline,
         ];
-        
+
         for variant in variants {
             // Each variant should have different styling
             match variant {
@@ -203,7 +202,7 @@ mod tests {
         // Medium button should meet 44px minimum touch target
         let size = ButtonSize::Medium;
         assert_eq!(size, ButtonSize::Medium);
-        
+
         // Focus ring should be 2px for WCAG 2.1 AA compliance
         let theme = Theme::current();
         assert_eq!(theme.borders.focus_ring_width, "2px");

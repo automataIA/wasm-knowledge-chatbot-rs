@@ -1,7 +1,7 @@
-use serde::{Deserialize, Serialize};
-use leptos::prelude::*;
-use std::sync::OnceLock;
 use crate::models::graphrag::SearchStrategy;
+use leptos::prelude::*;
+use serde::{Deserialize, Serialize};
+use std::sync::OnceLock;
 
 // Core GraphRAG Configuration with Feature Toggles
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
@@ -19,7 +19,7 @@ pub struct GraphRAGConfig {
     pub fusion_graph_weight: f32,
     // Search strategy for chat-integrated retrieval
     pub search_strategy: SearchStrategy,
-    
+
     // Performance settings
     pub max_query_time_ms: u32,
     pub max_memory_mb: u32,
@@ -40,7 +40,9 @@ pub fn set_global_graphrag_manager(manager: &GraphRAGConfigManager) {
 }
 
 pub fn with_graphrag_manager<F: FnOnce(&GraphRAGConfigManager)>(f: F) {
-    if let Some(m) = GRAPHRAG_MANAGER.get() { f(m); }
+    if let Some(m) = GRAPHRAG_MANAGER.get() {
+        f(m);
+    }
 }
 
 impl Default for GraphRAGConfig {
@@ -115,8 +117,10 @@ impl GraphRAGConfigManager {
         self.config.get_untracked()
     }
 
-    pub fn update_config<F>(&self, f: F) 
-    where F: FnOnce(&mut GraphRAGConfig) {
+    pub fn update_config<F>(&self, f: F)
+    where
+        F: FnOnce(&mut GraphRAGConfig),
+    {
         self.config.update(f);
         self.save_config();
         self.update_active_features();
@@ -175,20 +179,33 @@ impl GraphRAGConfigManager {
     // Helper methods
     fn calculate_performance_score(&self, time_ms: u32, memory_mb: f32) -> f32 {
         let config = self.config.get_untracked();
-        let time_score = ((config.max_query_time_ms.saturating_sub(time_ms)) as f32 / config.max_query_time_ms as f32) * 50.0;
-        let memory_score = ((config.max_memory_mb as f32 - memory_mb) / config.max_memory_mb as f32) * 50.0;
+        let time_score = ((config.max_query_time_ms.saturating_sub(time_ms)) as f32
+            / config.max_query_time_ms as f32)
+            * 50.0;
+        let memory_score =
+            ((config.max_memory_mb as f32 - memory_mb) / config.max_memory_mb as f32) * 50.0;
         (time_score + memory_score).clamp(0.0, 100.0)
     }
 
     fn update_active_features(&self) {
         let config = self.config.get_untracked();
         let mut features = Vec::new();
-        
-        if config.hyde_enabled { features.push("HyDE".to_string()); }
-        if config.community_detection_enabled { features.push("Community".to_string()); }
-        if config.pagerank_enabled { features.push("PageRank".to_string()); }
-        if config.reranking_enabled { features.push("Reranking".to_string()); }
-        if config.synthesis_enabled { features.push("Synthesis".to_string()); }
+
+        if config.hyde_enabled {
+            features.push("HyDE".to_string());
+        }
+        if config.community_detection_enabled {
+            features.push("Community".to_string());
+        }
+        if config.pagerank_enabled {
+            features.push("PageRank".to_string());
+        }
+        if config.reranking_enabled {
+            features.push("Reranking".to_string());
+        }
+        if config.synthesis_enabled {
+            features.push("Synthesis".to_string());
+        }
 
         self.metrics.update(|m| m.active_features = features);
     }
@@ -238,7 +255,7 @@ impl GraphRAGConfigManager {
                 self.update_active_features();
                 Ok(())
             }
-            Err(e) => Err(format!("Invalid configuration: {}", e))
+            Err(e) => Err(format!("Invalid configuration: {}", e)),
         }
     }
 
@@ -253,7 +270,7 @@ impl GraphRAGConfigManager {
 pub fn create_graphrag_signals() -> (
     Signal<GraphRAGConfig>,
     Signal<GraphRAGMetrics>,
-    GraphRAGConfigManager
+    GraphRAGConfigManager,
 ) {
     let manager = GraphRAGConfigManager::new();
     // make manager available globally for metrics updates from retrieval
@@ -262,6 +279,6 @@ pub fn create_graphrag_signals() -> (
     let manager_for_metrics = manager.clone();
     let config_signal = Signal::derive(move || manager_for_config.get_config());
     let metrics_signal = Signal::derive(move || manager_for_metrics.get_metrics());
-    
+
     (config_signal, metrics_signal, manager)
 }

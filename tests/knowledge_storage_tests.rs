@@ -7,8 +7,8 @@ use wasm_bindgen_test::*;
 use wasm_bindgen_test::wasm_bindgen_test_configure;
 wasm_bindgen_test_configure!(run_in_browser);
 
-use wasm_knowledge_chatbot_rs::storage::conversation_storage::ConversationStorage;
 use wasm_knowledge_chatbot_rs::models::{Message, MessageRole};
+use wasm_knowledge_chatbot_rs::storage::conversation_storage::ConversationStorage;
 
 fn clear_local_storage() {
     if let Some(win) = web_sys::window() {
@@ -124,9 +124,7 @@ fn export_import_replace_and_merge() {
         .expect("create 2");
 
     let msg = Message::new(MessageRole::User, "hello".to_string());
-    storage
-        .save_message(&id1, &msg)
-        .expect("save msg 1");
+    storage.save_message(&id1, &msg).expect("save msg 1");
 
     // Export bundle
     let bundle = storage.export_json().expect("export json");
@@ -145,9 +143,7 @@ fn export_import_replace_and_merge() {
     // Prepare a bundle with an updated conversation (higher updated_at)
     // Achieve this by adding another message to id1 in current storage, re-export
     let msg2 = Message::new(MessageRole::Assistant, "hi".to_string());
-    storage2
-        .save_message(&id1, &msg2)
-        .expect("save msg 2");
+    storage2.save_message(&id1, &msg2).expect("save msg 2");
     let newer_bundle = storage2.export_json().expect("export newer json");
 
     // Import via merge into a store that has an older version

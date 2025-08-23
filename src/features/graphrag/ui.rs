@@ -1,9 +1,9 @@
-use leptos::prelude::*;
-use crate::models::graphrag::{RAGQuery, SearchStrategy};
-use crate::state::GraphRAGStateContext;
-use crate::state::knowledge_storage_context::KnowledgeStorageContext;
 use crate::features::graphrag::traversal::TraversalResult;
+use crate::models::graphrag::{RAGQuery, SearchStrategy};
+use crate::state::knowledge_storage_context::KnowledgeStorageContext;
+use crate::state::GraphRAGStateContext;
 use crate::utils::error_handling::ErrorHandler;
+use leptos::prelude::*;
 
 #[component]
 pub fn GraphRAGPanel() -> impl IntoView {

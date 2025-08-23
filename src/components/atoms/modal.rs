@@ -1,6 +1,6 @@
 // Modal atom component with design tokens integration
-use leptos::prelude::*;
 use crate::ui::theme::Theme;
+use leptos::prelude::*;
 
 /// Modal size types
 #[derive(Debug, Clone, PartialEq)]
@@ -24,7 +24,7 @@ pub fn Modal(
     children: Children,
 ) -> impl IntoView {
     let theme = Theme::current();
-    
+
     let _handle_close = move || {
         if closable {
             open.set(false);
@@ -33,7 +33,7 @@ pub fn Modal(
             }
         }
     };
-    
+
     let handle_backdrop_click = move |_| {
         if backdrop_close && closable {
             open.set(false);
@@ -42,27 +42,20 @@ pub fn Modal(
             }
         }
     };
-    
+
     let size_classes = match size {
         ModalSize::Small => "max-w-sm",
         ModalSize::Medium => "max-w-2xl",
         ModalSize::Large => "max-w-4xl",
         ModalSize::ExtraLarge => "max-w-6xl",
     };
-    
-    let modal_classes = format!(
-        "modal {}",
-        if open.get() { "modal-open" } else { "" }
-    );
-    
-    let modal_box_classes = format!(
-        "modal-box {} {}",
-        size_classes,
-        class.unwrap_or_default()
-    );
+
+    let modal_classes = format!("modal {}", if open.get() { "modal-open" } else { "" });
+
+    let modal_box_classes = format!("modal-box {} {}", size_classes, class.unwrap_or_default());
 
     view! {
-        <div 
+        <div
             class={modal_classes}
             style={format!(
                 "--duration-normal: {}; --ease-in-out: {};",
@@ -70,7 +63,7 @@ pub fn Modal(
                 theme.animations.ease_in_out
             )}
         >
-            <div 
+            <div
                 class="modal-backdrop bg-black bg-opacity-50"
                 on:click=handle_backdrop_click
             ></div>
@@ -97,13 +90,13 @@ pub fn Modal(
                 } else {
                     view! { <span></span> }.into_any()
                 }}
-                
+
                 {if let Some(title_text) = title.clone() {
                     view! { <h3 class="font-bold text-lg mb-4 pr-8">{title_text}</h3> }.into_any()
                 } else {
                     view! { <span></span> }.into_any()
                 }}
-                
+
                 <div class="modal-content">
                     {children()}
                 </div>
@@ -119,8 +112,12 @@ pub fn ModalActions(
     #[prop(optional)] class: Option<String>,
     children: Children,
 ) -> impl IntoView {
-    let justify_classes = if justify_end { "justify-end" } else { "justify-start" };
-    
+    let justify_classes = if justify_end {
+        "justify-end"
+    } else {
+        "justify-start"
+    };
+
     let combined_classes = format!(
         "modal-action flex gap-2 mt-6 {} {}",
         justify_classes,
@@ -152,14 +149,14 @@ pub fn ConfirmModal(
             handler.run(());
         }
     };
-    
+
     let handle_cancel = move || {
         open.set(false);
         if let Some(handler) = on_cancel {
             handler.run(());
         }
     };
-    
+
     let confirm_button_class = if destructive {
         "btn btn-error"
     } else {
@@ -179,7 +176,7 @@ pub fn ConfirmModal(
                     {message.unwrap_or_else(|| "Are you sure you want to proceed?".to_string())}
                 </p>
             </div>
-            
+
             <ModalActions>
                 <button
                     class="btn btn-ghost"
@@ -214,14 +211,14 @@ pub fn AlertModal(
             handler.run(());
         }
     };
-    
+
     let (icon_class, title_class, button_class) = match alert_type.as_str() {
         "success" => ("text-success", "text-success", "btn-success"),
         "warning" => ("text-warning", "text-warning", "btn-warning"),
         "error" => ("text-error", "text-error", "btn-error"),
         _ => ("text-info", "text-info", "btn-info"),
     };
-    
+
     let icon_path = match alert_type.as_str() {
         "success" => "M5 13l4 4L19 7",
         "warning" => "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z",
@@ -242,7 +239,7 @@ pub fn AlertModal(
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={icon_path}/>
                     </svg>
                 </div>
-                
+
                 {if let Some(title_text) = title.clone() {
                     view! {
                         <h3 class={format!("text-lg font-medium mb-2 {}", title_class)}>
@@ -252,12 +249,12 @@ pub fn AlertModal(
                 } else {
                     view! { <span></span> }.into_any()
                 }}
-                
+
                 <p class="text-base-content text-sm">
                     {message.unwrap_or_else(|| "Alert message".to_string())}
                 </p>
             </div>
-            
+
             <ModalActions justify_end={true}>
                 <button
                     class={format!("btn {}", button_class)}
@@ -282,7 +279,7 @@ mod tests {
             ModalSize::Large,
             ModalSize::ExtraLarge,
         ];
-        
+
         for size in sizes {
             match size {
                 ModalSize::Small => assert_eq!(size, ModalSize::Small),

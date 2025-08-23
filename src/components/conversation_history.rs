@@ -1,5 +1,5 @@
-use crate::models::Conversation;
 use crate::components::ui_primitives::Button;
+use crate::models::Conversation;
 use leptos::prelude::*;
 
 #[component]

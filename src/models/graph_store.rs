@@ -1,6 +1,6 @@
-use serde::{Deserialize, Serialize};
 use crate::models::app::AppError;
 use crate::utils::storage::StorageUtils;
+use serde::{Deserialize, Serialize};
 
 pub const GRAPH_STORE_KEY_V1: &str = "graphrag_graph_store_v1";
 
@@ -31,11 +31,25 @@ pub struct GraphStore {
 }
 
 impl GraphStore {
-    pub fn new() -> Self { Self { version: 1, nodes: vec![], edges: vec![] } }
-    pub fn add_node(&mut self, node: GraphNode) { self.nodes.push(node); }
-    pub fn add_edge(&mut self, edge: GraphEdge) { self.edges.push(edge); }
-    pub fn save(&self) -> Result<(), AppError> { StorageUtils::store_local(GRAPH_STORE_KEY_V1, self) }
-    pub fn load() -> Result<Self, AppError> { Ok(StorageUtils::retrieve_local(GRAPH_STORE_KEY_V1)?.unwrap_or_default()) }
+    pub fn new() -> Self {
+        Self {
+            version: 1,
+            nodes: vec![],
+            edges: vec![],
+        }
+    }
+    pub fn add_node(&mut self, node: GraphNode) {
+        self.nodes.push(node);
+    }
+    pub fn add_edge(&mut self, edge: GraphEdge) {
+        self.edges.push(edge);
+    }
+    pub fn save(&self) -> Result<(), AppError> {
+        StorageUtils::store_local(GRAPH_STORE_KEY_V1, self)
+    }
+    pub fn load() -> Result<Self, AppError> {
+        Ok(StorageUtils::retrieve_local(GRAPH_STORE_KEY_V1)?.unwrap_or_default())
+    }
 
     /// Remove all nodes and edges associated with a given document id.
     /// This will:
@@ -54,12 +68,14 @@ impl GraphStore {
 
         if remove_node_ids.is_empty() {
             // Still ensure we drop edges pointing directly to the document id
-            self.edges.retain(|e| e.from != document_id && e.to != document_id);
+            self.edges
+                .retain(|e| e.from != document_id && e.to != document_id);
             return;
         }
 
         // Remove nodes
-        let remove_set: std::collections::HashSet<String> = remove_node_ids.iter().cloned().collect();
+        let remove_set: std::collections::HashSet<String> =
+            remove_node_ids.iter().cloned().collect();
         self.nodes.retain(|n| !remove_set.contains(&n.id));
 
         // Remove edges touching removed nodes or the document id directly

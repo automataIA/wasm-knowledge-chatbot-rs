@@ -1,6 +1,6 @@
 // Search bar molecule component combining input and button atoms
+use crate::components::atoms::{Button, ButtonSize, ButtonVariant, SearchInput};
 use leptos::prelude::*;
-use crate::components::atoms::{SearchInput, Button, ButtonVariant, ButtonSize};
 
 /// Search bar component with input and action button
 #[component]
@@ -15,7 +15,7 @@ pub fn SearchBar(
 ) -> impl IntoView {
     let internal_value = RwSignal::new(String::new());
     let search_value = value.unwrap_or(internal_value);
-    
+
     let handle_search = move || {
         let query = search_value.get();
         if !query.trim().is_empty() {

@@ -17,9 +17,9 @@ pub fn ThemeToggle() -> impl IntoView {
     view! {
         <div class="inline-flex items-center">
             <label class="swap swap-rotate btn btn-ghost btn-square btn-md">
-                <input 
-                    type="checkbox" 
-                    class="theme-controller" 
+                <input
+                    type="checkbox"
+                    class="theme-controller"
                     value="business"
                     checked={move || theme.get() == "business"}
                     on:change=move |_| {

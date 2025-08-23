@@ -1,14 +1,16 @@
-use crate::components::{input_area::InputArea, message_bubble::MessageBubble};
+use crate::advanced_graphrag::{HyDEConfig, HyDEEngine};
 use crate::components::ui_primitives::{Button, Input, ProgressBar};
-use crate::models::{Message, MessageRole, MessageMetadata, SourceAttribution};
-use crate::storage::ConversationStorage;
-use crate::utils::storage::StorageUtils;
-use crate::utils::icons::schedule_icon_render;
-use crate::webllm_binding::{init_webllm_with_progress, send_message_to_llm};
-use crate::graphrag_config::{GraphRAGConfig, GraphRAGMetrics, GraphRAGConfigManager, PerformanceMetrics};
+use crate::components::{input_area::InputArea, message_bubble::MessageBubble};
 use crate::features::graphrag::retrieval::Retriever;
+use crate::graphrag_config::{
+    GraphRAGConfig, GraphRAGConfigManager, GraphRAGMetrics, PerformanceMetrics,
+};
 use crate::models::graphrag::RAGQuery;
-use crate::advanced_graphrag::{HyDEEngine, HyDEConfig};
+use crate::models::{Message, MessageMetadata, MessageRole, SourceAttribution};
+use crate::storage::ConversationStorage;
+use crate::utils::icons::schedule_icon_render;
+use crate::utils::storage::StorageUtils;
+use crate::webllm_binding::{init_webllm_with_progress, send_message_to_llm};
 use gloo_timers::future::TimeoutFuture;
 use leptos::prelude::*;
 use leptos::task::spawn_local;
@@ -32,7 +34,8 @@ pub fn ChatArea(
     // Existing state
     let (messages, set_messages) = signal(vec![Message::new(
         MessageRole::Assistant,
-        "Hello! I'm an AI assistant that runs completely in your browser. How can I help you?".to_string(),
+        "Hello! I'm an AI assistant that runs completely in your browser. How can I help you?"
+            .to_string(),
     )]);
 
     // Remove local storage state since it's now passed as props
@@ -55,7 +58,8 @@ pub fn ChatArea(
 
     // Cached prompts
     let (global_system_prompt, set_global_system_prompt) = signal(Option::<String>::None);
-    let (conversation_system_prompt, set_conversation_system_prompt) = signal(Option::<String>::None);
+    let (conversation_system_prompt, set_conversation_system_prompt) =
+        signal(Option::<String>::None);
 
     // WebLLM state - using a simple boolean to track readiness
     let (model_ready, set_model_ready) = signal(false);
@@ -63,7 +67,8 @@ pub fn ChatArea(
     let (loading_text, set_loading_text) = signal("Initializing...".to_string());
 
     // Derived percent for ProgressBar primitive (0-100)
-    let progress_percent = Signal::derive(move || (loading_progress.get() * 100.0_f64).round() as u32);
+    let progress_percent =
+        Signal::derive(move || (loading_progress.get() * 100.0_f64).round() as u32);
 
     // Store the engine in a static location using thread_local
     use std::cell::RefCell;
@@ -147,7 +152,9 @@ pub fn ChatArea(
 
     // Load per-conversation prompt whenever conversation changes
     Effect::new(move |_| {
-        if let (Some(ref storage), Some(ref conv_id)) = (storage.get(), current_conversation_id.get()) {
+        if let (Some(ref storage), Some(ref conv_id)) =
+            (storage.get(), current_conversation_id.get())
+        {
             if let Ok(p) = storage.load_conversation_system_prompt(conv_id) {
                 set_conversation_system_prompt.set(p);
             }
@@ -215,274 +222,281 @@ pub fn ChatArea(
     });
 
     // Send message function with WebLLM integration
-    let send_message_cb: std::rc::Rc<dyn Fn(leptos::ev::MouseEvent) + 'static> = std::rc::Rc::new(move |_| {
-        let content = input_value.get();
-        if content.trim().is_empty() || is_loading.get() || !model_ready.get() {
-            return;
-        }
-
-        // Process with GraphRAG when knowledge is enabled (internal processing only)
-        let cfg = graphrag_config.get();
-        let mut perf = PerformanceMetrics::default();
-        
-        if knowledge_enabled.get() && cfg.hyde_enabled {
-            let t0 = js_sys::Date::now();
-            let hyde = HyDEEngine::new(HyDEConfig::default());
-            let _hypothetical_docs = hyde.generate_hypothetical_docs(&content);
-            // Note: HyDE docs are for internal search enhancement, not sent to LLM
-            let t1 = js_sys::Date::now();
-            perf.hyde_time_ms = (t1 - t0) as u32;
-        }
-
-        // Placeholders for other toggled phases (no-ops for now)
-        if knowledge_enabled.get() && cfg.community_detection_enabled {
-            // TODO: integrate CommunityDetectionEngine with a real graph implementing GraphAccess
-            perf.community_detection_time_ms = 0;
-        }
-        if knowledge_enabled.get() && cfg.pagerank_enabled {
-            // TODO: integrate PageRankEngine::score_nodes with a GraphAccess graph
-            perf.pagerank_time_ms = 0;
-        }
-        if knowledge_enabled.get() && cfg.reranking_enabled {
-            // TODO: integrate AdvancedReranker on candidate scores
-            perf.reranking_time_ms = 0;
-        }
-        if knowledge_enabled.get() && cfg.synthesis_enabled {
-            // TODO: integrate ResultSynthesizer on top snippets
-            perf.synthesis_time_ms = 0;
-        }
-
-        let user_message = Message::new(MessageRole::User, content.clone());
-        set_messages.update(|msgs| msgs.push(user_message.clone()));
-        set_input_value.set(String::new());
-        set_is_loading.set(true);
-        set_status_message.set("AI is thinking...".to_string());
-
-        // Save user message to storage
-        if let (Some(ref storage), Some(ref conv_id)) =
-            (storage.get(), current_conversation_id.get())
-        {
-            if let Err(e) = storage.save_message(conv_id, &user_message) {
-                log::error!("Failed to save user message: {:?}", e);
-            } else {
-                // Always refresh the conversation list when a user message is saved
-                // This ensures the conversation appears in history immediately
-                info!("User message saved, refreshing conversation list");
-                set_conversation_list_refresh.update(|n| {
-                    let new_value = *n + 1;
-                    info!("Updated refresh signal to: {}", new_value);
-                    *n = new_value;
-                });
+    let send_message_cb: std::rc::Rc<dyn Fn(leptos::ev::MouseEvent) + 'static> =
+        std::rc::Rc::new(move |_| {
+            let content = input_value.get();
+            if content.trim().is_empty() || is_loading.get() || !model_ready.get() {
+                return;
             }
-        }
 
-        // Re-render icons for new message
-        schedule_icon_render();
+            // Process with GraphRAG when knowledge is enabled (internal processing only)
+            let cfg = graphrag_config.get();
+            let mut perf = PerformanceMetrics::default();
 
-        if model_ready.get() {
-            let start_ms = js_sys::Date::now();
-            let mgr = graphrag_manager.clone();
-            let mut perf_local = perf.clone();
-            let current_messages = messages.get();
-            // Snapshot flags and prompt for async move
-            let use_knowledge = knowledge_enabled.get();
-            let prompt_text = content.clone();
-            let model_id = selected_llm.get();
-            // Snapshot prompts for async move (refresh global from localStorage to reflect sidebar edits)
-            let global_prompt_snapshot = StorageUtils::retrieve_local::<String>("global_system_prompt")
-                .ok()
-                .flatten()
-                .or_else(|| global_system_prompt.get());
-            let conv_prompt_snapshot = conversation_system_prompt.get();
-            // Use configured search strategy
-            let strategy_to_use = cfg.search_strategy;
+            if knowledge_enabled.get() && cfg.hyde_enabled {
+                let t0 = js_sys::Date::now();
+                let hyde = HyDEEngine::new(HyDEConfig::default());
+                let _hypothetical_docs = hyde.generate_hypothetical_docs(&content);
+                // Note: HyDE docs are for internal search enhancement, not sent to LLM
+                let t1 = js_sys::Date::now();
+                perf.hyde_time_ms = (t1 - t0) as u32;
+            }
 
-            spawn_local(async move {
-                // Get the engine from thread local storage
-                let engine_opt = WEBLLM_ENGINE.with(|e| e.borrow().clone());
+            // Placeholders for other toggled phases (no-ops for now)
+            if knowledge_enabled.get() && cfg.community_detection_enabled {
+                // TODO: integrate CommunityDetectionEngine with a real graph implementing GraphAccess
+                perf.community_detection_time_ms = 0;
+            }
+            if knowledge_enabled.get() && cfg.pagerank_enabled {
+                // TODO: integrate PageRankEngine::score_nodes with a GraphAccess graph
+                perf.pagerank_time_ms = 0;
+            }
+            if knowledge_enabled.get() && cfg.reranking_enabled {
+                // TODO: integrate AdvancedReranker on candidate scores
+                perf.reranking_time_ms = 0;
+            }
+            if knowledge_enabled.get() && cfg.synthesis_enabled {
+                // TODO: integrate ResultSynthesizer on top snippets
+                perf.synthesis_time_ms = 0;
+            }
 
-                if let Some(engine) = engine_opt {
-                    // Optionally run GraphRAG retrieval and inject system preamble
-                    let mut provenance: Option<Vec<SourceAttribution>> = None;
-                    // Start with any system prompts (global, per-conversation)
-                    let mut sys_msgs: Vec<Message> = Vec::new();
-                    if let Some(ref gp) = global_prompt_snapshot {
-                        if !gp.trim().is_empty() {
-                            sys_msgs.push(Message::new(MessageRole::System, gp.clone()));
-                        }
-                    }
-                    if let Some(ref cp) = conv_prompt_snapshot {
-                        if !cp.trim().is_empty() {
-                            sys_msgs.push(Message::new(MessageRole::System, cp.clone()));
-                        }
-                    }
+            let user_message = Message::new(MessageRole::User, content.clone());
+            set_messages.update(|msgs| msgs.push(user_message.clone()));
+            set_input_value.set(String::new());
+            set_is_loading.set(true);
+            set_status_message.set("AI is thinking...".to_string());
 
-                    let augmented_messages = if use_knowledge {
-                        // Build a minimal RAG query from prompt and current toggles
-                        let mut q = RAGQuery::new(prompt_text.clone());
-                        q.config.max_results = 5;
-                        q.config.use_hyde = cfg.hyde_enabled;
-                        q.config.use_community_detection = cfg.community_detection_enabled;
-                        q.config.use_reranking = cfg.reranking_enabled;
-
-                        let retriever = Retriever::new();
-                        let rag_result = retriever.search(&q, strategy_to_use).await;
-
-                        // Compose a short system preamble from summary + top snippets
-                        let mut preamble = String::new();
-                        if let Some(summary) = rag_result.metadata.summary.clone() {
-                            preamble.push_str("Knowledge summary: ");
-                            preamble.push_str(&summary);
-                            preamble.push_str("\n\n");
-                        }
-                        if !rag_result.nodes.is_empty() {
-                            preamble.push_str("Top snippets:\n");
-                            for n in rag_result.nodes.iter().take(3) {
-                                let mut snip = n.content.clone();
-                                if snip.len() > 300 { snip.truncate(300); }
-                                preamble.push_str("- ");
-                                preamble.push_str(&snip);
-                                preamble.push('\n');
-                            }
-                            // Build provenance from top results
-                            let mut attrs: Vec<SourceAttribution> = Vec::new();
-                            for n in rag_result.nodes.iter().take(5) {
-                                let title = n
-                                    .metadata
-                                    .source
-                                    .clone()
-                                    .unwrap_or_else(|| "Untitled source".to_string());
-                                attrs.push(SourceAttribution {
-                                    source_id: n.id.clone(),
-                                    title,
-                                    confidence: n.metadata.confidence,
-                                });
-                            }
-                            if !attrs.is_empty() {
-                                provenance = Some(attrs);
-                            }
-                        }
-
-                        let mut aug = Vec::with_capacity(sys_msgs.len() + current_messages.len() + 1);
-                        // system prompts first
-                        aug.extend(sys_msgs);
-                        if !preamble.is_empty() {
-                            aug.push(Message::new(MessageRole::System, preamble));
-                        }
-                        aug.extend(current_messages.clone());
-                        aug
-                    } else {
-                        let mut aug = Vec::with_capacity(sys_msgs.len() + current_messages.len());
-                        aug.extend(sys_msgs);
-                        aug.extend(current_messages.clone());
-                        aug
-                    };
-
-                    match send_message_to_llm(&engine, augmented_messages).await {
-                        Ok(response) => {
-                            let mut ai_message = Message::new(MessageRole::Assistant, response);
-                            set_messages.update(|msgs| msgs.push(ai_message.clone()));
-                            set_status_message.set("Ready".to_string());
-                            // Update GraphRAG metrics (elapsed time, keep memory placeholder)
-                            let elapsed = js_sys::Date::now() - start_ms;
-                            perf_local.total_time_ms = elapsed as u32;
-                            let mem_placeholder = graphrag_metrics.get().memory_usage_mb; // keep as-is
-                            mgr.update_query_metrics(elapsed as u32, mem_placeholder);
-                            mgr.update_performance_metrics(perf_local.clone());
-
-                            // Attach provenance and metadata to assistant message
-                            let md = MessageMetadata {
-                                tokens_used: None,
-                                processing_time_ms: Some(elapsed as u32),
-                                model_used: Some(model_id.clone()),
-                                graphrag_enhanced: use_knowledge,
-                                error: None,
-                                provenance,
-                            };
-                            ai_message = ai_message.with_metadata(md);
-
-                            // Update the pushed message with metadata
-                            set_messages.update(|msgs| {
-                                if let Some(last) = msgs.last_mut() {
-                                    *last = ai_message.clone();
-                                }
-                            });
-
-                            // Save AI message to storage
-                            if let (Some(ref storage), Some(ref conv_id)) =
-                                (storage.get(), current_conversation_id.get())
-                            {
-                                if let Err(e) = storage.save_message(conv_id, &ai_message) {
-                                    log::error!("Failed to save AI message: {:?}", e);
-                                } else {
-                                    set_conversation_list_refresh.update(|n| *n += 1);
-                                }
-                            }
-
-                            // Re-render icons for AI response
-                            schedule_icon_render();
-                        }
-                        Err(e) => {
-                            log::error!("AI response error: {:?}", e);
-                            let error_message = Message::new(
-                                MessageRole::Assistant,
-                                "Sorry, I had a problem responding. Please try again.".to_string(),
-                            );
-                            set_messages.update(|msgs| msgs.push(error_message));
-                            set_status_message.set("AI Error".to_string());
-                            // Record failed attempt time as well
-                            let elapsed = js_sys::Date::now() - start_ms;
-                            perf_local.total_time_ms = elapsed as u32;
-                            let mem_placeholder = graphrag_metrics.get().memory_usage_mb;
-                            mgr.update_query_metrics(elapsed as u32, mem_placeholder);
-                            mgr.update_performance_metrics(perf_local.clone());
-                            // Re-render icons for error message
-                            schedule_icon_render();
-                        }
-                    }
+            // Save user message to storage
+            if let (Some(ref storage), Some(ref conv_id)) =
+                (storage.get(), current_conversation_id.get())
+            {
+                if let Err(e) = storage.save_message(conv_id, &user_message) {
+                    log::error!("Failed to save user message: {:?}", e);
                 } else {
-                    let error_message = Message::new(
+                    // Always refresh the conversation list when a user message is saved
+                    // This ensures the conversation appears in history immediately
+                    info!("User message saved, refreshing conversation list");
+                    set_conversation_list_refresh.update(|n| {
+                        let new_value = *n + 1;
+                        info!("Updated refresh signal to: {}", new_value);
+                        *n = new_value;
+                    });
+                }
+            }
+
+            // Re-render icons for new message
+            schedule_icon_render();
+
+            if model_ready.get() {
+                let start_ms = js_sys::Date::now();
+                let mgr = graphrag_manager.clone();
+                let mut perf_local = perf.clone();
+                let current_messages = messages.get();
+                // Snapshot flags and prompt for async move
+                let use_knowledge = knowledge_enabled.get();
+                let prompt_text = content.clone();
+                let model_id = selected_llm.get();
+                // Snapshot prompts for async move (refresh global from localStorage to reflect sidebar edits)
+                let global_prompt_snapshot =
+                    StorageUtils::retrieve_local::<String>("global_system_prompt")
+                        .ok()
+                        .flatten()
+                        .or_else(|| global_system_prompt.get());
+                let conv_prompt_snapshot = conversation_system_prompt.get();
+                // Use configured search strategy
+                let strategy_to_use = cfg.search_strategy;
+
+                spawn_local(async move {
+                    // Get the engine from thread local storage
+                    let engine_opt = WEBLLM_ENGINE.with(|e| e.borrow().clone());
+
+                    if let Some(engine) = engine_opt {
+                        // Optionally run GraphRAG retrieval and inject system preamble
+                        let mut provenance: Option<Vec<SourceAttribution>> = None;
+                        // Start with any system prompts (global, per-conversation)
+                        let mut sys_msgs: Vec<Message> = Vec::new();
+                        if let Some(ref gp) = global_prompt_snapshot {
+                            if !gp.trim().is_empty() {
+                                sys_msgs.push(Message::new(MessageRole::System, gp.clone()));
+                            }
+                        }
+                        if let Some(ref cp) = conv_prompt_snapshot {
+                            if !cp.trim().is_empty() {
+                                sys_msgs.push(Message::new(MessageRole::System, cp.clone()));
+                            }
+                        }
+
+                        let augmented_messages = if use_knowledge {
+                            // Build a minimal RAG query from prompt and current toggles
+                            let mut q = RAGQuery::new(prompt_text.clone());
+                            q.config.max_results = 5;
+                            q.config.use_hyde = cfg.hyde_enabled;
+                            q.config.use_community_detection = cfg.community_detection_enabled;
+                            q.config.use_reranking = cfg.reranking_enabled;
+
+                            let retriever = Retriever::new();
+                            let rag_result = retriever.search(&q, strategy_to_use).await;
+
+                            // Compose a short system preamble from summary + top snippets
+                            let mut preamble = String::new();
+                            if let Some(summary) = rag_result.metadata.summary.clone() {
+                                preamble.push_str("Knowledge summary: ");
+                                preamble.push_str(&summary);
+                                preamble.push_str("\n\n");
+                            }
+                            if !rag_result.nodes.is_empty() {
+                                preamble.push_str("Top snippets:\n");
+                                for n in rag_result.nodes.iter().take(3) {
+                                    let mut snip = n.content.clone();
+                                    if snip.len() > 300 {
+                                        snip.truncate(300);
+                                    }
+                                    preamble.push_str("- ");
+                                    preamble.push_str(&snip);
+                                    preamble.push('\n');
+                                }
+                                // Build provenance from top results
+                                let mut attrs: Vec<SourceAttribution> = Vec::new();
+                                for n in rag_result.nodes.iter().take(5) {
+                                    let title = n
+                                        .metadata
+                                        .source
+                                        .clone()
+                                        .unwrap_or_else(|| "Untitled source".to_string());
+                                    attrs.push(SourceAttribution {
+                                        source_id: n.id.clone(),
+                                        title,
+                                        confidence: n.metadata.confidence,
+                                    });
+                                }
+                                if !attrs.is_empty() {
+                                    provenance = Some(attrs);
+                                }
+                            }
+
+                            let mut aug =
+                                Vec::with_capacity(sys_msgs.len() + current_messages.len() + 1);
+                            // system prompts first
+                            aug.extend(sys_msgs);
+                            if !preamble.is_empty() {
+                                aug.push(Message::new(MessageRole::System, preamble));
+                            }
+                            aug.extend(current_messages.clone());
+                            aug
+                        } else {
+                            let mut aug =
+                                Vec::with_capacity(sys_msgs.len() + current_messages.len());
+                            aug.extend(sys_msgs);
+                            aug.extend(current_messages.clone());
+                            aug
+                        };
+
+                        match send_message_to_llm(&engine, augmented_messages).await {
+                            Ok(response) => {
+                                let mut ai_message = Message::new(MessageRole::Assistant, response);
+                                set_messages.update(|msgs| msgs.push(ai_message.clone()));
+                                set_status_message.set("Ready".to_string());
+                                // Update GraphRAG metrics (elapsed time, keep memory placeholder)
+                                let elapsed = js_sys::Date::now() - start_ms;
+                                perf_local.total_time_ms = elapsed as u32;
+                                let mem_placeholder = graphrag_metrics.get().memory_usage_mb; // keep as-is
+                                mgr.update_query_metrics(elapsed as u32, mem_placeholder);
+                                mgr.update_performance_metrics(perf_local.clone());
+
+                                // Attach provenance and metadata to assistant message
+                                let md = MessageMetadata {
+                                    tokens_used: None,
+                                    processing_time_ms: Some(elapsed as u32),
+                                    model_used: Some(model_id.clone()),
+                                    graphrag_enhanced: use_knowledge,
+                                    error: None,
+                                    provenance,
+                                };
+                                ai_message = ai_message.with_metadata(md);
+
+                                // Update the pushed message with metadata
+                                set_messages.update(|msgs| {
+                                    if let Some(last) = msgs.last_mut() {
+                                        *last = ai_message.clone();
+                                    }
+                                });
+
+                                // Save AI message to storage
+                                if let (Some(ref storage), Some(ref conv_id)) =
+                                    (storage.get(), current_conversation_id.get())
+                                {
+                                    if let Err(e) = storage.save_message(conv_id, &ai_message) {
+                                        log::error!("Failed to save AI message: {:?}", e);
+                                    } else {
+                                        set_conversation_list_refresh.update(|n| *n += 1);
+                                    }
+                                }
+
+                                // Re-render icons for AI response
+                                schedule_icon_render();
+                            }
+                            Err(e) => {
+                                log::error!("AI response error: {:?}", e);
+                                let error_message = Message::new(
+                                    MessageRole::Assistant,
+                                    "Sorry, I had a problem responding. Please try again."
+                                        .to_string(),
+                                );
+                                set_messages.update(|msgs| msgs.push(error_message));
+                                set_status_message.set("AI Error".to_string());
+                                // Record failed attempt time as well
+                                let elapsed = js_sys::Date::now() - start_ms;
+                                perf_local.total_time_ms = elapsed as u32;
+                                let mem_placeholder = graphrag_metrics.get().memory_usage_mb;
+                                mgr.update_query_metrics(elapsed as u32, mem_placeholder);
+                                mgr.update_performance_metrics(perf_local.clone());
+                                // Re-render icons for error message
+                                schedule_icon_render();
+                            }
+                        }
+                    } else {
+                        let error_message = Message::new(
+                            MessageRole::Assistant,
+                            "The AI model is not available. Please try again.".to_string(),
+                        );
+                        set_messages.update(|msgs| msgs.push(error_message));
+                        set_status_message.set("Model not available".to_string());
+                        // Still record a minimal metric
+                        let elapsed = js_sys::Date::now() - start_ms;
+                        perf_local.total_time_ms = elapsed as u32;
+                        let mem_placeholder = graphrag_metrics.get().memory_usage_mb;
+                        mgr.update_query_metrics(elapsed as u32, mem_placeholder);
+                        mgr.update_performance_metrics(perf_local.clone());
+                        // Re-render icons for error message
+                        schedule_icon_render();
+                    }
+                    set_is_loading.set(false);
+                });
+            } else {
+                // Fallback to simulated response if WebLLM is not ready
+                let start_ms = js_sys::Date::now();
+                let mgr = graphrag_manager.clone();
+                let mut perf_local = perf.clone();
+                spawn_local(async move {
+                    TimeoutFuture::new(1500).await;
+                    let ai_message = Message::new(
                         MessageRole::Assistant,
-                        "The AI model is not available. Please try again.".to_string(),
+                        "The AI model is not ready yet. Please try again in a moment.".to_string(),
                     );
-                    set_messages.update(|msgs| msgs.push(error_message));
-                    set_status_message.set("Model not available".to_string());
-                    // Still record a minimal metric
+                    set_messages.update(|msgs| msgs.push(ai_message));
+                    set_is_loading.set(false);
+                    set_status_message.set("Model not ready".to_string());
+                    // Record simulated elapsed time
                     let elapsed = js_sys::Date::now() - start_ms;
                     perf_local.total_time_ms = elapsed as u32;
                     let mem_placeholder = graphrag_metrics.get().memory_usage_mb;
                     mgr.update_query_metrics(elapsed as u32, mem_placeholder);
                     mgr.update_performance_metrics(perf_local.clone());
-                    // Re-render icons for error message
+                    // Re-render icons for fallback message
                     schedule_icon_render();
-                }
-                set_is_loading.set(false);
-            });
-        } else {
-            // Fallback to simulated response if WebLLM is not ready
-            let start_ms = js_sys::Date::now();
-            let mgr = graphrag_manager.clone();
-            let mut perf_local = perf.clone();
-            spawn_local(async move {
-                TimeoutFuture::new(1500).await;
-                let ai_message = Message::new(
-                    MessageRole::Assistant,
-                    "The AI model is not ready yet. Please try again in a moment.".to_string(),
-                );
-                set_messages.update(|msgs| msgs.push(ai_message));
-                set_is_loading.set(false);
-                set_status_message.set("Model not ready".to_string());
-                // Record simulated elapsed time
-                let elapsed = js_sys::Date::now() - start_ms;
-                perf_local.total_time_ms = elapsed as u32;
-                let mem_placeholder = graphrag_metrics.get().memory_usage_mb;
-                mgr.update_query_metrics(elapsed as u32, mem_placeholder);
-                mgr.update_performance_metrics(perf_local.clone());
-                // Re-render icons for fallback message
-                schedule_icon_render();
-            });
-        }
-    });
+                });
+            }
+        });
 
     // Show delete confirmation (no-arg)
     let _show_delete_confirmation = move || {
@@ -966,7 +980,7 @@ pub fn ChatArea(
                     </div>
                 </div>
             </Show>
-            
+
             // Input area
             <div class="border-t border-base-300 p-2">
                 <InputArea

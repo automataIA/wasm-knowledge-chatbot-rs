@@ -1,6 +1,6 @@
 // Form field molecule component combining input, label, and validation
+use crate::components::atoms::{Input, InputSize, InputVariant, Textarea};
 use leptos::prelude::*;
-use crate::components::atoms::{Input, InputVariant, InputSize, Textarea};
 
 /// Form field component with label, input, and validation
 #[component]
@@ -19,10 +19,12 @@ pub fn FormField(
     #[prop(optional)] id: Option<String>,
     #[prop(optional)] name: Option<String>,
 ) -> impl IntoView {
-    let field_id = id.clone().unwrap_or_else(|| format!("field-{}", name.clone().unwrap_or_default()));
+    let field_id = id
+        .clone()
+        .unwrap_or_else(|| format!("field-{}", name.clone().unwrap_or_default()));
     let error_id = format!("{}-error", field_id);
     let help_id = format!("{}-help", field_id);
-    
+
     let has_error = error.is_some();
     let input_variant = if has_error {
         InputVariant::Error
@@ -33,7 +35,7 @@ pub fn FormField(
     view! {
         <div class={format!("form-field flex flex-col gap-1 {}", class.unwrap_or_default())}>
             {label.as_ref().map(|label_text| view! {
-                <label 
+                <label
                     for={field_id.clone()}
                     class={format!(
                         "label text-sm font-medium {}",
@@ -43,7 +45,7 @@ pub fn FormField(
                     {label_text.clone()}
                 </label>
             })}
-            
+
             <Input
                 input_type={input_type}
                 variant={input_variant}
@@ -54,14 +56,14 @@ pub fn FormField(
                 disabled={disabled}
                 id={field_id.clone()}
                 name={name.unwrap_or_default()}
-                aria_describedby={format!("{} {}", 
+                aria_describedby={format!("{} {}",
                     if error.is_some() { error_id.as_str() } else { "" },
                     if help_text.is_some() { help_id.as_str() } else { "" }
                 ).trim().to_string()}
             />
-            
+
             {error.as_ref().map(|error_text| view! {
-                <div 
+                <div
                     id={error_id}
                     class="text-sm text-error flex items-center gap-1"
                     role="alert"
@@ -72,9 +74,9 @@ pub fn FormField(
                     {error_text.clone()}
                 </div>
             })}
-            
+
             {help_text.as_ref().map(|help| view! {
-                <div 
+                <div
                     id={help_id}
                     class="text-sm text-base-content opacity-70"
                 >
@@ -102,10 +104,12 @@ pub fn TextareaField(
     #[prop(optional)] id: Option<String>,
     #[prop(optional)] name: Option<String>,
 ) -> impl IntoView {
-    let field_id = id.clone().unwrap_or_else(|| format!("field-{}", name.clone().unwrap_or_default()));
+    let field_id = id
+        .clone()
+        .unwrap_or_else(|| format!("field-{}", name.clone().unwrap_or_default()));
     let error_id = format!("{}-error", field_id);
     let help_id = format!("{}-help", field_id);
-    
+
     let has_error = error.is_some();
     let input_variant = if has_error {
         InputVariant::Error
@@ -116,7 +120,7 @@ pub fn TextareaField(
     view! {
         <div class={format!("form-field flex flex-col gap-1 {}", class.unwrap_or_default())}>
             {label.as_ref().map(|label_text| view! {
-                <label 
+                <label
                     for={field_id.clone()}
                     class={format!(
                         "label text-sm font-medium {}",
@@ -126,7 +130,7 @@ pub fn TextareaField(
                     {label_text.clone()}
                 </label>
             })}
-            
+
             <Textarea
                 variant={input_variant}
                 size={size}
@@ -137,14 +141,14 @@ pub fn TextareaField(
                 disabled={disabled}
                 id={field_id.clone()}
                 name={name.unwrap_or_default()}
-                aria_describedby={format!("{} {}", 
+                aria_describedby={format!("{} {}",
                     if error.is_some() { error_id.as_str() } else { "" },
                     if help_text.is_some() { help_id.as_str() } else { "" }
                 ).trim().to_string()}
             />
-            
+
             {error.as_ref().map(|error_text| view! {
-                <div 
+                <div
                     id={error_id}
                     class="text-sm text-error flex items-center gap-1"
                     role="alert"
@@ -155,9 +159,9 @@ pub fn TextareaField(
                     {error_text.clone()}
                 </div>
             })}
-            
+
             {help_text.as_ref().map(|help| view! {
-                <div 
+                <div
                     id={help_id}
                     class="text-sm text-base-content opacity-70"
                 >
@@ -183,13 +187,13 @@ pub fn FormGroup(
                     {title_text.clone()}
                 </legend>
             })}
-            
+
             {description.as_ref().map(|desc| view! {
                 <p class="text-sm text-base-content opacity-70 mb-4">
                     {desc.clone()}
                 </p>
             })}
-            
+
             <div class="space-y-4">
                 {children()}
             </div>

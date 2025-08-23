@@ -1,14 +1,16 @@
 // Re-export all model modules
-pub mod chat;
-pub mod webllm;
-pub mod graphrag;
 pub mod app;
+pub mod chat;
 pub mod crm;
 pub mod graph_store;
+pub mod graphrag;
+pub mod webllm;
 
 // Re-export commonly used types
-pub use chat::{Message, MessageRole, Conversation, MessageMetadata, SourceAttribution};
-pub use webllm::{LLMModel, ModelConfig, ModelStatus, ChatSession};
-pub use graphrag::{GraphNode, GraphEdge, RAGQuery, RAGResult, DocumentIndex, SearchStrategy, PerformanceMode};
-pub use app::{AppConfig, ThemeMode, AppError, AppResult};
-pub use crm::{Customer, Lead, Contact, PipelineStage, Deal};
+pub use app::{AppConfig, AppError, AppResult, ThemeMode};
+pub use chat::{Conversation, Message, MessageMetadata, MessageRole, SourceAttribution};
+pub use crm::{Contact, Customer, Deal, Lead, PipelineStage};
+pub use graphrag::{
+    DocumentIndex, GraphEdge, GraphNode, PerformanceMode, RAGQuery, RAGResult, SearchStrategy,
+};
+pub use webllm::{ChatSession, LLMModel, ModelConfig, ModelStatus};

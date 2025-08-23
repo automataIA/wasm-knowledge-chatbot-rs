@@ -1,6 +1,6 @@
 // Chat input molecule component combining input and button atoms
+use crate::components::atoms::{Button, ButtonSize, ButtonVariant, Input, InputVariant};
 use leptos::prelude::*;
-use crate::components::atoms::{Input, InputVariant, Button, ButtonVariant, ButtonSize};
 
 /// Enhanced chat input with send button and keyboard shortcuts
 #[component]
@@ -14,7 +14,7 @@ pub fn ChatInput(
 ) -> impl IntoView {
     let internal_value = RwSignal::new(String::new());
     let input_value = value.unwrap_or(internal_value);
-    
+
     let handle_send = {
         let iv = input_value;
         move || {
@@ -27,9 +27,9 @@ pub fn ChatInput(
             }
         }
     };
-    
+
     let is_empty = move || input_value.get().trim().is_empty();
-    
+
     view! {
         <div class={format!("flex gap-2 items-end {}", class.unwrap_or_default())}>
             <div class="flex-1">
@@ -82,7 +82,7 @@ pub fn CompactChatInput(
 ) -> impl IntoView {
     let internal_value = RwSignal::new(String::new());
     let input_value = value.unwrap_or(internal_value);
-    
+
     let handle_send = {
         let iv = input_value;
         move || {
@@ -95,9 +95,9 @@ pub fn CompactChatInput(
             }
         }
     };
-    
+
     let is_empty = move || input_value.get().trim().is_empty();
-    
+
     view! {
         <div class={format!("relative {}", class.unwrap_or_default())}>
             <Input
@@ -123,5 +123,3 @@ pub fn CompactChatInput(
         </div>
     }
 }
-
-

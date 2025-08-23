@@ -1,15 +1,14 @@
-use leptos::prelude::*;
-use gloo_timers::future::TimeoutFuture;
 use crate::models::{
     app::AppError,
     chat::{Message, MessageRole},
     webllm::{LLMModel, ModelStatus},
 };
 use crate::state::{
-    app_state_simple::AppStateContext,
+    app_state_simple::AppStateContext, conversation_state_simple::ConversationStateContext,
     webllm_state_simple::WebLLMStateContext,
-    conversation_state_simple::ConversationStateContext,
 };
+use gloo_timers::future::TimeoutFuture;
+use leptos::prelude::*;
 
 /// Actions for WebLLM operations
 pub struct WebLLMActions;
@@ -30,7 +29,7 @@ impl WebLLMActions {
         // Simulate model initialization with progress updates
         for progress in (0..=100).step_by(10) {
             webllm_ctx.set_initialization_progress(progress as f32);
-            
+
             // Simulate async delay
             TimeoutFuture::new(100).await;
         }
@@ -38,7 +37,7 @@ impl WebLLMActions {
         // Set ready state
         webllm_ctx.set_model_status(ModelStatus::Ready);
         app_ctx.set_loading(false);
-        
+
         Ok(())
     }
 
@@ -64,7 +63,7 @@ impl WebLLMActions {
 
         // Simulate response generation
         let response = format!("This is a simulated response to: {}", content);
-        
+
         // Simulate streaming delay
         TimeoutFuture::new(1000).await;
 
@@ -92,13 +91,17 @@ impl WebLLMActions {
                 "Llama 2 7B".to_string(),
                 "Meta".to_string(),
                 "llama".to_string(),
-            ).with_size(3500).with_context_length(4096),
+            )
+            .with_size(3500)
+            .with_context_length(4096),
             LLMModel::new(
                 "mistral-7b".to_string(),
                 "Mistral 7B".to_string(),
                 "Mistral AI".to_string(),
                 "mistral".to_string(),
-            ).with_size(4100).with_context_length(8192),
+            )
+            .with_size(4100)
+            .with_context_length(8192),
         ];
 
         webllm_ctx.set_available_models(models.clone());
@@ -117,7 +120,9 @@ impl ConversationActions {
         content: String,
     ) -> Result<(), AppError> {
         if content.trim().is_empty() {
-            return Err(AppError::ValidationError("Message cannot be empty".to_string()));
+            return Err(AppError::ValidationError(
+                "Message cannot be empty".to_string(),
+            ));
         }
 
         // Ensure we have a current conversation
@@ -153,10 +158,7 @@ impl ConversationActions {
     }
 
     /// Delete a conversation
-    pub fn delete_conversation(
-        conversation_ctx: &ConversationStateContext,
-        id: String,
-    ) {
+    pub fn delete_conversation(conversation_ctx: &ConversationStateContext, id: String) {
         conversation_ctx.delete_conversation(&id);
     }
 }
@@ -188,10 +190,7 @@ impl AppActions {
     }
 
     /// Handle errors globally
-    pub fn handle_error(
-        app_ctx: &AppStateContext,
-        error: AppError,
-    ) {
+    pub fn handle_error(app_ctx: &AppStateContext, error: AppError) {
         app_ctx.set_error(Some(error));
         app_ctx.set_loading(false);
     }
@@ -206,7 +205,7 @@ mod tests {
     async fn test_model_initialization() {
         let app_ctx = AppStateContext::new();
         let webllm_ctx = WebLLMStateContext::new();
-        
+
         let model = LLMModel::new(
             "test-model".to_string(),
             "Test Model".to_string(),
@@ -233,14 +232,17 @@ mod tests {
             "Test Provider".to_string(),
             "test".to_string(),
         );
-        WebLLMActions::initialize_model(&webllm_ctx, &app_ctx, model).await.unwrap();
+        WebLLMActions::initialize_model(&webllm_ctx, &app_ctx, model)
+            .await
+            .unwrap();
 
         // Send message
         let result = ConversationActions::send_message(
             &webllm_ctx,
             &conversation_ctx,
             "Hello, world!".to_string(),
-        ).await;
+        )
+        .await;
 
         assert!(result.is_ok());
         assert_eq!(conversation_ctx.get_current_messages().len(), 2); // User + Assistant

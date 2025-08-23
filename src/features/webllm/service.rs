@@ -1,9 +1,9 @@
-use log::{error, info};
-use wasm_bindgen::JsValue;
-use wasm_bindgen_futures::spawn_local;
 use gloo_timers::callback::Interval;
+use log::{error, info};
 use std::cell::RefCell;
 use std::rc::Rc;
+use wasm_bindgen::JsValue;
+use wasm_bindgen_futures::spawn_local;
 
 use crate::models::webllm::{LLMModel, ModelStatus};
 use crate::state::webllm_state_simple::WebLLMStateContext;
@@ -30,11 +30,8 @@ pub fn init_model(ctx: WebLLMStateContext, model: LLMModel) {
         };
 
         // Attempt to call into JS binding
-        let res: Result<JsValue, JsValue> = crate::webllm_binding::init_webllm_with_progress(
-            &model_id,
-            progress_cb,
-        )
-        .await;
+        let res: Result<JsValue, JsValue> =
+            crate::webllm_binding::init_webllm_with_progress(&model_id, progress_cb).await;
 
         match res {
             Ok(_engine) => {
@@ -43,7 +40,10 @@ pub fn init_model(ctx: WebLLMStateContext, model: LLMModel) {
                 info!("WebLLM init finished for {}", model_id);
             }
             Err(e) => {
-                error!("WebLLM init failed for {}: {:?}. Falling back to simulated init.", model_id, e);
+                error!(
+                    "WebLLM init failed for {}: {:?}. Falling back to simulated init.",
+                    model_id, e
+                );
                 simulate_progress(ctx.clone());
             }
         }

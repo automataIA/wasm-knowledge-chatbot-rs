@@ -1,9 +1,9 @@
-use leptos::prelude::*;
-use serde::{Deserialize, Serialize};
 use crate::models::{
     app::AppError,
     chat::{Conversation, Message},
 };
+use leptos::prelude::*;
+use serde::{Deserialize, Serialize};
 
 /// Simplified conversation state for chat management
 #[derive(Clone, Debug, Serialize, Deserialize, Default)]
@@ -21,8 +21,6 @@ impl Default for ConversationStateContext {
         Self::new()
     }
 }
-
-
 
 /// Conversation state context for chat management
 #[derive(Clone)]
@@ -60,7 +58,8 @@ impl ConversationStateContext {
     }
 
     pub fn create_new_conversation(&self, title: Option<String>) {
-        let conversation = Conversation::new(title.unwrap_or_else(|| "New Conversation".to_string()));
+        let conversation =
+            Conversation::new(title.unwrap_or_else(|| "New Conversation".to_string()));
         let id = conversation.id.clone();
         self.add_conversation(conversation);
         self.set_current_conversation(Some(id));
@@ -170,12 +169,12 @@ mod tests {
     #[test]
     fn test_conversation_management() {
         let ctx = ConversationStateContext::new();
-        
+
         // Create new conversation
         ctx.create_new_conversation(Some("Test Conversation".to_string()));
         assert_eq!(ctx.get_conversations().len(), 1);
         assert!(ctx.get_current_conversation().is_some());
-        
+
         // Add message
         let message = Message::new(MessageRole::User, "Hello".to_string());
         ctx.add_message_to_current(message);

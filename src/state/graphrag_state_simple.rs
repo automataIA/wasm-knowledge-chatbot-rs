@@ -1,13 +1,16 @@
-use leptos::prelude::*;
-use wasm_bindgen_futures::spawn_local;
+use crate::features::graphrag::extraction::extract_entities_relations;
+use crate::features::graphrag::{GraphRAGPipeline, Retriever};
+use crate::models::{
+    app::AppError,
+    graphrag::{RAGQuery, RAGResult, SearchStrategy},
+};
+use crate::state::knowledge_storage_context::KnowledgeStorageContext;
 use js_sys::Promise;
+use leptos::prelude::*;
+use std::collections::HashSet;
+use wasm_bindgen_futures::spawn_local;
 use wasm_bindgen_futures::JsFuture;
 use web_sys::window;
-use crate::models::{app::AppError, graphrag::{RAGQuery, RAGResult, SearchStrategy}};
-use crate::features::graphrag::{GraphRAGPipeline, Retriever};
-use crate::features::graphrag::extraction::extract_entities_relations;
-use std::collections::HashSet;
-use crate::state::knowledge_storage_context::KnowledgeStorageContext;
 
 #[derive(Clone)]
 pub struct GraphRAGStateContext {
@@ -35,20 +38,42 @@ impl GraphRAGStateContext {
         }
     }
 
-    pub fn is_indexing(&self) -> ReadSignal<bool> { self.indexing.read_only() }
-    pub fn is_searching(&self) -> ReadSignal<bool> { self.searching.read_only() }
-    pub fn last_error(&self) -> ReadSignal<Option<AppError>> { self.last_error.read_only() }
-    pub fn last_result(&self) -> ReadSignal<Option<RAGResult>> { self.last_result.read_only() }
-    pub fn index_progress(&self) -> ReadSignal<Option<f32>> { self.index_progress.read_only() }
+    pub fn is_indexing(&self) -> ReadSignal<bool> {
+        self.indexing.read_only()
+    }
+    pub fn is_searching(&self) -> ReadSignal<bool> {
+        self.searching.read_only()
+    }
+    pub fn last_error(&self) -> ReadSignal<Option<AppError>> {
+        self.last_error.read_only()
+    }
+    pub fn last_result(&self) -> ReadSignal<Option<RAGResult>> {
+        self.last_result.read_only()
+    }
+    pub fn index_progress(&self) -> ReadSignal<Option<f32>> {
+        self.index_progress.read_only()
+    }
 
     // Convenience getters for tests and non-reactive checks
-    pub fn indexing_now(&self) -> bool { self.indexing.get() }
-    pub fn searching_now(&self) -> bool { self.searching.get() }
-    pub fn last_error_now(&self) -> Option<AppError> { self.last_error.get() }
-    pub fn last_result_now(&self) -> Option<RAGResult> { self.last_result.get() }
-    pub fn index_progress_now(&self) -> Option<f32> { self.index_progress.get() }
+    pub fn indexing_now(&self) -> bool {
+        self.indexing.get()
+    }
+    pub fn searching_now(&self) -> bool {
+        self.searching.get()
+    }
+    pub fn last_error_now(&self) -> Option<AppError> {
+        self.last_error.get()
+    }
+    pub fn last_result_now(&self) -> Option<RAGResult> {
+        self.last_result.get()
+    }
+    pub fn index_progress_now(&self) -> Option<f32> {
+        self.index_progress.get()
+    }
 
-    pub fn set_error(&self, err: Option<AppError>) { self.last_error.set(err); }
+    pub fn set_error(&self, err: Option<AppError>) {
+        self.last_error.set(err);
+    }
 
     pub fn run_query(&self, q: RAGQuery, strategy: SearchStrategy) {
         let this = self.clone();
@@ -76,7 +101,9 @@ impl GraphRAGStateContext {
             // Simulate progress in a few steps
             async fn sleep_ms(ms: i32) {
                 let p = Promise::new(&mut |resolve, _reject| {
-                    let _ = window().unwrap().set_timeout_with_callback_and_timeout_and_arguments_0(&resolve, ms);
+                    let _ = window()
+                        .unwrap()
+                        .set_timeout_with_callback_and_timeout_and_arguments_0(&resolve, ms);
                 });
                 let _ = JsFuture::from(p).await;
             }
@@ -92,13 +119,19 @@ impl GraphRAGStateContext {
             // Extract simple entities/relations and persist to GraphStore (basic migration if empty)
             let (nodes, edges) = extract_entities_relations(&docs);
             let _ = kctx.update_graph_store(|store| {
-                let mut existing_node_ids: HashSet<String> = store.nodes.iter().map(|n| n.id.clone()).collect();
-                let mut existing_edge_ids: HashSet<String> = store.edges.iter().map(|e| e.id.clone()).collect();
+                let mut existing_node_ids: HashSet<String> =
+                    store.nodes.iter().map(|n| n.id.clone()).collect();
+                let mut existing_edge_ids: HashSet<String> =
+                    store.edges.iter().map(|e| e.id.clone()).collect();
                 for n in &nodes {
-                    if existing_node_ids.insert(n.id.clone()) { store.nodes.push(n.clone()); }
+                    if existing_node_ids.insert(n.id.clone()) {
+                        store.nodes.push(n.clone());
+                    }
                 }
                 for e in &edges {
-                    if existing_edge_ids.insert(e.id.clone()) { store.edges.push(e.clone()); }
+                    if existing_edge_ids.insert(e.id.clone()) {
+                        store.edges.push(e.clone());
+                    }
                 }
             });
 

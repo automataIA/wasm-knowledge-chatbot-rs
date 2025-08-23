@@ -1,13 +1,13 @@
+use crate::features::graphrag::GraphRAGPipeline;
+use crate::graphrag_config::{with_graphrag_manager, GraphRAGMetrics};
+use crate::models::graphrag::DocumentIndex;
+use crate::models::webllm::ModelStatus;
+use crate::state::webllm_state_simple::use_webllm_state;
+use crate::utils::storage::StorageUtils;
+use gloo_timers::future::TimeoutFuture;
 use leptos::prelude::*;
 use leptos::task::spawn_local;
-use gloo_timers::future::TimeoutFuture;
 use web_sys::window;
-use crate::features::graphrag::GraphRAGPipeline;
-use crate::graphrag_config::{GraphRAGMetrics, with_graphrag_manager};
-use crate::utils::storage::StorageUtils;
-use crate::models::graphrag::DocumentIndex;
-use crate::state::webllm_state_simple::use_webllm_state;
-use crate::models::webllm::ModelStatus;
 
 #[component]
 pub fn StatusBar(
@@ -59,7 +59,9 @@ pub fn StatusBar(
 
     // Helper to compute count from storage
     let read_doc_count = || -> usize {
-        if let Ok(Some(v)) = StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index_v1") {
+        if let Ok(Some(v)) =
+            StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index_v1")
+        {
             v.len()
         } else {
             StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index")
@@ -72,7 +74,9 @@ pub fn StatusBar(
 
     // Helper to load full docs list
     let read_docs = || -> Vec<DocumentIndex> {
-        if let Ok(Some(v)) = StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index_v1") {
+        if let Ok(Some(v)) =
+            StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index_v1")
+        {
             v
         } else {
             StorageUtils::retrieve_local::<Vec<DocumentIndex>>("graphrag_document_index")
@@ -102,12 +106,17 @@ pub fn StatusBar(
     let filtered_docs = Signal::derive({
         move || {
             let q = doc_filter.get().to_lowercase();
-            if q.is_empty() { return docs.get(); }
-            docs.get().into_iter().filter(|d| {
-                d.title.to_lowercase().contains(&q)
-                    || d.file_type.to_lowercase().contains(&q)
-                    || d.id.to_lowercase().contains(&q)
-            }).collect()
+            if q.is_empty() {
+                return docs.get();
+            }
+            docs.get()
+                .into_iter()
+                .filter(|d| {
+                    d.title.to_lowercase().contains(&q)
+                        || d.file_type.to_lowercase().contains(&q)
+                        || d.id.to_lowercase().contains(&q)
+                })
+                .collect()
         }
     });
 

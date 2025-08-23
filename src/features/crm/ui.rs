@@ -33,13 +33,22 @@ pub fn CRMPanel() -> impl IntoView {
             // patterns: customers | leads | deals | stages | board | customers/<id> | deals/<id>
             if let Some((kind, id)) = h.split_once('/') {
                 match kind {
-                    "customers" => { set_tab.set("customers".into()); set_detail.set(Some(("customers".into(), id.into()))); }
-                    "deals" => { set_tab.set("deals".into()); set_detail.set(Some(("deals".into(), id.into()))); }
+                    "customers" => {
+                        set_tab.set("customers".into());
+                        set_detail.set(Some(("customers".into(), id.into())));
+                    }
+                    "deals" => {
+                        set_tab.set("deals".into());
+                        set_detail.set(Some(("deals".into(), id.into())));
+                    }
                     _ => {}
                 }
             } else {
                 match h.as_str() {
-                    "customers" | "leads" | "deals" | "stages" | "board" => { set_tab.set(h); set_detail.set(None); }
+                    "customers" | "leads" | "deals" | "stages" | "board" => {
+                        set_tab.set(h);
+                        set_detail.set(None);
+                    }
                     _ => {}
                 }
             }
@@ -64,13 +73,22 @@ pub fn CRMPanel() -> impl IntoView {
                     let h = h.trim_start_matches('#').to_string();
                     if let Some((kind, id)) = h.split_once('/') {
                         match kind {
-                            "customers" => { set_tab_from_hash.set("customers".into()); set_detail_from_hash.set(Some(("customers".into(), id.into()))); }
-                            "deals" => { set_tab_from_hash.set("deals".into()); set_detail_from_hash.set(Some(("deals".into(), id.into()))); }
+                            "customers" => {
+                                set_tab_from_hash.set("customers".into());
+                                set_detail_from_hash.set(Some(("customers".into(), id.into())));
+                            }
+                            "deals" => {
+                                set_tab_from_hash.set("deals".into());
+                                set_detail_from_hash.set(Some(("deals".into(), id.into())));
+                            }
                             _ => {}
                         }
                     } else {
                         match h.as_str() {
-                            "customers" | "leads" | "deals" | "stages" | "board" => { set_tab_from_hash.set(h); set_detail_from_hash.set(None); }
+                            "customers" | "leads" | "deals" | "stages" | "board" => {
+                                set_tab_from_hash.set(h);
+                                set_detail_from_hash.set(None);
+                            }
                             _ => {}
                         }
                     }
@@ -205,10 +223,16 @@ fn PipelineBoardView() -> impl IntoView {
             // capture fresh data from signals
             let mut stages = crm_ctx.stages_now();
             stages.sort_by_key(|s| s.order);
-            if stages.is_empty() { return; }
+            if stages.is_empty() {
+                return;
+            }
 
             if let Some(mut deal) = crm_ctx.deals_now().into_iter().find(|d| d.id == deal_id) {
-                if let Some((idx, _)) = stages.iter().enumerate().find(|(_, s)| s.id == deal.stage_id) {
+                if let Some((idx, _)) = stages
+                    .iter()
+                    .enumerate()
+                    .find(|(_, s)| s.id == deal.stage_id)
+                {
                     let new_idx = if direction < 0 {
                         idx.saturating_sub(1)
                     } else {
@@ -229,7 +253,9 @@ fn PipelineBoardView() -> impl IntoView {
         let crm_add = crm.clone();
         move |_| {
             let n = new_stage.get();
-            if n.trim().is_empty() { return; }
+            if n.trim().is_empty() {
+                return;
+            }
             let ts = js_sys::Date::now();
             crm_add.upsert_stage(PipelineStage {
                 id: format!("stage_{}", ts),
@@ -249,7 +275,11 @@ fn PipelineBoardView() -> impl IntoView {
             let mut stages = crm_ctx.stages_now();
             stages.sort_by_key(|s| s.order);
             if let Some((idx, _)) = stages.iter().enumerate().find(|(_, s)| s.id == stage_id) {
-                let new_idx = if delta < 0 { idx.saturating_sub(1) } else { (idx + 1).min(stages.len().saturating_sub(1)) };
+                let new_idx = if delta < 0 {
+                    idx.saturating_sub(1)
+                } else {
+                    (idx + 1).min(stages.len().saturating_sub(1))
+                };
                 if new_idx != idx {
                     stages.swap(idx, new_idx);
                     for (i, mut s) in stages.into_iter().enumerate() {

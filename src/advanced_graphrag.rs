@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::pagerank_reranking::GraphAccess;
+use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct HyDEConfig {
@@ -38,7 +38,7 @@ impl HyDEEngine {
                 1 => format!("Answer: {}", query),
                 _ => format!("Context: {}", query),
             };
-            
+
             let s = if variant.len() > self.config.max_length {
                 variant[..self.config.max_length].to_string()
             } else {
@@ -88,8 +88,14 @@ impl CommunityDetectionEngine {
 
         // Label Propagation Algorithm (LPA) — simplistic, deterministic iteration order
         let mut labels: Vec<usize> = if let Some(seeds) = &self.config.seed_labels {
-            if seeds.len() == n { seeds.clone() } else { (0..n).collect() }
-        } else { (0..n).collect() };
+            if seeds.len() == n {
+                seeds.clone()
+            } else {
+                (0..n).collect()
+            }
+        } else {
+            (0..n).collect()
+        };
         let mut next = labels.clone();
 
         for _ in 0..self.config.max_iterations {
@@ -117,7 +123,11 @@ impl CommunityDetectionEngine {
                         best_label = lab;
                     }
                 }
-                next[u] = if best_count == 0 { labels[u] } else { best_label };
+                next[u] = if best_count == 0 {
+                    labels[u]
+                } else {
+                    best_label
+                };
                 if next[u] == labels[u] {
                     unchanged_count += 1;
                 }

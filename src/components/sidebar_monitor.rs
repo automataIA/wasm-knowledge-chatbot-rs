@@ -1,7 +1,9 @@
-use leptos::prelude::*;
-use crate::components::ui_primitives::Button;
 use crate::components::graphrag_settings::GraphRAGSettings;
-use crate::graphrag_config::{GraphRAGConfig, GraphRAGMetrics, GraphRAGConfigManager, PerformanceMetrics};
+use crate::components::ui_primitives::Button;
+use crate::graphrag_config::{
+    GraphRAGConfig, GraphRAGConfigManager, GraphRAGMetrics, PerformanceMetrics,
+};
+use leptos::prelude::*;
 
 #[component]
 pub fn SidebarMonitorRight(

@@ -16,10 +16,11 @@ pub fn MessageBubble(message: Message) -> impl IntoView {
     let show_sources = RwSignal::new(false);
     // Also precompute a sorted list for rendering
     let mut sorted = provenance_items.clone();
-    sorted.sort_by(|a, b| b
-        .confidence
-        .partial_cmp(&a.confidence)
-        .unwrap_or(std::cmp::Ordering::Equal));
+    sorted.sort_by(|a, b| {
+        b.confidence
+            .partial_cmp(&a.confidence)
+            .unwrap_or(std::cmp::Ordering::Equal)
+    });
     let sorted_items = sorted;
     let sources_sig: RwSignal<Vec<_>> = RwSignal::new(sorted_items);
 

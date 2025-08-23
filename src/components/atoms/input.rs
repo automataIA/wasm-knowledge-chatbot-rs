@@ -1,6 +1,6 @@
 // Input atom component with design tokens integration
-use leptos::prelude::*;
 use crate::ui::theme::Theme;
+use leptos::prelude::*;
 
 /// Input variant types
 #[derive(Debug, Clone, PartialEq)]
@@ -43,14 +43,15 @@ pub fn Input(
     #[prop(optional)] aria_describedby: Option<String>,
 ) -> impl IntoView {
     let theme = Theme::current();
-    
+
     // Create internal signal if none provided
     let internal_value = RwSignal::new(String::new());
     let value_signal = value.unwrap_or(internal_value);
-    
+
     // Build CSS classes based on props
-    let base_classes = "input transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
-    
+    let base_classes =
+        "input transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
+
     let variant_classes = match variant {
         InputVariant::Default => "input-default",
         InputVariant::Bordered => "input-bordered border-2 border-base-300 focus:border-primary",
@@ -63,13 +64,13 @@ pub fn Input(
         InputVariant::Warning => "input-warning border-warning focus:border-warning",
         InputVariant::Error => "input-error border-error focus:border-error",
     };
-    
+
     let size_classes = match size {
         InputSize::Small => "input-sm text-sm h-8 px-3",
         InputSize::Medium => "input-md text-base h-12 px-4", // 48px height for accessibility
         InputSize::Large => "input-lg text-lg h-14 px-6",
     };
-    
+
     let state_classes = if disabled {
         "input-disabled opacity-50 cursor-not-allowed"
     } else if readonly {
@@ -77,9 +78,9 @@ pub fn Input(
     } else {
         ""
     };
-    
+
     let focus_classes = "focus:ring-2 focus:ring-primary focus:ring-offset-2"; // WCAG 2.1 AA compliance
-    
+
     let combined_classes = format!(
         "{} {} {} {} {} {}",
         base_classes,
@@ -133,33 +134,35 @@ pub fn Textarea(
     #[prop(optional)] aria_describedby: Option<String>,
 ) -> impl IntoView {
     let theme = Theme::current();
-    
+
     // Create internal signal if none provided
     let internal_value = RwSignal::new(String::new());
     let value_signal = value.unwrap_or(internal_value);
-    
+
     // Build CSS classes based on props
     let base_classes = "textarea transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 resize-y";
-    
+
     let variant_classes = match variant {
         InputVariant::Default => "textarea-default",
         InputVariant::Bordered => "textarea-bordered border-2 border-base-300 focus:border-primary",
         InputVariant::Ghost => "textarea-ghost bg-transparent",
         InputVariant::Primary => "textarea-primary border-primary focus:border-primary-focus",
-        InputVariant::Secondary => "textarea-secondary border-secondary focus:border-secondary-focus",
+        InputVariant::Secondary => {
+            "textarea-secondary border-secondary focus:border-secondary-focus"
+        }
         InputVariant::Accent => "textarea-accent border-accent focus:border-accent-focus",
         InputVariant::Info => "textarea-info border-info focus:border-info",
         InputVariant::Success => "textarea-success border-success focus:border-success",
         InputVariant::Warning => "textarea-warning border-warning focus:border-warning",
         InputVariant::Error => "textarea-error border-error focus:border-error",
     };
-    
+
     let size_classes = match size {
         InputSize::Small => "textarea-sm text-sm p-3",
         InputSize::Medium => "textarea-md text-base p-4",
         InputSize::Large => "textarea-lg text-lg p-6",
     };
-    
+
     let state_classes = if disabled {
         "textarea-disabled opacity-50 cursor-not-allowed"
     } else if readonly {
@@ -167,9 +170,9 @@ pub fn Textarea(
     } else {
         ""
     };
-    
+
     let focus_classes = "focus:ring-2 focus:ring-primary focus:ring-offset-2";
-    
+
     let combined_classes = format!(
         "{} {} {} {} {} {}",
         base_classes,
@@ -217,13 +220,13 @@ pub fn SearchInput(
 ) -> impl IntoView {
     let internal_value = RwSignal::new(String::new());
     let value_signal = value.unwrap_or(internal_value);
-    
+
     let handle_search = move || {
         if let Some(handler) = &on_search {
             handler(value_signal.get());
         }
     };
-    
+
     view! {
         <div class="relative">
             <Input
@@ -235,17 +238,17 @@ pub fn SearchInput(
                 aria_label={"Search input".to_string()}
             />
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg 
-                    class="h-5 w-5 text-base-content opacity-50" 
-                    fill="none" 
-                    stroke="currentColor" 
+                <svg
+                    class="h-5 w-5 text-base-content opacity-50"
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
                 >
-                    <path 
-                        stroke-linecap="round" 
-                        stroke-linejoin="round" 
-                        stroke-width="2" 
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                 </svg>
@@ -257,16 +260,16 @@ pub fn SearchInput(
                 disabled={disabled}
                 aria-label="Search"
             >
-                <svg 
-                    class="h-5 w-5" 
-                    fill="none" 
-                    stroke="currentColor" 
+                <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                 >
-                    <path 
-                        stroke-linecap="round" 
-                        stroke-linejoin="round" 
-                        stroke-width="2" 
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
                         d="M13 7l5 5-5 5M6 12h12"
                     />
                 </svg>
@@ -293,7 +296,7 @@ mod tests {
             InputVariant::Warning,
             InputVariant::Error,
         ];
-        
+
         for variant in variants {
             // Each variant should be distinct
             match variant {
@@ -316,7 +319,7 @@ mod tests {
         // Medium input should meet minimum height requirements
         let size = InputSize::Medium;
         assert_eq!(size, InputSize::Medium);
-        
+
         // Focus ring should be 2px for WCAG 2.1 AA compliance
         let theme = Theme::current();
         assert_eq!(theme.borders.focus_ring_width, "2px");

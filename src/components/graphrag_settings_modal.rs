@@ -1,20 +1,18 @@
+use crate::components::graphrag_settings::GraphRAGSettings;
+use crate::components::ui_primitives::{Button, Toggle};
+use crate::graphrag_config::{GraphRAGConfig, GraphRAGConfigManager};
+use crate::models::graphrag::{RAGQuery, SearchStrategy};
+use crate::state::GraphRAGStateContext;
 use leptos::prelude::*;
 use leptos::task::spawn_local;
-use crate::components::ui_primitives::{Button, Toggle};
-use crate::graphrag_config::{GraphRAGConfigManager, GraphRAGConfig};
-use crate::components::graphrag_settings::GraphRAGSettings;
-use crate::state::GraphRAGStateContext;
-use crate::models::graphrag::{RAGQuery, SearchStrategy};
 
 #[component]
-pub fn GraphRAGSettingsModal(
-    show: ReadSignal<bool>,
-    set_show: WriteSignal<bool>,
-) -> impl IntoView {
+pub fn GraphRAGSettingsModal(show: ReadSignal<bool>, set_show: WriteSignal<bool>) -> impl IntoView {
     let config_manager = GraphRAGConfigManager::new();
     let current_config = config_manager.get_config_untracked();
     let (hyde_enabled, set_hyde_enabled) = signal(current_config.hyde_enabled);
-    let (community_detection, set_community_detection) = signal(current_config.community_detection_enabled);
+    let (community_detection, set_community_detection) =
+        signal(current_config.community_detection_enabled);
     let (pagerank_enabled, set_pagerank_enabled) = signal(current_config.pagerank_enabled);
     let (reranking_enabled, set_reranking_enabled) = signal(current_config.reranking_enabled);
     let (synthesis_enabled, set_synthesis_enabled) = signal(current_config.synthesis_enabled);

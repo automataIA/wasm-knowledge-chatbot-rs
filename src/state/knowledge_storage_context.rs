@@ -1,7 +1,7 @@
-use crate::models::graphrag::{DocumentIndex, ProcessingStatus};
+use crate::features::graphrag::traversal::{bfs, dfs, TraversalFilters, TraversalResult};
 use crate::models::app::AppError;
 use crate::models::graph_store::GraphStore;
-use crate::features::graphrag::traversal::{bfs, dfs, TraversalFilters, TraversalResult};
+use crate::models::graphrag::{DocumentIndex, ProcessingStatus};
 use crate::utils::storage::StorageUtils;
 
 /// Minimal shared storage context that exposes documents for GraphRAG indexing.
@@ -11,7 +11,9 @@ use crate::utils::storage::StorageUtils;
 pub struct KnowledgeStorageContext;
 
 impl KnowledgeStorageContext {
-    pub fn new() -> Self { Self }
+    pub fn new() -> Self {
+        Self
+    }
 
     /// Storage key where Document Manager persists the aggregated uploaded content.
     const BUFFER_KEY: &'static str = "knowledge_upload_buffer_v1";
@@ -30,13 +32,17 @@ impl KnowledgeStorageContext {
     pub fn get_documents_for_indexing(&self) -> Vec<DocumentIndex> {
         let mut out = Vec::new();
         let now = js_sys::Date::now();
-        let Some(buf) = self.load_buffer() else { return out; };
+        let Some(buf) = self.load_buffer() else {
+            return out;
+        };
 
         // Split by separator used in DocumentManagerSimple
         let segments = buf.split("\n\n---\n\n");
         for seg in segments {
             let seg = seg.trim();
-            if seg.is_empty() { continue; }
+            if seg.is_empty() {
+                continue;
+            }
             if let Some(rest) = seg.strip_prefix("# File:") {
                 // Extract name and content
                 let mut lines = rest.lines();
@@ -47,9 +53,17 @@ impl KnowledgeStorageContext {
                 let content: String = lines.collect::<Vec<_>>().join("\n");
                 let content = content.trim_start_matches('\n').to_string();
 
-                if title.is_empty() && content.is_empty() { continue; }
+                if title.is_empty() && content.is_empty() {
+                    continue;
+                }
 
-                let file_type = if title.ends_with(".md") || title.ends_with(".markdown") { "markdown" } else if title.ends_with(".txt") { "text" } else { "unknown" };
+                let file_type = if title.ends_with(".md") || title.ends_with(".markdown") {
+                    "markdown"
+                } else if title.ends_with(".txt") {
+                    "text"
+                } else {
+                    "unknown"
+                };
                 let size_bytes = content.len() as u64;
 
                 out.push(DocumentIndex {
@@ -67,7 +81,9 @@ impl KnowledgeStorageContext {
             } else {
                 // Fallback: treat whole segment as a single unnamed document
                 let content = seg.to_string();
-                if content.is_empty() { continue; }
+                if content.is_empty() {
+                    continue;
+                }
                 out.push(DocumentIndex {
                     id: format!("{}:untitled", now),
                     title: "Untitled".to_string(),
