@@ -429,6 +429,20 @@ Model: Llama 3.2 3B (Q4)
 - **SharedArrayBuffer**: Required for WebLLM threading
 - **JavaScript Modules**: ES6+ module support
 
+#### SharedArrayBuffer security headers
+When serving in modern browsers, `SharedArrayBuffer` requires cross-origin isolation.
+
+Add these headers to your server (examples):
+
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+Notes:
+- For local dev with Trunk, prefer a single-origin setup. If using a reverse proxy/CDN, ensure these headers are passed through.
+- Third-party assets must be CORP-compliant or served with appropriate CORS/COEP.
+
 ### Feature Detection
 The app includes automatic feature detection and graceful degradation:
 ```rust
@@ -441,6 +455,39 @@ if webgpu_available {
     // CPU-only mode with performance warning
 }
 ```
+
+## 🧪 Testing & CI
+
+### Local tests
+- **Unit/Integration**: Run `cargo test` for non-WASM logic.
+- **WASM browser tests**: A convenience script runs headless Firefox + wasm-bindgen tests.
+
+```bash
+# Headless Firefox tests (see scripts/run-wasm-tests.sh)
+chmod +x scripts/run-wasm-tests.sh
+scripts/run-wasm-tests.sh
+```
+
+Notes:
+- Requires Firefox and Geckodriver. In CI this is provisioned automatically.
+- Ensure `wasm32-unknown-unknown` target is installed: `rustup target add wasm32-unknown-unknown`.
+
+### Continuous Integration
+The workflow in `.github/workflows/ci.yml` enforces formatting, linting, checks and WASM tests:
+- **rustfmt**: `cargo fmt --all -- --check`
+- **clippy**: `cargo clippy --all-targets -- -D warnings`
+- **check**: `cargo check`
+- **wasm tests**: headless Firefox via Geckodriver
+
+Key details:
+- Uses the nightly toolchain with explicit components `rustfmt, clippy` to guarantee availability.
+- Installs `wasm32-unknown-unknown` target.
+- Provisions Firefox + Geckodriver for browser tests.
+
+### Troubleshooting CI
+- __Rustfmt missing on nightly__: Ensure the CI step installs nightly with components `rustfmt, clippy` and `override: true` so it doesn’t skip due to `rust-toolchain.toml`.
+- __Geckodriver action resolution__: Use maintained tags (e.g. `browser-actions/setup-geckodriver@latest`). If the marketplace action is unavailable, provision geckodriver via apt as a fallback.
+- __Long downloads on cold cache__: Cargo registry is cached via `actions/cache`. Verify the cache key includes `Cargo.lock`.
 
 ## 🤝 Contributing
 

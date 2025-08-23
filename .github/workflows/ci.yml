@@ -14,14 +14,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        # Pin actions to immutable versions in production for supply-chain hardening.
+        # Example (replace with actual commit SHA):
+        # uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.x
         uses: actions/checkout@v4
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+      - name: Install Rust (nightly with components)
+        # Consider pinning to a specific nightly date for full reproducibility, e.g. nightly-2025-08-23
+        uses: dtolnay/rust-toolchain@master
         with:
+          toolchain: nightly
+          components: rustfmt, clippy
           targets: wasm32-unknown-unknown
+          override: true
 
       - name: Cache cargo registry
+        # Example pinned SHA for actions/cache:
+        # uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.x
         uses: actions/cache@v4
         with:
           path: |
@@ -45,10 +54,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Rust (wasm target)
-        uses: dtolnay/rust-toolchain@stable
+      - name: Install Rust (nightly + wasm target)
+        uses: dtolnay/rust-toolchain@master
         with:
+          toolchain: nightly
           targets: wasm32-unknown-unknown
+          override: true
 
       - name: Cache cargo registry
         uses: actions/cache@v4
@@ -60,10 +71,20 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-wasm
 
       - name: Setup Firefox
-        uses: browser-actions/setup-firefox@v1
+        # Pin to a specific release or SHA when available to avoid tag drift
+        uses: browser-actions/setup-firefox@latest
 
       - name: Setup Geckodriver
-        uses: browser-actions/setup-geckodriver@v1
+        # Pin to a specific release or SHA when available to avoid tag drift
+        uses: browser-actions/setup-geckodriver@latest
+        continue-on-error: true
+
+      - name: Fallback install Firefox/Geckodriver via apt (Linux only)
+        if: failure()
+        run: |
+          sudo apt-get update
+          # Install Firefox ESR and Geckodriver from apt repositories
+          sudo apt-get install -y firefox-esr geckodriver
 
       - name: Make test script executable
         run: chmod +x scripts/run-wasm-tests.sh
