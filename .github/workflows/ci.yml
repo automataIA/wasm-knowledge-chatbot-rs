@@ -101,58 +101,42 @@ jobs:
 
   trunk-build:
     runs-on: ubuntu-latest
-    env:
-      # Toggle trunk build here to avoid IDE warnings about vars context. Set to 'true' to enable.
-      TRUNK_ENABLED: 'true'
     steps:
       - name: Checkout
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         uses: actions/checkout@v4
 
-      - name: Install Rust (wasm target)
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
-        uses: dtolnay/rust-toolchain@stable
+      - name: Install Rust (stable + wasm target)
+        uses: dtolnay/rust-toolchain@master
         with:
+          toolchain: stable
           targets: wasm32-unknown-unknown
+          override: true
 
-      - name: Cache cargo registry
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-trunk
+      - name: Ensure wasm target is installed (redundant safety)
+        run: rustup target add wasm32-unknown-unknown
 
       - name: Setup Node.js
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
 
       - name: Install Node deps
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         run: npm ci
 
       - name: Build CSS (Tailwind)
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         run: npm run build-css
 
       - name: Install trunk
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         run: cargo install trunk --locked
 
       - name: Trunk build (release)
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         env:
           RUST_BACKTRACE: 1
         run: |
           trunk build --release
 
       - name: Prepare docs directory
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         run: |
           rm -rf docs
           mkdir -p docs
@@ -160,7 +144,6 @@ jobs:
           touch docs/.nojekyll
 
       - name: Commit and push docs
-        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
