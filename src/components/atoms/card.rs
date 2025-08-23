@@ -278,6 +278,6 @@ mod tests {
         let _title = "card-title";
         let _actions = "card-actions";
 
-        assert!(true); // Components compile and can be instantiated
+        // Components compile and can be instantiated
     }
 }

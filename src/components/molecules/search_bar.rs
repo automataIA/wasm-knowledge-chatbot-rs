@@ -96,6 +96,6 @@ mod tests {
     fn test_search_bar_creation() {
         // Test that search bar components can be created
         let _search_value = RwSignal::new(String::new());
-        assert!(true); // Components compile and can be instantiated
+        // Components compile and can be instantiated
     }
 }

@@ -1,3 +1,5 @@
+#![cfg(target_arch = "wasm32")]
+
 use leptos::mount::mount_to_body;
 use leptos::prelude::*;
 use wasm_bindgen_test::*;
@@ -52,7 +54,7 @@ fn mount_panel_and_check_core_elements() {
     );
 
     // Empty-state hint should be visible initially
-    let hint = d.query_selector("div").unwrap();
+    let _hint = d.query_selector("div").unwrap();
     // Fallback: check by substring search over body text
     let body_text = d.body().unwrap().text_content().unwrap_or_default();
     assert!(

@@ -295,6 +295,6 @@ mod tests {
         // Test that modal has proper ARIA attributes and keyboard handling
         // This is a structural test to ensure components exist
         let _modal = ModalSize::Medium;
-        assert!(true);
+        // Components compile and can be instantiated
     }
 }
