@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Toggle trunk build here to avoid IDE warnings about vars context. Set to 'true' to enable.
-      TRUNK_ENABLED: 'false'
+      TRUNK_ENABLED: 'true'
     steps:
       - name: Checkout
         if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
@@ -125,6 +125,21 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-trunk
 
+      - name: Setup Node.js
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Node deps
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        run: npm ci
+
+      - name: Build CSS (Tailwind)
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        run: npm run build-css
+
       - name: Install trunk
         if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
         run: cargo install trunk --locked
@@ -135,3 +150,20 @@ jobs:
           RUST_BACKTRACE: 1
         run: |
           trunk build --release
+
+      - name: Prepare docs directory
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        run: |
+          rm -rf docs
+          mkdir -p docs
+          cp -r dist/* docs/
+          touch docs/.nojekyll
+
+      - name: Commit and push docs
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add docs
+          git commit -m "ci(deploy): publish trunk dist to docs [skip ci]" || echo "No changes to commit"
+          git push

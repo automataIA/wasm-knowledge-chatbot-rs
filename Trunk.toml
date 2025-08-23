@@ -1,14 +1,14 @@
 [build]
 # The index HTML file to drive the bundling process.
 target = "index.html"
-# Build in release mode.
+# Build in release mode (CI can also pass --release).
 release = false
 # Use a custom cargo profile. Overrides the default chosen by cargo. Ignored if the 'index.html' has one configured.
 # cargo_profile = ""
 # The output dir for all final assets.
 dist = "dist"
-# The public URL from which assets are to be served.
-public_url = "/"
+# The public URL from which assets are to be served (must match GitHub Pages repo name)
+public_url = "/wasm-knowledge-chatbot-rs/"
 # Whether to include hash values in the output file names.
 filehash = true
 # Whether to inject scripts (and module preloads) into the finalized output.
@@ -20,7 +20,7 @@ inject_scripts = true
 # Require Cargo.lock is up to date
 # locked = false
 # Control minification
-# minify = "never" # can be one of: never, on_release, always
+minify = "on_release" # can be one of: never, on_release, always
 # Allow disabling sub-resource integrity (SRI)
 # no_sri = false
 # An optional cargo profile to use
@@ -28,7 +28,7 @@ inject_scripts = true
 
 [watch]
 # Paths to watch. The `build.target`'s parent folder is watched by default.
-watch = []
+watch = ["src", "public", "index.html"]
 # Paths to ignore.
 ignore = []
 
