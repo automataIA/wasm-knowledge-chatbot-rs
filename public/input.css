@@ -2,47 +2,199 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme transitions */
+/* Utility: modal shrink-to-content within viewport */
+.modal-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 2rem);
+}
+
+/* Ensure children don't force modal to grow horizontally */
+.modal-fit, .modal-fit * {
+  min-width: 0;
+}
+
+/* Enhanced Theme System */
 html[data-theme="black"] {
     color-scheme: dark;
+}
+
+/* Dark theme (business) rounded corners to match light theme */
+html[data-theme="business"] {
+  /* DaisyUI radius tokens */
+  --rounded-box: 1rem;     /* cards, modals */
+  --rounded-btn: 0.5rem;   /* buttons */
+  --rounded-badge: 0.5rem; /* badges */
+  --tab-radius: 0.5rem;    /* tabs */
+}
+
+/* Ensure key components pick up rounded look in dark */
+html[data-theme="business"] .card,
+html[data-theme="business"] .modal,
+html[data-theme="business"] .btn,
+html[data-theme="business"] .input,
+html[data-theme="business"] .textarea,
+html[data-theme="business"] .select {
+  border-radius: var(--rounded-box);
+}
+
+/* Make toggles pill-shaped in dark theme */
+html[data-theme="business"] .toggle {
+  border-radius: 9999px;
+}
+
+/* Right monitor scope: prevent any child from causing horizontal overflow */
+.monitor-scope .card,
+.monitor-scope .card-body,
+.monitor-scope .grid,
+.monitor-scope .flex,
+.monitor-scope .container {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip; /* avoids creating a horizontal scrollbar while preserving y-scroll */
+}
+
+/* App root scope: constrain common layout containers to avoid horizontal overflow */
+.app-scope {
+  overflow-x: clip; /* final guard to remove horizontal scrollbar visuals */
+}
+.app-scope .card,
+.app-scope .card-body,
+.app-scope .grid,
+.app-scope .flex,
+.app-scope .container {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+/* Ensure flex/grid children can shrink and not force overflow */
+.app-scope .flex > *,
+.app-scope .grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Align Tailwind overflow-x-hidden with clip to avoid track rendering on some engines */
+.app-scope .overflow-x-hidden { overflow-x: clip; }
+
+/* Prevent media from overflowing */
+.app-scope img,
+.app-scope svg,
+.app-scope video,
+.app-scope canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Common utility text that may overflow in status areas */
+.app-scope .truncate,
+.app-scope .font-mono,
+.app-scope .badge {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* --- Icon sizing adjustments --- */
+/* Default mapping for lucide icons inside buttons by size */
+.app-scope .btn i[data-lucide] { width: 1rem; height: 1rem; }
+.app-scope .btn.btn-sm i[data-lucide] { width: 0.95rem; height: 0.95rem; }
+.app-scope .btn.btn-md i[data-lucide] { width: 1.125rem; height: 1.125rem; }
+.app-scope .btn.btn-lg i[data-lucide] { width: 1.25rem; height: 1.25rem; }
+
+/* When sidebar is collapsed, make icons slightly larger for readability */
+.sidebar-collapsed .btn i[data-lucide] { width: 1.25rem; height: 1.25rem; }
+/* Ensure we override Tailwind h-4 w-4 utilities within collapsed sidebar */
+.sidebar-collapsed .btn .h-4.w-4 { width: 1.25rem; height: 1.25rem; }
+
+html[data-theme="light"] {
+    color-scheme: light;
 }
 
 body {
     @apply bg-base-100 text-base-content;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom animations */
+/* Remove horizontal scrollbar globally */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Enhanced Animations */
 @layer utilities {
+    /* Utility to hide horizontal scrollbar on specific containers */
+    .no-scrollbar-x { overflow-x: hidden; }
+    /* Fully hide scrollbars (both axes) cross-browser */
+    .hide-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none;    /* Firefox */
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; } /* Chrome, Safari */
     .animate-fade-in {
-        animation: fadeIn 0.2s ease-out;
+        animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .animate-slide-in {
-        animation: slideIn 0.3s ease-out;
+        animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .animate-pulse-subtle {
-        animation: pulseSubtle 2s infinite;
+        animation: pulseSubtle 2s ease-in-out infinite;
+    }
+
+    .animate-bounce-gentle {
+        animation: bounceGentle 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    /* GPU acceleration utilities */
+    .gpu-accelerated {
+        transform: translateZ(0);
+        will-change: transform;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+
+        .animate-fade-in,
+        .animate-slide-in,
+        .animate-slide-up,
+        .animate-bounce-gentle {
+            animation: none;
+            opacity: 1;
+            transform: none;
+        }
+
+        .animate-pulse-subtle {
+            animation: none;
+        }
     }
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(4px);
+        transform: translateY(8px) scale(0.98);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(-8px);
+        transform: translateX(-12px);
     }
 
     to {
@@ -51,59 +203,204 @@ body {
     }
 }
 
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes pulseSubtle {
 
     0%,
     100% {
         opacity: 1;
+        transform: scale(1);
     }
 
     50% {
-        opacity: 0.7;
+        opacity: 0.8;
+        transform: scale(1.02);
     }
 }
 
-/* Scrollbar styling */
+@keyframes bounceGentle {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(20px);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05) translateY(-5px);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(0.98) translateY(2px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Enhanced Scrollbar Styling */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.base-300') transparent;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
+    height: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-base-200;
+    @apply bg-transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-base-300 rounded-full;
+    @apply bg-base-300/60 rounded-full border-2 border-solid border-transparent;
+    background-clip: content-box;
+    transition: background-color 0.2s ease;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-base-content/30;
+    @apply bg-base-content/40;
 }
 
-/* Custom input styling */
+.custom-scrollbar::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+}
+
+/* Thin scrollbar variant */
+.scrollbar-thin {
+    scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+/* Enhanced Input Styling */
 .input-rounded {
     @apply bg-base-200 border-0 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 16px;
+    /* Prevents zoom on iOS */
+    min-height: 44px;
+    /* WCAG touch target */
 }
 
 .input-rounded:focus {
-    @apply bg-base-100 ring-2 ring-primary/30;
+    @apply bg-base-100 ring-2 ring-primary/40;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -2px theme('colors.primary / 0.15');
 }
 
-/* Status indicators */
+.input-rounded:hover:not(:focus) {
+    @apply bg-base-300/50;
+}
+
+.input-rounded::placeholder {
+    @apply text-base-content/60;
+    transition: color 0.2s ease;
+}
+
+.input-rounded:focus::placeholder {
+    @apply text-base-content/40;
+}
+
+/* Input variants */
+.input-error {
+    @apply ring-2 ring-error/40 bg-error/5;
+}
+
+.input-success {
+    @apply ring-2 ring-success/40 bg-success/5;
+}
+
+/* Enhanced Status Indicators */
 .status-indicator {
-    @apply flex items-center gap-1 text-xs;
+    @apply flex items-center gap-2 text-sm font-medium;
+    transition: all 0.2s ease;
 }
 
 .status-dot {
-    @apply w-2 h-2 rounded-full;
+    @apply w-2 h-2 rounded-full relative;
+    transition: all 0.3s ease;
 }
 
-/* Chat avatar icon centering */
+.status-dot.pulse {
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.status-dot.success {
+    @apply bg-success;
+}
+
+.status-dot.warning {
+    @apply bg-warning;
+}
+
+.status-dot.error {
+    @apply bg-error;
+}
+
+.status-dot.info {
+    @apply bg-info;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+/* Status badge */
+.status-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full;
+    min-height: 24px;
+}
+
+.status-badge.success {
+    @apply bg-success/10 text-success border border-success/20;
+}
+
+.status-badge.warning {
+    @apply bg-warning/10 text-warning border border-warning/20;
+}
+
+.status-badge.error {
+    @apply bg-error/10 text-error border border-error/20;
+}
+
+.status-badge.info {
+    @apply bg-info/10 text-info border border-info/20;
+}
+
+/* Enhanced Chat Styling */
 .chat-image .avatar>div {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    transition: transform 0.2s ease;
 }
 
 .chat-image .avatar i[data-lucide] {
@@ -112,4 +409,125 @@ body {
     justify-content: center !important;
     margin: 0 !important;
     padding: 0 !important;
+    transition: all 0.2s ease;
+}
+
+.chat-image .avatar:hover {
+    transform: scale(1.05);
+}
+
+/* Enhanced chat bubble */
+.chat-bubble {
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+}
+
+.chat-bubble:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -2px theme('colors.base-content / 0.1');
+}
+
+/* Message typing indicator */
+.typing-indicator {
+    @apply flex items-center gap-1 px-4 py-2;
+}
+
+.typing-dot {
+    @apply w-2 h-2 bg-base-content/40 rounded-full;
+    animation: typingBounce 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingBounce {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    30% {
+        transform: translateY(-8px);
+        opacity: 1;
+    }
+}
+
+/* Focus management */
+.focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-base-100;
+    transition: box-shadow 0.15s ease;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .input-rounded {
+        @apply border-2 border-base-content/20;
+    }
+
+    .input-rounded:focus {
+        @apply border-primary;
+    }
+
+    .status-dot {
+        @apply border-2 border-base-content;
+    }
+}
+
+/* DaisyUI Toggle enhancements (opt-in) */
+@layer utilities {
+  /* Add OFF/ON labels inside the toggle track */
+  .toggle-labeled { position: relative; }
+
+  .toggle-labeled::before,
+  .toggle-labeled::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem; /* adjust per toggle size */
+    font-weight: 700;
+    color: currentColor;
+    opacity: .4; /* deemphasized by default */
+    transition: opacity .2s ease;
+    pointer-events: none;
+  }
+
+  /* OFF label (left) */
+  .toggle-labeled::before {
+    content: "OFF";
+    inset-inline-start: 0;
+  }
+
+  /* ON label (right) */
+  .toggle-labeled::after {
+    content: "ON";
+    inset-inline-start: 50%;
+  }
+
+  /* Checked: emphasize ON, further fade OFF; support aria-checked */
+  .toggle-labeled:checked::after,
+  .toggle-labeled[aria-checked="true"]::after { opacity: 1; }
+  .toggle-labeled:checked::before,
+  .toggle-labeled[aria-checked="true"]::before { opacity: .3; }
+
+  /* Keep track bg on hover (daisyUI uses currentColor on :hover) */
+  .toggle-labeled:hover { background-color: var(--tglbg) !important; }
+
+  /* Knob color only (uses currentColor): OFF red, ON green */
+  .toggle-knob-rg { color: theme(colors.red.600); }
+  .toggle-knob-rg:checked,
+  .toggle-knob-rg[checked],
+  .toggle-knob-rg[aria-checked="true"] { color: theme(colors.green.600); }
 }

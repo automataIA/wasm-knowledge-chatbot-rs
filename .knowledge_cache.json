@@ -1,0 +1,4306 @@
+{
+  "entries": {
+    "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs": {
+      "meta": {
+        "mtime": 1755424975,
+        "len": 7797
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "conversation_storage",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:validate_conversation_schema:27",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "validate_conversation_schema",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 27,
+              "line_end": 27
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:new:52",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "new",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 52,
+              "line_end": 52
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:get_local_storage:57",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "get_local_storage",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 57,
+              "line_end": 57
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:load_conversations:66",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "load_conversations",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 66,
+              "line_end": 66
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:save_conversations:79",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "save_conversations",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 79,
+              "line_end": 79
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:create_conversation:91",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "create_conversation",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 91,
+              "line_end": 91
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:save_message:110",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "save_message",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 110,
+              "line_end": 110
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:load_conversation:127",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "load_conversation",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 127,
+              "line_end": 127
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:list_conversations:144",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "list_conversations",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 144,
+              "line_end": 144
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:delete_conversation:168",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "delete_conversation",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 168,
+              "line_end": 168
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:update_conversation_title:179",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "update_conversation_title",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 179,
+              "line_end": 179
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:export_json:199",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "export_json",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 199,
+              "line_end": 199
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:import_json:216",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "import_json",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 216,
+              "line_end": 216
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:Conversation:6",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "Conversation",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 6,
+              "line_end": 6
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:ConversationInfo:15",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "ConversationInfo",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 15,
+              "line_end": 15
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:ExportBundleV1:23",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "ExportBundleV1",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 23,
+              "line_end": 23
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:ConversationStorage:47",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "ConversationStorage",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/conversation_storage.rs",
+              "line_start": 47,
+              "line_end": 47
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::models::Message",
+            "alias": null
+          },
+          {
+            "path": "uuid::Uuid",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 18,
+          "import_count": 2
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/conversation_history.rs": {
+      "meta": {
+        "mtime": 1755438847,
+        "len": 1886
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/conversation_history.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/conversation_history.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "conversation_history",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/conversation_history.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:ConversationHistory:6",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "ConversationHistory",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/conversation_history.rs",
+              "line_start": 6,
+              "line_end": 6
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::models::Conversation",
+            "alias": null
+          },
+          {
+            "path": "crate::components::ui_primitives::Button",
+            "alias": null
+          },
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/lib.rs": {
+      "meta": {
+        "mtime": 1755456774,
+        "len": 880
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/lib.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/lib.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "lib",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/lib.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:App:22",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "App",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/lib.rs",
+              "line_start": 22,
+              "line_end": 22
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "leptos_meta::*",
+            "alias": null
+          },
+          {
+            "path": "crate::components::main_interface::MainInterface",
+            "alias": null
+          },
+          {
+            "path": "crate::components::theme_toggle::ThemeToggle",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 4
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs": {
+      "meta": {
+        "mtime": 1755458317,
+        "len": 7115
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "graphrag_config",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:default:21",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "default",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 21,
+              "line_end": 21
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:default:27",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "default",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 27,
+              "line_end": 27
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:new:72",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "new",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 72,
+              "line_end": 72
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:get_config:84",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "get_config",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 84,
+              "line_end": 84
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:toggle_hyde:94",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "toggle_hyde",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 94,
+              "line_end": 94
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:toggle_community_detection:98",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "toggle_community_detection",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 98,
+              "line_end": 98
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:toggle_pagerank:102",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "toggle_pagerank",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 102,
+              "line_end": 102
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:toggle_reranking:106",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "toggle_reranking",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 106,
+              "line_end": 106
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:toggle_synthesis:110",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "toggle_synthesis",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 110,
+              "line_end": 110
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:get_metrics:116",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "get_metrics",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 116,
+              "line_end": 116
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:update_query_metrics:119",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "update_query_metrics",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 119,
+              "line_end": 119
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:update_performance_metrics:128",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "update_performance_metrics",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 128,
+              "line_end": 128
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:get_performance_metrics:132",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "get_performance_metrics",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 132,
+              "line_end": 132
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:calculate_performance_score:138",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "calculate_performance_score",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 138,
+              "line_end": 138
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:update_active_features:144",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "update_active_features",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 144,
+              "line_end": 144
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:load_config:159",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "load_config",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 159,
+              "line_end": 159
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:save_config:171",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "save_config",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 171,
+              "line_end": 171
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:export_config:184",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "export_config",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 184,
+              "line_end": 184
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:import_config:187",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "import_config",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 187,
+              "line_end": 187
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:reset_to_defaults:199",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "reset_to_defaults",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 199,
+              "line_end": 199
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:create_graphrag_signals:208",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "create_graphrag_signals",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 208,
+              "line_end": 208
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:GraphRAGConfig:6",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "GraphRAGConfig",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 6,
+              "line_end": 6
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:GraphRAGMetrics:43",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "GraphRAGMetrics",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 43,
+              "line_end": 43
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:PerformanceMetrics:54",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "PerformanceMetrics",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 54,
+              "line_end": 54
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:GraphRAGConfigManager:65",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "GraphRAGConfigManager",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/graphrag_config.rs",
+              "line_start": 65,
+              "line_end": 65
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 26,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/utils/mod.rs": {
+      "meta": {
+        "mtime": 1755422237,
+        "len": 15
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/utils/mod.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/utils/mod.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "mod",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/utils/mod.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [],
+        "metrics": {
+          "item_count": 1,
+          "import_count": 0
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/counter_btn.rs": {
+      "meta": {
+        "mtime": 1754979142,
+        "len": 350
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/counter_btn.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/counter_btn.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "counter_btn",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/counter_btn.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:Button:5",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "Button",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/counter_btn.rs",
+              "line_start": 5,
+              "line_end": 5
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/pages/home.rs": {
+      "meta": {
+        "mtime": 1754979142,
+        "len": 3767
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/pages/home.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/pages/home.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "home",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pages/home.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:Home:6",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "Home",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pages/home.rs",
+              "line_start": 6,
+              "line_end": 6
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::components::counter_btn::Button",
+            "alias": null
+          },
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 2
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings_modal.rs": {
+      "meta": {
+        "mtime": 1755457646,
+        "len": 14302
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings_modal.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/graphrag_settings_modal.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "graphrag_settings_modal",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings_modal.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:GraphRAGSettingsModal:8",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "GraphRAGSettingsModal",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings_modal.rs",
+              "line_start": 8,
+              "line_end": 8
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "leptos::task::spawn_local",
+            "alias": null
+          },
+          {
+            "path": "crate::components::graphrag_settings::GraphRAGSettings",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs": {
+      "meta": {
+        "mtime": 1755494440,
+        "len": 6348
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "ui_primitives",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:classes_of:2",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "classes_of",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+              "line_start": 2,
+              "line_end": 2
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:Button:13",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "Button",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+              "line_start": 13,
+              "line_end": 13
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:Toggle:68",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "Toggle",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+              "line_start": 68,
+              "line_end": 68
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:Input:106",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "Input",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+              "line_start": 106,
+              "line_end": 106
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:Textarea:138",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "Textarea",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+              "line_start": 138,
+              "line_end": 138
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:ProgressBar:165",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "ProgressBar",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/ui_primitives.rs",
+              "line_start": 165,
+              "line_end": 165
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 7,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/sidebar.rs": {
+      "meta": {
+        "mtime": 1755458905,
+        "len": 10424
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/sidebar.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/sidebar.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "sidebar",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/sidebar.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:Sidebar:10",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "Sidebar",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/sidebar.rs",
+              "line_start": 10,
+              "line_end": 10
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::models::LLMModel",
+            "alias": null
+          },
+          {
+            "path": "crate::components::ui_primitives::Button",
+            "alias": null
+          },
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings.rs": {
+      "meta": {
+        "mtime": 1755463269,
+        "len": 39141
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/graphrag_settings.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "graphrag_settings",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:GraphRAGStatusMetrics:8",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "GraphRAGStatusMetrics",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings.rs",
+              "line_start": 8,
+              "line_end": 8
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:GraphRAGSettings:67",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "GraphRAGSettings",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/graphrag_settings.rs",
+              "line_start": 67,
+              "line_end": 67
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "leptos::task::spawn_local",
+            "alias": null
+          },
+          {
+            "path": "gloo_timers::future::TimeoutFuture",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 3,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/input_area.rs": {
+      "meta": {
+        "mtime": 1755495198,
+        "len": 3358
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/input_area.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/input_area.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "input_area",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/input_area.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:InputArea:22",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "InputArea",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/input_area.rs",
+              "line_start": 22,
+              "line_end": 22
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::ev",
+            "alias": null
+          },
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "std::rc::Rc",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/theme_toggle.rs": {
+      "meta": {
+        "mtime": 1755494758,
+        "len": 2895
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/theme_toggle.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/theme_toggle.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "theme_toggle",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/theme_toggle.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:ThemeToggle:5",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "ThemeToggle",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/theme_toggle.rs",
+              "line_start": 5,
+              "line_end": 5
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "leptos::web_sys::window",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 2
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs": {
+      "meta": {
+        "mtime": 1755424749,
+        "len": 5412
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "knowledge_storage_tests",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:clear_local_storage:12",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "clear_local_storage",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs",
+              "line_start": 12,
+              "line_end": 12
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:create_and_list_conversations:23",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "create_and_list_conversations",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs",
+              "line_start": 23,
+              "line_end": 23
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:save_and_load_messages:43",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "save_and_load_messages",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs",
+              "line_start": 43,
+              "line_end": 43
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:update_and_delete_conversation:87",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "update_and_delete_conversation",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs",
+              "line_start": 87,
+              "line_end": 87
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:export_import_replace_and_merge:114",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "export_import_replace_and_merge",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/knowledge_storage_tests.rs",
+              "line_start": 114,
+              "line_end": 114
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "wasm_bindgen_test::*",
+            "alias": null
+          },
+          {
+            "path": "wasm_bindgen_test::wasm_bindgen_test_configure",
+            "alias": null
+          },
+          {
+            "path": "wasm_knowledge_chatbot_rs::storage::conversation_storage::ConversationStorage",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 6,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/main.rs": {
+      "meta": {
+        "mtime": 1753626078,
+        "len": 273
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/main.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/main.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "main",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/main.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:main:3",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "main",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/main.rs",
+              "line_start": 3,
+              "line_end": 3
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "wasm_knowledge_chatbot_rs::App",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 2
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/message_bubble.rs": {
+      "meta": {
+        "mtime": 1755421306,
+        "len": 1436
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/message_bubble.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/message_bubble.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "message_bubble",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/message_bubble.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:MessageBubble:5",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "MessageBubble",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/message_bubble.rs",
+              "line_start": 5,
+              "line_end": 5
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:format_timestamp:32",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "format_timestamp",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/message_bubble.rs",
+              "line_start": 32,
+              "line_end": 32
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 3,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/tests/fixtures.rs": {
+      "meta": {
+        "mtime": 1755422300,
+        "len": 484
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/tests/fixtures.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/tests/fixtures.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "fixtures",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/fixtures.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:sample_markdown_doc:6",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "sample_markdown_doc",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/fixtures.rs",
+              "line_start": 6,
+              "line_end": 6
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:sample_text_doc:10",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "sample_text_doc",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/fixtures.rs",
+              "line_start": 10,
+              "line_end": 10
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:fixtures_smoke:16",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "fixtures_smoke",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/fixtures.rs",
+              "line_start": 16,
+              "line_end": 16
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "wasm_bindgen_test::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 4,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs": {
+      "meta": {
+        "mtime": 1755462338,
+        "len": 4475
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "advanced_graphrag",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:default:12",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "default",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 12,
+              "line_end": 12
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:new:27",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "new",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 27,
+              "line_end": 27
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:generate_hypothetical_docs:30",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "generate_hypothetical_docs",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 30,
+              "line_end": 30
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:default:63",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "default",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 63,
+              "line_end": 63
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:new:79",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "new",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 79,
+              "line_end": 79
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:HyDEConfig:5",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "HyDEConfig",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 5,
+              "line_end": 5
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:HyDEEngine:22",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "HyDEEngine",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 22,
+              "line_end": 22
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:CommunityDetectionConfig:54",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "CommunityDetectionConfig",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 54,
+              "line_end": 54
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:CommunityDetectionEngine:74",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "CommunityDetectionEngine",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/advanced_graphrag.rs",
+              "line_start": 74,
+              "line_end": 74
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::pagerank_reranking::GraphAccess",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 10,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs": {
+      "meta": {
+        "mtime": 1755424948,
+        "len": 2172
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "tag_helpers",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:default:11",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "default",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs",
+              "line_start": 11,
+              "line_end": 11
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:parse_tags:21",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "parse_tags",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs",
+              "line_start": 21,
+              "line_end": 21
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:tokenize_lower:36",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "tokenize_lower",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs",
+              "line_start": 36,
+              "line_end": 36
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:simple_score:47",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "simple_score",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs",
+              "line_start": 47,
+              "line_end": 47
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:SearchScoringOptions:4",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "SearchScoringOptions",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/tag_helpers.rs",
+              "line_start": 4,
+              "line_end": 4
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "std::collections::HashSet",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 6,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/document_manager_simple.rs": {
+      "meta": {
+        "mtime": 1755496995,
+        "len": 16031
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/document_manager_simple.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/document_manager_simple.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "document_manager_simple",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/document_manager_simple.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:DocumentManagerSimple:9",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "DocumentManagerSimple",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/document_manager_simple.rs",
+              "line_start": 9,
+              "line_end": 9
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::components::ui_primitives::Button",
+            "alias": null
+          },
+          {
+            "path": "crate::error_handling::AppError",
+            "alias": null
+          },
+          {
+            "path": "crate::storage::ConversationStorage",
+            "alias": null
+          },
+          {
+            "path": "leptos::html::Input",
+            "alias": null
+          },
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "wasm_bindgen_futures::JsFuture",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 6
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/error_handling.rs": {
+      "meta": {
+        "mtime": 1755425112,
+        "len": 1657
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/error_handling.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/error_handling.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "error_handling",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/error_handling.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:fmt:12",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "fmt",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/error_handling.rs",
+              "line_start": 12,
+              "line_end": 12
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:fmt:37",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "fmt",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/error_handling.rs",
+              "line_start": 37,
+              "line_end": 37
+            },
+            "attributes": []
+          },
+          {
+            "id": "enum:EngineError:4",
+            "item_type": {
+              "Enum": {
+                "variant_count": 0
+              }
+            },
+            "name": "EngineError",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/error_handling.rs",
+              "line_start": 4,
+              "line_end": 4
+            },
+            "attributes": []
+          },
+          {
+            "id": "enum:AppError:28",
+            "item_type": {
+              "Enum": {
+                "variant_count": 0
+              }
+            },
+            "name": "AppError",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/error_handling.rs",
+              "line_start": 28,
+              "line_end": 28
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [],
+        "metrics": {
+          "item_count": 5,
+          "import_count": 0
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/pages/not_found.rs": {
+      "meta": {
+        "mtime": 1755422237,
+        "len": 417
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/pages/not_found.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/pages/not_found.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "not_found",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pages/not_found.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:NotFound:4",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "NotFound",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pages/not_found.rs",
+              "line_start": 4,
+              "line_end": 4
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/status_bar.rs": {
+      "meta": {
+        "mtime": 1755496045,
+        "len": 6659
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/status_bar.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/status_bar.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "status_bar",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/status_bar.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:StatusBar:5",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "StatusBar",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/status_bar.rs",
+              "line_start": 5,
+              "line_end": 5
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "crate::graphrag_config::GraphRAGMetrics",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 2
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/mod.rs": {
+      "meta": {
+        "mtime": 1755456160,
+        "len": 384
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/mod.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/mod.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "mod",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/mod.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [],
+        "metrics": {
+          "item_count": 1,
+          "import_count": 0
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/main_interface.rs": {
+      "meta": {
+        "mtime": 1755458794,
+        "len": 4715
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/main_interface.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/main_interface.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "main_interface",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/main_interface.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:MainInterface:8",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "MainInterface",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/main_interface.rs",
+              "line_start": 8,
+              "line_end": 8
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::storage::ConversationStorage",
+            "alias": null
+          },
+          {
+            "path": "crate::utils::icons::schedule_icon_render",
+            "alias": null
+          },
+          {
+            "path": "crate::graphrag_config::create_graphrag_signals",
+            "alias": null
+          },
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 4
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/webllm_binding.rs": {
+      "meta": {
+        "mtime": 1755422237,
+        "len": 5612
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/webllm_binding.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/webllm_binding.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "webllm_binding",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/webllm_binding.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:CreateMLCEngine:10",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "CreateMLCEngine",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/webllm_binding.rs",
+              "line_start": 10,
+              "line_end": 10
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:init_webllm:77",
+            "item_type": {
+              "Function": {
+                "is_async": true,
+                "is_const": false
+              }
+            },
+            "name": "init_webllm",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/webllm_binding.rs",
+              "line_start": 77,
+              "line_end": 77
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:send_message_to_llm:85",
+            "item_type": {
+              "Function": {
+                "is_async": true,
+                "is_const": false
+              }
+            },
+            "name": "send_message_to_llm",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/webllm_binding.rs",
+              "line_start": 85,
+              "line_end": 85
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "wasm_bindgen::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "wasm_bindgen_futures::JsFuture",
+            "alias": null
+          },
+          {
+            "path": "web_sys::js_sys",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 4,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/models.rs": {
+      "meta": {
+        "mtime": 1755422237,
+        "len": 962
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/models.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/models.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "models",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/models.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:new:34",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "new",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/models.rs",
+              "line_start": 34,
+              "line_end": 34
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:Message:10",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "Message",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/models.rs",
+              "line_start": 10,
+              "line_end": 10
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:Conversation:18",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "Conversation",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/models.rs",
+              "line_start": 18,
+              "line_end": 18
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:LLMModel:26",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "LLMModel",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/models.rs",
+              "line_start": 26,
+              "line_end": 26
+            },
+            "attributes": []
+          },
+          {
+            "id": "enum:MessageRole:4",
+            "item_type": {
+              "Enum": {
+                "variant_count": 0
+              }
+            },
+            "name": "MessageRole",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/models.rs",
+              "line_start": 4,
+              "line_end": 4
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [],
+        "metrics": {
+          "item_count": 6,
+          "import_count": 0
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/conversation_list.rs": {
+      "meta": {
+        "mtime": 1755438677,
+        "len": 8690
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/conversation_list.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/conversation_list.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "conversation_list",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/conversation_list.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "crate::components::ui_primitives::Button",
+            "alias": null
+          },
+          {
+            "path": "log::info",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 1,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/utils/icons.rs": {
+      "meta": {
+        "mtime": 1755422237,
+        "len": 1067
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/utils/icons.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/utils/icons.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "icons",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/utils/icons.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:createIcons:6",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "createIcons",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/utils/icons.rs",
+              "line_start": 6,
+              "line_end": 6
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:log:9",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "log",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/utils/icons.rs",
+              "line_start": 9,
+              "line_end": 9
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:render_lucide_icons:11",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "render_lucide_icons",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/utils/icons.rs",
+              "line_start": 11,
+              "line_end": 11
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:schedule_icon_render:30",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "schedule_icon_render",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/utils/icons.rs",
+              "line_start": 30,
+              "line_end": 30
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "wasm_bindgen::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 5,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/storage/mod.rs": {
+      "meta": {
+        "mtime": 1755424959,
+        "len": 108
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/storage/mod.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/storage/mod.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "mod",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/storage/mod.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "conversation_storage::*",
+            "alias": null
+          },
+          {
+            "path": "tag_helpers::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 1,
+          "import_count": 2
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/tests/test_utils.rs": {
+      "meta": {
+        "mtime": 1755422654,
+        "len": 1378
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "test_utils",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:start:16",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "start",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+              "line_start": 16,
+              "line_end": 16
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:end:20",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "end",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+              "line_start": 20,
+              "line_end": 20
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:create_test_container:29",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "create_test_container",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+              "line_start": 29,
+              "line_end": 29
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:assert_approx_eq:38",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "assert_approx_eq",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+              "line_start": 38,
+              "line_end": 38
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:utils_smoke:44",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "utils_smoke",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+              "line_start": 44,
+              "line_end": 44
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:PerfTimer:10",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "PerfTimer",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/test_utils.rs",
+              "line_start": 10,
+              "line_end": 10
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "wasm_bindgen_test::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 7,
+          "import_count": 1
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs": {
+      "meta": {
+        "mtime": 1755424371,
+        "len": 5479
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "pagerank_reranking",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:5",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 5,
+              "line_end": 5
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:6",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 6,
+              "line_end": 6
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:default:23",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "default",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 23,
+              "line_end": 23
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:new:40",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "new",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 40,
+              "line_end": 40
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:default:126",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "default",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 126,
+              "line_end": 126
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:new:141",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "new",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 141,
+              "line_end": 141
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:rerank:144",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "rerank",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 144,
+              "line_end": 144
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:default:163",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "default",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 163,
+              "line_end": 163
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:new:174",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "new",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 174,
+              "line_end": 174
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:synthesize:177",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "synthesize",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 177,
+              "line_end": 177
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:PageRankConfig:10",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "PageRankConfig",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 10,
+              "line_end": 10
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:PageRankEngine:35",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "PageRankEngine",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 35,
+              "line_end": 35
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:RerankingConfig:119",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "RerankingConfig",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 119,
+              "line_end": 119
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:AdvancedReranker:136",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "AdvancedReranker",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 136,
+              "line_end": 136
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:SynthesisConfig:158",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "SynthesisConfig",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 158,
+              "line_end": 158
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:ResultSynthesizer:169",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "ResultSynthesizer",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pagerank_reranking.rs",
+              "line_start": 169,
+              "line_end": 169
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [],
+        "metrics": {
+          "item_count": 17,
+          "import_count": 0
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs": {
+      "meta": {
+        "mtime": 1755424127,
+        "len": 9990
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "graphrag_engine_tests",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:hyde_engine_defaults:11",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "hyde_engine_defaults",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 11,
+              "line_end": 11
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:community_two_clusters_with_sparse_cross_edges:23",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "community_two_clusters_with_sparse_cross_edges",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 23,
+              "line_end": 23
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:27",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 27,
+              "line_end": 27
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:28",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 28,
+              "line_end": 28
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:community_detects_two_clusters:59",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "community_detects_two_clusters",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 59,
+              "line_end": 59
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:63",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 63,
+              "line_end": 63
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:64",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 64,
+              "line_end": 64
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:pagerank_converges_and_normalizes:95",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "pagerank_converges_and_normalizes",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 95,
+              "line_end": 95
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:99",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 99,
+              "line_end": 99
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:100",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 100,
+              "line_end": 100
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:community_partition_invariants:118",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "community_partition_invariants",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 118,
+              "line_end": 118
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:122",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 122,
+              "line_end": 122
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:123",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 123,
+              "line_end": 123
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:reranker_weight_effects:145",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "reranker_weight_effects",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 145,
+              "line_end": 145
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:synthesizer_concatenates_multiple_snippets:168",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "synthesizer_concatenates_multiple_snippets",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 168,
+              "line_end": 168
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:community_detection_defaults:180",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "community_detection_defaults",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 180,
+              "line_end": 180
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:186",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 186,
+              "line_end": 186
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:187",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 187,
+              "line_end": 187
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:pagerank_uniform_scores:194",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "pagerank_uniform_scores",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 194,
+              "line_end": 194
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:200",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 200,
+              "line_end": 200
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:201",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 201,
+              "line_end": 201
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:reranker_combination:215",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "reranker_combination",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 215,
+              "line_end": 215
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:synthesizer_truncates:226",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "synthesizer_truncates",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 226,
+              "line_end": 226
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:pagerank_star_graph_distribution:236",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "pagerank_star_graph_distribution",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 236,
+              "line_end": 236
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:241",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 241,
+              "line_end": 241
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:242",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 242,
+              "line_end": 242
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:pagerank_with_dangling_nodes_normalizes:262",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "pagerank_with_dangling_nodes_normalizes",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 262,
+              "line_end": 262
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:node_count:267",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "node_count",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 267,
+              "line_end": 267
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:out_neighbors:268",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "out_neighbors",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 268,
+              "line_end": 268
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:G:25",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "G",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 25,
+              "line_end": 25
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:G:61",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "G",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 61,
+              "line_end": 61
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:SimpleGraph:97",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "SimpleGraph",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 97,
+              "line_end": 97
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:G:120",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "G",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 120,
+              "line_end": 120
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:EmptyGraph:184",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "EmptyGraph",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 184,
+              "line_end": 184
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:SimpleGraph:198",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "SimpleGraph",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 198,
+              "line_end": 198
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:G:239",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "G",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 239,
+              "line_end": 239
+            },
+            "attributes": []
+          },
+          {
+            "id": "struct:G:265",
+            "item_type": {
+              "Struct": {
+                "is_tuple": false
+              }
+            },
+            "name": "G",
+            "visibility": "Private",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/tests/graphrag_engine_tests.rs",
+              "line_start": 265,
+              "line_end": 265
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "wasm_bindgen_test::*",
+            "alias": null
+          },
+          {
+            "path": "wasm_bindgen_test::wasm_bindgen_test_configure",
+            "alias": null
+          },
+          {
+            "path": "wasm_knowledge_chatbot_rs::pagerank_reranking::GraphAccess",
+            "alias": null
+          },
+          {
+            "path": "wasm_knowledge_chatbot_rs::pagerank_reranking::GraphAccess",
+            "alias": null
+          },
+          {
+            "path": "wasm_knowledge_chatbot_rs::pagerank_reranking::GraphAccess",
+            "alias": null
+          },
+          {
+            "path": "wasm_knowledge_chatbot_rs::pagerank_reranking::GraphAccess",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 38,
+          "import_count": 6
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/llm_select.rs": {
+      "meta": {
+        "mtime": 1755438589,
+        "len": 3069
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/llm_select.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/llm_select.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "llm_select",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/llm_select.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:LLMSelect:6",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "LLMSelect",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/llm_select.rs",
+              "line_start": 6,
+              "line_end": 6
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::models::LLMModel",
+            "alias": null
+          },
+          {
+            "path": "crate::components::ui_primitives::Button",
+            "alias": null
+          },
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 3
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/sidebar_action.rs": {
+      "meta": {
+        "mtime": 1755458755,
+        "len": 694
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/sidebar_action.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/sidebar_action.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "sidebar_action",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/sidebar_action.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:SidebarAction:5",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "SidebarAction",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/sidebar_action.rs",
+              "line_start": 5,
+              "line_end": 5
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "crate::components::ui_primitives::Button",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 2
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/pages/mod.rs": {
+      "meta": {
+        "mtime": 1754979142,
+        "len": 33
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/pages/mod.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/pages/mod.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "mod",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/pages/mod.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [],
+        "metrics": {
+          "item_count": 1,
+          "import_count": 0
+        }
+      }
+    },
+    "/home/dio/wasm-LLM-trunk/src/components/chat_area.rs": {
+      "meta": {
+        "mtime": 1755462332,
+        "len": 38651
+      },
+      "node": {
+        "path": "/home/dio/wasm-LLM-trunk/src/components/chat_area.rs",
+        "items": [
+          {
+            "id": "file:/home/dio/wasm-LLM-trunk/src/components/chat_area.rs",
+            "item_type": {
+              "Module": {
+                "is_inline": false
+              }
+            },
+            "name": "chat_area",
+            "visibility": "PubCrate",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/chat_area.rs",
+              "line_start": 1,
+              "line_end": 1
+            },
+            "attributes": []
+          },
+          {
+            "id": "fn:ChatArea:16",
+            "item_type": {
+              "Function": {
+                "is_async": false,
+                "is_const": false
+              }
+            },
+            "name": "ChatArea",
+            "visibility": "Public",
+            "location": {
+              "file": "/home/dio/wasm-LLM-trunk/src/components/chat_area.rs",
+              "line_start": 16,
+              "line_end": 16
+            },
+            "attributes": []
+          }
+        ],
+        "imports": [
+          {
+            "path": "crate::storage::ConversationStorage",
+            "alias": null
+          },
+          {
+            "path": "crate::utils::icons::schedule_icon_render",
+            "alias": null
+          },
+          {
+            "path": "gloo_timers::future::TimeoutFuture",
+            "alias": null
+          },
+          {
+            "path": "leptos::prelude::*",
+            "alias": null
+          },
+          {
+            "path": "leptos::task::spawn_local",
+            "alias": null
+          },
+          {
+            "path": "log::info",
+            "alias": null
+          },
+          {
+            "path": "wasm_bindgen::JsCast",
+            "alias": null
+          },
+          {
+            "path": "std::cell::RefCell",
+            "alias": null
+          }
+        ],
+        "metrics": {
+          "item_count": 2,
+          "import_count": 8
+        }
+      }
+    }
+  }
+}

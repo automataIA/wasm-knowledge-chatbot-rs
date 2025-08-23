@@ -4,7 +4,7 @@ use wasm_bindgen::prelude::*;
 extern "C" {
     #[wasm_bindgen(js_namespace = lucide)]
     fn createIcons();
-    
+
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
 }
@@ -13,16 +13,14 @@ pub fn render_lucide_icons() {
     // Try to render icons with error handling
     if let Some(window) = web_sys::window() {
         match js_sys::Reflect::get(&window, &"lucide".into()) {
-            Ok(lucide) => {
-                match js_sys::Reflect::get(&lucide, &"createIcons".into()) {
-                    Ok(create_icons_fn) => {
-                        let _ = js_sys::Function::from(create_icons_fn).call0(&lucide);
-                    }
-                    Err(_) => {
-                        log("Lucide createIcons function not found");
-                    }
+            Ok(lucide) => match js_sys::Reflect::get(&lucide, &"createIcons".into()) {
+                Ok(create_icons_fn) => {
+                    let _ = js_sys::Function::from(create_icons_fn).call0(&lucide);
                 }
-            }
+                Err(_) => {
+                    log("Lucide createIcons function not found");
+                }
+            },
             Err(_) => {
                 log("Lucide library not loaded");
             }

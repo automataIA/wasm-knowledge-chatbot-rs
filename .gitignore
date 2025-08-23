@@ -1,7 +1,6 @@
 /target
 /dist
 /perplexity-chatbot-ui
-/.kiro
 /info
 
 # Aggiunte specifiche per Rust/Leptos
@@ -10,12 +9,13 @@ Cargo.lock
 *.swo
 .DS_Store
 
+
 # Node.js
 node_modules/
 
 # IDE specific
 .idea/
-.vscode/
+# .vscode/
 
 # Logs
 *.log

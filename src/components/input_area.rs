@@ -1,6 +1,7 @@
+use crate::components::ui_primitives::{Button, Input};
 use leptos::ev;
 use leptos::prelude::*;
-use wasm_bindgen::JsCast; // necessario per dyn_into
+use std::rc::Rc;
 
 // ---------- Facoltativo: tipi per future estensioni ----------
 // #[derive(Clone, PartialEq)]
@@ -19,121 +20,74 @@ use wasm_bindgen::JsCast; // necessario per dyn_into
 
 #[component]
 pub fn InputArea(
-    // user input text
     input_value: ReadSignal<String>,
     set_input_value: WriteSignal<String>,
-
-    // send callback
-    on_send: impl Fn(ev::MouseEvent) + 'static + Copy,
-
-    // toggle Knowledge
+    on_send: Rc<dyn Fn(ev::MouseEvent)>,
     knowledge_enabled: ReadSignal<bool>,
     set_knowledge_enabled: WriteSignal<bool>,
-
-    // loading state (e.g. network call in progress)
     is_loading: ReadSignal<bool>,
-
-    // messages to show in StatusBar
     set_status_message: WriteSignal<String>,
 ) -> impl IntoView {
-    // Send with [Enter] (Shift+Enter for new line no longer needed):
-    let handle_keypress = move |ev: ev::KeyboardEvent| {
-        if ev.key() == "Enter" && !ev.shift_key() && !is_loading.get() {
-            ev.prevent_default();
-            let mouse_ev = ev::MouseEvent::new("click").unwrap();
-            on_send(mouse_ev);
-
-            set_status_message.set("Message sent".into());
+    let handle_keypress = {
+        let on_send_key = on_send.clone();
+        move |ev: ev::KeyboardEvent| {
+            if ev.key() == "Enter" && !ev.shift_key() && !is_loading.get() {
+                ev.prevent_default();
+                let mouse_ev = ev::MouseEvent::new("click").unwrap();
+                on_send_key(mouse_ev);
+                set_status_message.set("Message sent".into());
+            }
         }
     };
 
-    // Gestione toggle Knowledge
-    let handle_toggle_change = move |ev: ev::Event| {
-        // cast sicuro da EventTarget a HtmlInputElement
-        let checked = ev
-            .target()
-            .unwrap()
-            .dyn_into::<web_sys::HtmlInputElement>()
-            .unwrap()
-            .checked();
+    // Avoid overwriting the global status message when toggling Knowledge.
+    let disabled_sig =
+        Signal::derive(move || input_value.get().trim().is_empty() || is_loading.get());
 
-        set_knowledge_enabled.set(checked);
-        let msg = if checked {
-            "Knowledge base attivata"
-        } else {
-            "Knowledge base disattivata"
-        };
-        set_status_message.set(msg.into());
-    };
-
-    // ---------- MARKUP ----------
     view! {
-        // Barra inferiore stile ChatArea.tsx
-        <div class="w-full flex items-center gap-3 px-4 py-3 bg-base-200 border-t border-base-300 rounded-b-2xl">
+        <div class="flex items-center gap-4 px-2 py-2 w-full">
+            // Knowledge switch (simple daisyUI toggle)
+            <label class="flex items-center gap-2">
+                <input
+                    type="checkbox"
+                    class="toggle toggle-primary"
+                    prop:checked=move || knowledge_enabled.get()
+                    on:change=move |ev| set_knowledge_enabled.set(event_target_checked(&ev))
+                />
+                <span class="text-sm">{"Knowledge"}</span>
+            </label>
 
-            <div class="tooltip tooltip-right" data-tip="Toggle Knowledge Base">
-                <label class="flex items-center gap-2 cursor-pointer">
-                    <input
-                        type="checkbox"
-                        class="toggle toggle-primary"
-                        checked=knowledge_enabled
-                        on:change=handle_toggle_change
-                    />
-                    <i
-                        data-lucide="network"
-                        class=move || {
-                            if knowledge_enabled.get() {
-                                "w-5 h-5 text-primary"
-                            } else {
-                                "w-5 h-5 text-base-content/60"
-                            }
-                        }
-                    ></i>
-                </label>
+            // Input expands to fill the row
+            <div class="flex-1 min-w-0">
+                <Input
+                    value=input_value
+                    set_value=set_input_value
+                    placeholder=Signal::derive(|| "Write a message...".to_string())
+                    on_keypress=Box::new(handle_keypress)
+                    size=Signal::derive(|| "input-lg".to_string())
+                    disabled=Signal::derive(move || is_loading.get())
+                />
             </div>
 
-            <input
-                class="input input-bordered flex-1 text-base placeholder:text-base-content/60 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors disabled:opacity-60"
-                placeholder="Write a message..."
-                prop:value=input_value
-                on:input=move |ev| set_input_value.set(event_target_value(&ev))
-                on:keypress=handle_keypress
-                prop:disabled=is_loading
-                autocomplete="off"
-            />
-
-            <button
-                class=move || {
-                    if input_value.get().trim().is_empty() || is_loading.get() {
-                        "btn btn-primary btn-square btn-disabled opacity-60"
-                    } else {
-                        "btn btn-primary btn-square hover:scale-105 transition-transform"
+            // Icon-only send button
+            <Button
+                // No text
+                label=Signal::derive(|| "".to_string())
+                on_click=Box::new({
+                    let on_send = on_send.clone();
+                    move || {
+                        if !is_loading.get() {
+                            let mouse_ev = ev::MouseEvent::new("click").unwrap();
+                            on_send(mouse_ev);
+                            set_status_message.set("Message sent".into());
+                        }
                     }
-                }
-                on:click=on_send
-                disabled=move || input_value.get().trim().is_empty() || is_loading.get()
-            >
-                <Show
-                    when=move || !is_loading.get()
-                    fallback=|| view! { <span class="loading loading-spinner loading-xs"></span> }
-                >
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <path d="m22 2-7 20-4-9-9-4Z" />
-                        <path d="M22 2 11 13" />
-                    </svg>
-                </Show>
-            </button>
+                })
+                variant=Signal::derive(|| "btn-primary".to_string())
+                icon=Signal::derive(|| "send".to_string())
+                icon_position=Signal::derive(|| "right".to_string())
+                disabled=disabled_sig
+            />
         </div>
     }
 }

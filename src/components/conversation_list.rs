@@ -1,6 +1,7 @@
 #![allow(dead_code)] // Leptos component parameters trigger false positives
 
 use leptos::prelude::*;
+use crate::components::ui_primitives::Button;
 
 use crate::models::{Message, MessageRole};
 use crate::storage::{ConversationInfo, ConversationStorage};
@@ -129,15 +130,15 @@ where
             <div class="p-4">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="text-sm font-medium text-base-content/70">"Recent Conversations"</h3>
-                    <button
-                        class="btn btn-xs btn-ghost"
-                        on:click=move |_| {
+                    <Button
+                        label=Signal::derive(|| "↻".to_string())
+                        variant=Signal::derive(|| "btn-ghost".to_string())
+                        size=Signal::derive(|| "btn-xs".to_string())
+                        on_click=Box::new(move || {
                             info!("Manual refresh button clicked");
                             load_conversations();
-                        }
-                    >
-                        "↻"
-                    </button>
+                        })
+                    />
                 </div>
 
                 <Show when=move || loading.get()>

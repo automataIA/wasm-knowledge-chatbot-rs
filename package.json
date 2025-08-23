@@ -3,7 +3,9 @@
     "build-css": "tailwindcss -i ./public/input.css -o ./public/output.css",
     "watch-css": "tailwindcss -i ./public/input.css -o ./public/output.css --watch",
     "dev": "npm run build-css && trunk serve",
-    "build": "npm run build-css && trunk build"
+    "build": "npm run build-css && trunk build",
+    "test:wasm": "WASM_BINDGEN_TEST_BROWSER=firefox WASM_BINDGEN_TEST_TIMEOUT=120 cargo test --target wasm32-unknown-unknown",
+    "test:wasm:headless": "WASM_BINDGEN_TEST_BROWSER=firefox WASM_BINDGEN_TEST_TIMEOUT=120 cargo test --target wasm32-unknown-unknown -- --headless"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",

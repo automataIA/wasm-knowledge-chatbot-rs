@@ -1,0 +1,109 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Rustfmt check
+        run: cargo fmt --all -- --check
+
+      - name: Clippy (deny warnings)
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Cargo check
+        run: cargo check
+
+  wasm-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust (wasm target)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-wasm
+
+      - name: Setup Firefox
+        uses: browser-actions/setup-firefox@v1
+
+      - name: Setup Geckodriver
+        uses: browser-actions/setup-geckodriver@v1
+
+      - name: Make test script executable
+        run: chmod +x scripts/run-wasm-tests.sh
+
+      - name: Run wasm-bindgen tests (headless Firefox)
+        run: scripts/run-wasm-tests.sh
+
+  trunk-build:
+    runs-on: ubuntu-latest
+    env:
+      # Toggle trunk build here to avoid IDE warnings about vars context. Set to 'true' to enable.
+      TRUNK_ENABLED: 'false'
+    steps:
+      - name: Checkout
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        uses: actions/checkout@v4
+
+      - name: Install Rust (wasm target)
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Cache cargo registry
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-trunk
+
+      - name: Install trunk
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        run: cargo install trunk --locked
+
+      - name: Trunk build (release)
+        if: ${{ env.TRUNK_ENABLED == 'true' || env.TRUNK_ENABLED == '1' }}
+        env:
+          RUST_BACKTRACE: 1
+        run: |
+          trunk build --release

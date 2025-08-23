@@ -1,9 +1,19 @@
 {
+    "json.schemaDownload.enable": false,
     "rust-analyzer.rustfmt.overrideCommand": [
         "leptosfmt",
         "--stdin",
         "--rustfmt"
     ],
+    "rust-analyzer.check.allTargets": false,
+    "rust-analyzer.cargo.target": "wasm32-unknown-unknown",
+    "rust-analyzer.check.targets": [
+        "wasm32-unknown-unknown"
+    ],
+    "rust-analyzer.cargo.features": [
+        "csr"
+    ],
+    "rust-analyzer.procMacro.enable": true,
     "editor.formatOnSave": true,
     "[rust]": {
         "editor.defaultFormatter": "rust-lang.rust-analyzer"

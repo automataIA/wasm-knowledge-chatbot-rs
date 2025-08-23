@@ -9,7 +9,6 @@ authors = ["dio"]
 [dependencies]
 leptos = { version = "0.8", features = ["csr", "nightly"] }
 leptos_meta = { version = "0.8" }
-leptos_router = { version = "0.8", features = ["nightly"] }
 console_log = "1"
 log = "0.4"
 console_error_panic_hook = "0.1"
@@ -25,10 +24,14 @@ features = [
   "Document",
   "Window",
   "HtmlElement",
+  "HtmlInputElement",
   "Element",
   "console",
   "Storage",
-  "Window",
+  "Navigator",
+  "File",
+  "FileList",
+  "Blob",
 ]
 
 [dependencies.wasm-bindgen]
@@ -55,9 +58,18 @@ version = "0.4"
 version = "0.3"
 features = ["futures"]
 
+[dependencies.regex]
+version = "1.0"
+
+[dependencies.html-escape]
+version = "0.2"
+
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
 
+[features]
+default = []
+csr = []
 
 [profile.release]
 opt-level = 'z'

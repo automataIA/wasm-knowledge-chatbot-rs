@@ -20,6 +20,48 @@
       if (typeof lucide !== 'undefined' && lucide.createIcons) {
         lucide.createIcons();
       }
+
+      // Observe DOM changes and apply Lucide icons for dynamically inserted nodes (SPA behavior)
+      try {
+        if (!document.body) return;
+
+        let pending = false;
+        const observer = new MutationObserver((mutations) => {
+          // Only react when new nodes explicitly contain data-lucide
+          const hasNewPlaceholders = mutations.some((m) => {
+            if (m.type !== 'childList') return false;
+            for (const node of m.addedNodes) {
+              if (!(node instanceof Element)) continue;
+              if (node.matches && node.matches('[data-lucide]')) return true;
+              if (node.querySelector && node.querySelector('[data-lucide]')) return true;
+            }
+            return false;
+          });
+
+          if (!hasNewPlaceholders) return;
+          if (pending) return; // debounce
+          pending = true;
+
+          // Batch updates in next frame and avoid observer feedback
+          requestAnimationFrame(() => {
+            try {
+              observer.disconnect();
+              if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+              }
+            } catch (err) {
+              console.warn('Lucide refresh failed:', err);
+            } finally {
+              pending = false;
+              observer.observe(document.body, { childList: true, subtree: true });
+            }
+          });
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+      } catch (e) {
+        console.warn('Lucide MutationObserver setup failed:', e);
+      }
     });
   </script>
 
