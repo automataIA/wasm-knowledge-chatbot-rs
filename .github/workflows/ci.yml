@@ -70,6 +70,9 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}-wasm
 
+      - name: Install wasm-bindgen test runner
+        run: cargo install wasm-bindgen-test-runner --locked
+
       - name: Setup Firefox
         # Pin to a specific release or SHA when available to avoid tag drift
         uses: browser-actions/setup-firefox@latest
