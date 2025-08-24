@@ -1,0 +1,49 @@
+# Trunk configuration for LOCAL DEVELOPMENT
+# This file is optimized for quick iteration, debug symbols, and a local dev server.
+
+[build]
+# Entry HTML used by Trunk to bundle the app
+target = "index.html"
+
+# Debug-friendly builds for faster iteration
+release = false
+minify = "never"          # Disable minification during dev for better debugging
+filehash = false           # Disable file hashing to avoid cache churn in dev
+inject_scripts = true
+
+# Output directory for dev builds (kept separate from production)
+dist = "dist-dev"
+
+# Root for assets in local dev (served from localhost)
+public_url = "/"
+
+[watch]
+# Rebuild when files in these paths change
+watch = ["src", "public", "index.html"]
+ignore = []
+
+[serve]
+# Local dev server configuration
+addresses = ["127.0.0.1"]
+port = 3000
+open = true                # Automatically open browser after first build
+# no_spa = false          # Keep SPA fallback enabled (default)
+# no_autoreload = false    # Keep autoreload enabled (default)
+
+# WebAssembly build settings for development
+[build.wasm]
+opt_level = "s"           # Reasonable optimization while keeping builds fast
+debug = true               # Include debug symbols for better error messages
+
+[build.wasm.bindgen]
+demangle = true            # Human-readable Rust symbol names in errors
+weak_refs = true
+
+# -----------------------------
+# How to use this dev config
+# -----------------------------
+# Start dev server with autoreload using this file:
+#   trunk serve --config trunk-dev.toml
+#
+# Produce a debug build with this file (no server):
+#   trunk build --config trunk-dev.toml

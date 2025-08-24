@@ -1,28 +1,37 @@
 [build]
 target = "index.html"
-dist = "docs"  # Usa "docs" per GitHub Pages
+dist = "docs"  # Use "docs" for GitHub Pages deployment
 release = true
 minify = "on_release"
 watch = ["src", "public", "index.html"]
-public_url = "/wasm-knowledge-chatbot-rs/"  # Corretto il nome del repository
+public_url = "/wasm-knowledge-chatbot-rs/"  # Must match the GitHub Pages repo name
 
-# Ottimizzazioni per WebAssembly
+# WebAssembly optimizations for production bundle size
 [build.wasm]
-opt_level = "z"  # Massima ottimizzazione per le dimensioni
-debug = false    # Disabilita i simboli di debug
+opt_level = "z"  # Maximum size optimization
+debug = false    # Disable debug symbols
 
 [build.wasm.bindgen]
 demangle = true
 weak_refs = true
 
-# Configurazione del server di sviluppo
+# Dev server configuration (disabled for production builds)
 [serve]
 port = 8080
-enabled = false  # Disabilitato per le build di produzione
+enabled = false  # Keep disabled when building for deployment
 
 # Hooks
 [[hooks]]
-# Crea un file .nojekyll nella cartella di output
+# Create a .nojekyll file in the output folder (required for GitHub Pages)
 stage = "post_build"
 command = "bash"
 command_arguments = ["-c", "touch docs/.nojekyll"]
+
+# -----------------------------
+# How to build with this config
+# -----------------------------
+# Use the following command to build using this specific configuration file:
+#
+#   trunk build --config Trunk.Dep.toml
+#
+# This will generate the production site into the `docs/` directory, ready for GitHub Pages.

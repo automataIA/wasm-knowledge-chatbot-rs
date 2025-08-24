@@ -2,7 +2,7 @@
   <img src="public/logo-kg.png" alt="Logo" width="200" />
 </div>
 
-# 🚀 WebLLM Chat - WebLLM Knowledge Graph Chat Interface
+# 🚀 Wasm Knowledge Chatbot - Local GraphRAG Chat Interface
 
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=for-the-badge&logo=webassembly&logoColor=white)](https://webassembly.org/)
@@ -10,11 +10,10 @@
 [![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![DaisyUI](https://img.shields.io/badge/daisyui-5A0EF8?style=for-the-badge&logo=daisyui&logoColor=white)](https://daisyui.com/)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/your-username/wasm-llm)
-[![WebLLM](https://img.shields.io/badge/WebLLM-Integrated-blue.svg)](https://webllm.mlc.ai/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![WebLLM](https://img.shields.io/badge/WebLLM-Integrated-3B82F6?style=for-the-badge)](https://webllm.mlc.ai/)
 
-> 🤖 A blazingly fast, modern chat interface inspired by Perplexity AI, built entirely in Rust with WebAssembly and featuring local AI model execution via WebLLM.
+> 🤖 A blazingly fast, modern chat interfac, built entirely in Rust with WebAssembly and featuring local AI model execution via WebLLM.
 
 ## ✨ Features
 
@@ -28,6 +27,10 @@
 - ⚡ **Blazing Fast**: Built with Rust/WASM for near-native performance
 - 🔒 **Privacy-First**: All AI processing happens locally in your browser
 - 🎯 **Zero Backend**: Fully client-side application with no server dependencies
+ - 🧠 **GraphRAG Settings UI**: Configure GraphRAG search strategies, performance modes, and metrics (`src/components/graphrag_settings*.rs`)
+ - 📚 **Knowledge Document Manager**: Upload/search/manage documents with localStorage persistence (`src/components/document_manager_simple.rs`)
+ - 🛡️ **Robust Error Handling**: Error boundary, recovery strategies, and offline detection (`src/error_handling.rs`, `src/utils/error_handling.rs`)
+ - 🚀 **Performance UX**: Optimized status/progress UI, smooth interactions, and build-time optimizations
 
 ## 🏗️ Architecture
 
@@ -108,53 +111,57 @@ graph TB
 ## 📁 Project Structure
 
 ```
-wasm-llm/
-├── 📁 src/
-│   ├── 📁 components/           # UI Components
-│   │   ├── 🏠 main_interface.rs    # Main app layout & state management
-│   │   ├── 📋 sidebar.rs           # Collapsible navigation sidebar
-│   │   ├── 🤖 llm_select.rs        # AI model selection dropdown
-│   │   ├── 🔘 sidebar_action.rs    # Interactive sidebar buttons
-│   │   ├── 📜 conversation_history.rs # Chat history management
-│   │   ├── 💬 chat_area.rs         # Main conversation interface
-│   │   ├── 💭 message_bubble.rs    # Individual message rendering
-│   │   ├── ⌨️ input_area.rs        # Message input with controls
-│   │   ├── 📊 status_bar.rs        # Real-time status display
-│   │   ├── 🌓 theme_toggle.rs      # Dark/light theme switcher
-│   │   └── 📄 mod.rs               # Component module exports
-│   ├── 📁 pages/                # Application pages
-│   │   ├── 🏠 home.rs              # Home page component
-│   │   ├── ❌ not_found.rs         # 404 error page
-│   │   └── 📄 mod.rs               # Pages module exports
-│   ├── 📁 utils/                # Utility functions
-│   │   ├── 🎨 icons.rs             # Lucide icons integration
-│   │   └── 📄 mod.rs               # Utils module exports
-│   ├── 🗃️ models.rs               # Data structures & types
-│   ├── 🔗 webllm_binding.rs       # WebLLM JavaScript bindings
-│   ├── 📱 lib.rs                  # Main app component
-│   └── 🚀 main.rs                 # Application entry point
-├── 📁 public/                   # Static assets
-│   ├── 🎨 input.css               # Tailwind CSS input
-│   ├── 📄 output.css              # Generated CSS output
-│   └── 🖼️ favicon.ico             # Application favicon
-├── 📁 tests/                    # Test files
-│   ├── 🧪 test_components.html    # Component testing
-│   └── 🐛 debug-theme.html        # Theme debugging
-├── ⚙️ Cargo.toml                 # Rust dependencies & config
-├── 📦 package.json               # Node.js dependencies & scripts
-├── 🏗️ Trunk.toml                 # Trunk build configuration
-├── 🎨 tailwind.config.js         # Tailwind CSS configuration
-├── 🌐 index.html                 # Main HTML template
-└── 📖 README.md                  # Project documentation
+wasm-knowledge-chatbot-rs/
+├── src/
+│   ├── components/
+│   │   ├── main_interface.rs
+│   │   ├── chat_area.rs
+│   │   ├── input_area.rs
+│   │   ├── message_bubble.rs
+│   │   ├── status_bar.rs
+│   │   ├── llm_select.rs
+│   │   ├── conversation_history.rs
+│   │   ├── conversation_list.rs
+│   │   ├── sidebar.rs
+│   │   ├── sidebar_action.rs
+│   │   ├── sidebar_monitor.rs
+│   │   ├── graphrag_settings.rs
+│   │   ├── graphrag_settings_modal.rs
+│   │   ├── document_manager_simple.rs
+│   │   ├── ui_primitives.rs
+│   │   └── mod.rs
+│   ├── models/                   # Data structures & types (directory)
+│   ├── utils/
+│   │   ├── icons.rs
+│   │   ├── storage.rs
+│   │   ├── error_handling.rs
+│   │   └── mod.rs
+│   ├── error_handling.rs         # Error boundary & recovery
+│   ├── webllm_binding.rs         # WebLLM JS bindings
+│   ├── lib.rs                    # Main app component
+│   └── main.rs                   # Entry point
+├── tests/                        # Comprehensive Rust test suite (*.rs)
+│   ├── graphrag_engine_tests.rs
+│   ├── knowledge_storage_tests.rs
+│   ├── ... (more)
+│   ├── test_components.html
+│   └── debug-theme.html
+├── public/ (input.css, output.css, favicon.ico)
+├── Trunk.toml
+├── tailwind.config.js
+├── index.html
+├── Cargo.toml
+├── package.json
+└── README.md
 ```
 
 ## 🧩 Key Components
 
 ### 🏠 MainInterface
-The root orchestrator component that manages the entire application layout and global state:
-- **State Management**: Sidebar collapse, LLM selection, knowledge graph toggle
-- **Layout Coordination**: Responsive design with sidebar and main content area
-- **Event Handling**: Cross-component communication and state synchronization
+The root orchestrator managing layout, global state, and integrations:
+- **State Management**: Sidebar, model selection, knowledge toggle, error state
+- **Layout Coordination**: Responsive design with accessibility and mobile considerations
+- **Integrations**: GraphRAG settings, document manager, status bar, error boundaries
 
 ### 📋 Sidebar  
 Adaptive navigation panel with intelligent responsive behavior:
@@ -198,6 +205,7 @@ Advanced local AI model execution system:
 | `badge`    | Status indicators   | `badge-primary`, `badge-ghost`             |
 
 ### Custom Theme System
+Note: The current `tailwind.config.js` uses DaisyUI themes `"light"` and `"business"` (darkTheme = `"business"`). The following is an example of how to define a custom theme:
 ```javascript
 // tailwind.config.js
 daisyui: {
@@ -221,26 +229,37 @@ daisyui: {
 Dynamic icon rendering system with automatic re-initialization:
 
 ```rust
-// utils/icons.rs - Reactive icon rendering
-pub fn render_lucide_icons() {
-    Effect::new(move |_| {
-        request_animation_frame(move || {
-            if let Some(window) = web_sys::window() {
-                if let Ok(lucide) = js_sys::Reflect::get(&window, &"lucide".into()) {
-                    if let Ok(create_icons) = js_sys::Reflect::get(&lucide, &"createIcons".into()) {
-                        let _ = js_sys::Function::from(create_icons).call0(&lucide);
-                    }
-                }
-            }
-        });
-    });
+// src/utils/icons.rs - Current implementation
+use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = lucide)]
+    fn createIcons();
+
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
 }
 
-// Scheduled icon updates for dynamic content
+pub fn render_lucide_icons() {
+    if let Some(window) = web_sys::window() {
+        match js_sys::Reflect::get(&window, &"lucide".into()) {
+            Ok(lucide) => match js_sys::Reflect::get(&lucide, &"createIcons".into()) {
+                Ok(create_icons_fn) => {
+                    let _ = js_sys::Function::from(create_icons_fn).call0(&lucide);
+                }
+                Err(_) => log("Lucide createIcons function not found"),
+            },
+            Err(_) => log("Lucide library not loaded"),
+        }
+    }
+}
+
 pub fn schedule_icon_render() {
-    gloo_timers::callback::Timeout::new(100, || {
+    wasm_bindgen_futures::spawn_local(async {
+        gloo_timers::future::TimeoutFuture::new(100).await;
         render_lucide_icons();
-    }).forget();
+    });
 }
 ```
 
@@ -386,6 +405,8 @@ theme: {
 
 ## ⚡ Performance Metrics
 
+Note: The following values are indicative and vary by device, browser, and selected model.
+
 | Metric                  | Value            | Notes                                   |
 | ----------------------- | ---------------- | --------------------------------------- |
 | **Bundle Size**         | ~200KB gzipped   | WASM + JS optimized build               |
@@ -401,16 +422,6 @@ theme: {
 - **Code Splitting**: Lazy loading of non-critical components
 - **WASM Optimization**: `opt-level = 'z'` for size optimization
 - **Progressive Loading**: Models loaded on-demand with progress feedback
-
-### 📊 Benchmark Results
-```
-Device: MacBook Pro M2
-Model: Llama 3.2 3B (Q4)
-- Loading Time: ~30 seconds
-- First Response: ~2 seconds  
-- Subsequent Responses: ~1 second
-- Memory Usage: ~3.2GB total
-```
 
 ## 🌐 Browser Compatibility
 
@@ -429,22 +440,9 @@ Model: Llama 3.2 3B (Q4)
 - **SharedArrayBuffer**: Required for WebLLM threading
 - **JavaScript Modules**: ES6+ module support
 
-#### SharedArrayBuffer security headers
-When serving in modern browsers, `SharedArrayBuffer` requires cross-origin isolation.
-
-Add these headers to your server (examples):
-
-```
-Cross-Origin-Opener-Policy: same-origin
-Cross-Origin-Embedder-Policy: require-corp
-```
-
-Notes:
-- For local dev with Trunk, prefer a single-origin setup. If using a reverse proxy/CDN, ensure these headers are passed through.
-- Third-party assets must be CORP-compliant or served with appropriate CORS/COEP.
 
 ### Feature Detection
-The app includes automatic feature detection and graceful degradation:
+Conceptual example of capability detection and graceful degradation:
 ```rust
 // Automatic capability detection
 if webgpu_available {
@@ -473,16 +471,15 @@ Notes:
 - Ensure `wasm32-unknown-unknown` target is installed: `rustup target add wasm32-unknown-unknown`.
 
 ### Continuous Integration
-The workflow in `.github/workflows/ci.yml` enforces formatting, linting, checks and WASM tests:
-- **rustfmt**: `cargo fmt --all -- --check`
-- **clippy**: `cargo clippy --all-targets -- -D warnings`
-- **check**: `cargo check`
-- **wasm tests**: headless Firefox via Geckodriver
+The current workflow in `.github/workflows/ci.yml`:
+- **Rust job**: `cargo check`
+- **Build & Pages deploy**: Tailwind build, Trunk release build, copies `dist/` to `docs/`, uploads and deploys via GitHub Pages
 
-Key details:
-- Uses the nightly toolchain with explicit components `rustfmt, clippy` to guarantee availability.
-- Installs `wasm32-unknown-unknown` target.
-- Provisions Firefox + Geckodriver for browser tests.
+Notes:
+- Toolchains installed per job (nightly for check, stable for build) with the `wasm32-unknown-unknown` target.
+- Node 18 used for CSS pipeline (`npm ci`, `npm run build-css`).
+
+If you want CI to also enforce `rustfmt`, `clippy`, and run headless WASM tests, extend the workflow accordingly. Local commands are documented below.
 
 ### Troubleshooting CI
 - __Rustfmt missing on nightly__: Ensure the CI step installs nightly with components `rustfmt, clippy` and `override: true` so it doesn’t skip due to `rust-toolchain.toml`.
@@ -529,7 +526,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ```
 MIT License
 
-Copyright (c) 2024 WebLLM Chat Contributors
+Copyright (c) 2024 Wasm Knowledge Chatbot Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -563,7 +560,7 @@ copies of the Software...
 
 **⭐ Star this repo if you find it helpful!**
 
-Made with ❤️ and 🦀 by the WebLLM Chat team
+Made with ❤️ and 🦀 by the Wasm Knowledge Chatbot team
 
 [Report Bug](https://github.com/your-username/wasm-llm/issues) • [Request Feature](https://github.com/your-username/wasm-llm/issues) • [Documentation](https://github.com/your-username/wasm-llm/wiki)
 

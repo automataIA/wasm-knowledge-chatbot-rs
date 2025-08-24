@@ -1,8 +1,30 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta content="width=device-width,initial-scale=1" name=viewport><title>WebLLM Knowledge Graph Chat</title><link href=/wasm-knowledge-chatbot-rs/output-588b9ff09b928090.css integrity=sha384-QmG8gaNlKT/ir66jh0JhjaqAAGNkUVg9vPPS5sNYAJUJVgMIWz9lymbtSCLYZdak rel=stylesheet><link href=/wasm-knowledge-chatbot-rs/favicon-d537e8190fcbad8e.ico integrity=sha384-8OBiNX9QBPkNXlck6UC9PEiitxU9FlDnTfxbQWxd4kK4tIKitE61Nvi4DkBJuHkO rel=icon><script src=https://unpkg.com/lucide@latest/dist/umd/lucide.js></script><script>document.addEventListener(`DOMContentLoaded`,(()=>{if(typeof lucide!==`undefined`&&lucide.createIcons){lucide.createIcons()}}))</script><script type=module>import*as a from"https://esm.run/@mlc-ai/web-llm";window.webllm=a;console.log(`WebLLM loaded successfully`)</script><script type=module>import init, * as bindings from '/wasm-knowledge-chatbot-rs/wasm-knowledge-chatbot-rs-277f57c07f5a0cf7.js';
+<!doctype html>
+<html lang=en>
+<meta charset=utf-8>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Wasm Knowledge Chatbot</title>
+<link href=/wasm-knowledge-chatbot-rs/output-588b9ff09b928090.css
+    integrity=sha384-QmG8gaNlKT/ir66jh0JhjaqAAGNkUVg9vPPS5sNYAJUJVgMIWz9lymbtSCLYZdak rel=stylesheet>
+<link href=/wasm-knowledge-chatbot-rs/favicon-d537e8190fcbad8e.ico
+    integrity=sha384-8OBiNX9QBPkNXlck6UC9PEiitxU9FlDnTfxbQWxd4kK4tIKitE61Nvi4DkBJuHkO rel=icon>
+<script src=https://unpkg.com/lucide@latest/dist/umd/lucide.js></script>
+<script>document.addEventListener(`DOMContentLoaded`, (() => { if (typeof lucide !== `undefined` && lucide.createIcons) { lucide.createIcons() } }))</script>
+<script
+    type=module>import*as a from"https://esm.run/@mlc-ai/web-llm";window.webllm=a;console.log(`WebLLM loaded successfully`)</script>
+<script type=module>import init, * as bindings from '/wasm-knowledge-chatbot-rs/wasm-knowledge-chatbot-rs-277f57c07f5a0cf7.js';
 const wasm = await init({ module_or_path: '/wasm-knowledge-chatbot-rs/wasm-knowledge-chatbot-rs-277f57c07f5a0cf7_bg.wasm' });
 
 
 window.wasmBindings = bindings;
 
 
-dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));</script><link crossorigin href=/wasm-knowledge-chatbot-rs/wasm-knowledge-chatbot-rs-277f57c07f5a0cf7.js integrity=sha384-viSnsA0domKduG1us5QSpzHqW5sA4nkqt3lQK1jWe4lrfQQ1hCzUECBYPYMu+Tdw rel=modulepreload><link as=fetch crossorigin href=/wasm-knowledge-chatbot-rs/wasm-knowledge-chatbot-rs-277f57c07f5a0cf7_bg.wasm integrity=sha384-rphBPGA7yClhZ3HsdW2vNCoPSCZ4CoG4z8L1LK+Op9qxB+som7ozz2nZh/Y3Pu5c rel=preload type=application/wasm></head><body></body></html>
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));</script>
+<link crossorigin href=/wasm-knowledge-chatbot-rs/wasm-knowledge-chatbot-rs-277f57c07f5a0cf7.js
+    integrity=sha384-viSnsA0domKduG1us5QSpzHqW5sA4nkqt3lQK1jWe4lrfQQ1hCzUECBYPYMu+Tdw rel=modulepreload>
+<link as=fetch crossorigin href=/wasm-knowledge-chatbot-rs/wasm-knowledge-chatbot-rs-277f57c07f5a0cf7_bg.wasm
+    integrity=sha384-rphBPGA7yClhZ3HsdW2vNCoPSCZ4CoG4z8L1LK+Op9qxB+som7ozz2nZh/Y3Pu5c rel=preload type=application/wasm>
+</head>
+
+<body></body>
+
+</html>

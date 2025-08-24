@@ -18,7 +18,7 @@ pub mod webllm_binding;
 // Components
 use crate::components::main_interface::MainInterface;
 
-/// Main WebLLM Knowledge Graph chat application
+/// Main Wasm Knowledge Chatbot application
 #[component]
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
@@ -26,7 +26,7 @@ pub fn App() -> impl IntoView {
 
     view! {
         <Html attr:lang="en" attr:dir="ltr" attr:data-theme="business" />
-        <Title text="WebLLM Knowledge Graph Chat" />
+        <Title text="Wasm Knowledge Chatbot" />
         <Meta charset="UTF-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <MainInterface />
